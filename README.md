@@ -1,2 +1,2 @@
 # WBCs Counter
-Contador de leucocito
+Contador de leucocitos
