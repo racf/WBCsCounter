@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WBCs Counter</string>
+
+    <!-- Menu nav options-->
+    <string name="menu_counter">WBC Differential Counter</string>
+    <string name="menu_patient">Patient</string>
+    <string name="menu_record">Record</string>
+    <string name="menu_setting">Setting</string>
+
 </resources>

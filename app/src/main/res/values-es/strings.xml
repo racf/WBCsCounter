@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Contador de WBCs</string>
+
+    <!-- Menu nav options-->
+    <string name="menu_counter">Contador diferencial de WBC</string>
+    <string name="menu_patient">Paciente</string>
+    <string name="menu_record">Historial</string>
+    <string name="menu_setting">Configuración</string>
 </resources>
