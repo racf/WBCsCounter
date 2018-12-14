@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">WBCs Counter</string>
+
+    <!-- Menu nav options-->
+    <string name="menu_counter">WBC Differential Counter</string>
+    <string name="menu_patient">Patient</string>
+    <string name="menu_record">Record</string>
+    <string name="menu_setting">Setting</string>
+
+    <!--Mensajes-->
+    <string name="mensaje_titulo_crear_paciente">Create patient</string>
+
+    <string name="nombre">Name</string>
+    <string name="primer_apellido">First surname</string>
+    <string name="segundo_apellido">Second surname</string>
+    <string name="sexo">Sex</string>
+    <string name="sexo_femenino">Female</string>
+    <string name="sexo_masculino">Male</string>
+    <string name="telefono">Phone</string>
+
+    <!-- Botones -->
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+
 </resources>
