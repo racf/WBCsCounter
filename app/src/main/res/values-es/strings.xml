@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Contador de WBCs</string>
+    <string name="app_name">WBCs Counter</string>
 
     <!-- Menu nav options-->
     <string name="menu_counter">Contador diferencial de WBC</string>
