@@ -5,6 +5,7 @@ import mx.com.sousystems.wbcscounter.util.ConstanteTabla;
 public class GeneralQuery {
     private static final String LONGITUD_45 = "45";
     private static final String LONGITUD_20 = "20";
+
     private GeneralQuery() {
         throw new IllegalStateException("GeneralQuery class");
     }
@@ -14,6 +15,7 @@ public class GeneralQuery {
             +ConstanteTabla.ESPACIO+ConstanteTabla.PRIMER_APELLIDO+ConstanteTabla.ESPACIO+ConstanteTabla.VARCHAR+ConstanteTabla.PARENTESIS_ABRIR+LONGITUD_45+ConstanteTabla.PARENTESIS_CERRAR+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.SEGUNDO_APELLIDO+ConstanteTabla.ESPACIO+ConstanteTabla.VARCHAR+ConstanteTabla.PARENTESIS_ABRIR+LONGITUD_45+ConstanteTabla.PARENTESIS_CERRAR+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.SEXO+ConstanteTabla.ESPACIO+ConstanteTabla.VARCHAR+ConstanteTabla.PARENTESIS_ABRIR+LONGITUD_20+ConstanteTabla.PARENTESIS_CERRAR+ConstanteTabla.COMA
+            +ConstanteTabla.ESPACIO+ConstanteTabla.TELEFONO+ConstanteTabla.ESPACIO+ConstanteTabla.VARCHAR+ConstanteTabla.PARENTESIS_ABRIR+LONGITUD_20+ConstanteTabla.PARENTESIS_CERRAR+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.ESTATUS+ConstanteTabla.ESPACIO+ConstanteTabla.INTEGER+ConstanteTabla.PARENTESIS_CERRAR;
 
     public static final String CREAR_TABLA_MUESTRA = ConstanteTabla.CREATE+ConstanteTabla.ESPACIO+ConstanteTabla.TABLE+ConstanteTabla.ESPACIO+ConstanteTabla.MUESTRA

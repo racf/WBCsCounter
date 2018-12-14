@@ -21,6 +21,7 @@ public class ConstanteTabla implements BaseColumns {
     public static final String PRIMER_APELLIDO = "primer_apellido";
     public static final String SEGUNDO_APELLIDO = "segundo_apellido";
     public static final String SEXO = "sexo";
+    public static final String TELEFONO = "telefono";
 
     //muestra
     public static final String PACIENTE_ID = "paciente_id";
@@ -72,7 +73,8 @@ public class ConstanteTabla implements BaseColumns {
     public static final String INTEGER = "INTEGER";
     public static final String TEXT = "TEXT";
     public static final String VARCHAR = "VARCHAR";
-
+    public static final String REAL = "REAL";
+    public static final String NUMERIC = "NUMERIC";
 
 
 

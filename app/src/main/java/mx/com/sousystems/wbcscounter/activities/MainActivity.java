@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setNavigationDrawer();
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navView);
+        drawerLayout =  findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navView);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intentAjuste = new Intent(getApplicationContext(), AjusteActivity.class);
                         startActivity(intentAjuste);
                         return true;
+                    default:
+                        break;
                 }
                 return false;
             }
@@ -65,11 +67,9 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                  drawerLayout.openDrawer(Gravity.START);
                 return true;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setFragmentDefault(){
-        navigationView.getMenu().getItem(0);
     }
 }

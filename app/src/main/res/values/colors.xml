@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#298A08</color>
+    <!--color name="colorPrimary">#298A08</color-->
+    <color name="colorPrimary">#006400</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#008000</color>
+
+    <color name="backgroundDefault">#30336b</color>
+    <color name="white">#ffffff</color>
+    <color name="white70">#b3ffffff</color>
+    <color name="white50">#80ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#e74c3c</color>
+    <color name="red80">#bb1d1d</color>
+    <color name="red50">#d26868</color>
+    <color name="red30">#e19a9a</color>
+    <color name="blue">#2e88c5</color>
+    <color name="blue80">#48a2de</color>
+    <color name="blue50">#85c1e9</color>
+    <color name="blue30">#add5f0</color>
+    <color name="dot_dark_screen1">#E2A9F3</color>
+    <color name="green">#008000</color>
+    <color name="forestgreen">#228B22</color>
+    <color name="darkgreen">#006400</color>
+    <color name="limegreen">#32CD32</color>
+    <color name="blue_dark">#34495e</color>
+    <color name="yellow">#f1c40f</color>
+    <color name="yellow_dark">#f39c12</color>
+    <color name="orange">#e67e22</color>
+    <color name="black">#000000</color>
+    <color name="gray">#E6E6E6</color>
+    <color name="gray_dark">#aeb6bf</color>
+
 </resources>
