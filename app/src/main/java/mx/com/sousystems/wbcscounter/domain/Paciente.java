@@ -8,6 +8,7 @@ public class Paciente implements Serializable{
     private String primerApellido;
     private String segundoApellido;
     private String sexo;
+    private String telefono;
     private int estatus;
 
     public Integer getId() {
@@ -42,6 +43,14 @@ public class Paciente implements Serializable{
         this.segundoApellido = segundoApellido;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public String getSexo() {
         return sexo;
     }
@@ -66,6 +75,7 @@ public class Paciente implements Serializable{
                 ", primerApellido='" + primerApellido + '\'' +
                 ", segundoApellido='" + segundoApellido + '\'' +
                 ", sexo='" + sexo + '\'' +
+                ", telefono='" + telefono + '\'' +
                 ", estatus=" + estatus +
                 '}';
     }
