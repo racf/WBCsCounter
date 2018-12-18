@@ -68,6 +68,9 @@ public class ConstanteTabla implements BaseColumns {
     public static final String AUTOINCREMENT = "AUTOINCREMENT";
     public static final String NOT_NULL = "NOT NULL";
 
+    public static final int ESTADO_1 = 1;
+    public static final int ESTADO_0 = 0;
+
 
     //tipos de datos
     public static final String INTEGER = "INTEGER";
