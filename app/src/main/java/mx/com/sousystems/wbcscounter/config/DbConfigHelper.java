@@ -18,11 +18,21 @@ public class DbConfigHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(GeneralQuery.CREAR_TABLA_PACIENTE);
+        db.execSQL(GeneralQuery.CREAR_TABLA_MUESTRA);
+        db.execSQL(GeneralQuery.CREAR_TABLA_MUESTRA_DETALLE);
+        db.execSQL(GeneralQuery.CREAR_TABLA_CELULA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //Se elimina la versión anterior de la tabla
+        db.execSQL(GeneralQuery.ELIMINAR_TABLA_PACIENTE);
+        db.execSQL(GeneralQuery.ELIMINAR_TABLA_MUESTRA);
+        db.execSQL(GeneralQuery.ELIMINAR_TABLA_MUESTRA_DETALLE);
+        db.execSQL(GeneralQuery.ELIMINAR_TABLA_CELULA);
 
+        //Se crea la nueva versión de las tablas
+        onCreate(db);
     }
 }
