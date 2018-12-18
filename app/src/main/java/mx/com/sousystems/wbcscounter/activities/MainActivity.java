@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    case R.id.menu_counter:
+                    /*case R.id.menu_counter:
                         drawerLayout.closeDrawers();
-                        return true;
+                        return true;*/
                     case R.id.menu_patient:
                         drawerLayout.closeDrawers();
                         Intent intentPaciente = new Intent(getApplicationContext(), PacienteActivity.class);

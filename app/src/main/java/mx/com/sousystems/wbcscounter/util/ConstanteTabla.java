@@ -31,7 +31,7 @@ public class ConstanteTabla implements BaseColumns {
     public static final String TOTAL_WBC_CNRBC = "total_wbc_cnrbc";
 
     //celula
-    public static final String NOMBRE_ABREV = "nombre_abre";
+    public static final String NOMBRE_ABREV = "nombre_abrev";
     public static final String DESCRIPCION = "descipcion";
 
     //muestra
