@@ -2,4 +2,5 @@
 <resources>
     <!--Tamanio de textos-->
     <dimen name="titulo">20sp</dimen>
+    <dimen name="cantidad">30sp</dimen>
 </resources>

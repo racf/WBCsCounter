@@ -9,6 +9,12 @@
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Create patient</string>
+    <string name="mensaje_exito_guardado">Saved successfully ...!</string>
+    <string name="mensaje_campo_obligatorio">Required fields ..!</string>
+    <string name="mensaje_error">Error saving ...!</string>
+    <string name="mensaje_seleccione_paciente">--Select patient--</string>
+
+    <string name="campo_obligatorio">*</string>
 
     <string name="nombre">Name</string>
     <string name="primer_apellido">First surname</string>
@@ -17,9 +23,21 @@
     <string name="sexo_femenino">Female</string>
     <string name="sexo_masculino">Male</string>
     <string name="telefono">Phone</string>
+    <string name="input_cantidad_total">Total amount WBC</string>
 
     <!-- Botones -->
     <string name="aceptar">Accept</string>
     <string name="cancelar">Cancel</string>
+    <string name="resultado">Result</string>
+    <string name="calcular">Calculate</string>
 
+    <!-- Etiquetas -->
+    <string name="cantidad_total">Total quantity: </string>
+    <string name="asociar_a_paciente">You can associate a patient</string>
+
+    <!-- Tabla -->
+    <string name="tabla_tipo">Type WBC</string>
+    <string name="tabla_cantidad">Quantity #</string>
+    <string name="tabla_porcentaje">% #</string>
+    <string name="tabla_medida">/µL</string>
 </resources>

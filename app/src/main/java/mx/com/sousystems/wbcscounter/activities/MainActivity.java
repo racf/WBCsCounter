@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import mx.com.sousystems.wbcscounter.R;
 
-public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Button btnResultado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-                    /*case R.id.menu_counter:
-                        drawerLayout.closeDrawers();
-                        return true;*/
                     case R.id.menu_patient:
                         drawerLayout.closeDrawers();
                         Intent intentPaciente = new Intent(getApplicationContext(), PacienteActivity.class);
@@ -51,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        cargarComponente();
+    }
+
+    private void cargarComponente(){
+        btnResultado = findViewById(R.id.btnResultado);
+        btnResultado.setOnClickListener(this);
     }
 
     /**
@@ -71,5 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnResultado:
+                Intent intent = new Intent(this, CalculoActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

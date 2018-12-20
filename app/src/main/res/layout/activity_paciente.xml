@@ -30,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="@string/nombre"
             android:inputType="textPersonName" />
 
         <EditText
@@ -39,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:hint="@string/primer_apellido"
         android:inputType="textPersonName" />
 
         <EditText
@@ -52,14 +50,16 @@
             android:inputType="textPersonName" />
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radioGroupSexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RadioButton android:id="@+id/radio_femenino"
+            <RadioButton android:id="@+id/radioFemenino"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sexo_femenino" />
-            <RadioButton android:id="@+id/radio_masculino"
+            <RadioButton android:id="@+id/radioMasculino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sexo_masculino" />
@@ -73,7 +73,6 @@
             android:layout_marginBottom="8dp"
             android:hint="@string/telefono"
             android:inputType="phone" />
-
         <Button
             android:id="@+id/btnCrearPaciente"
             android:layout_width="match_parent"
@@ -83,11 +82,12 @@
             android:text="@string/aceptar"/>
 
         <Button
-            android:id="@+id/btnCancelar"
+            android:id="@+id/btnCancelarPaciente"
             android:layout_width="match_parent"
             style="@style/ButtonStyleCancelar"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/cancelar"/>
+
     </LinearLayout>
 </ScrollView>

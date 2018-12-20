@@ -1,9 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CalculoActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="left"
+            android:text="@string/asociar_a_paciente"
+            android:textColor="@color/blue_dark"
+            android:textSize="@dimen/titulo"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerPaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/etCantidad"
+                style="@style/EditTextStyleOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/btnCalcular"
+                android:layout_toStartOf="@+id/btnCalcular"
+                android:hint="@string/input_cantidad_total"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/btnCalcular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/calcular"
+                style="@style/ButtonStyleAceptar"
+                />
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tablaCalculo">
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/filaCalculo">
+                <TextView
+                    android:id="@+id/etTipoWbc"
+                    android:fontFamily="serif"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:text="@string/tabla_tipo"/>
+                <TextView
+                    android:id="@+id/etPorCantidad"
+                    android:textColor="#000"
+                    android:fontFamily="serif"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/tabla_cantidad"/>
+                <TextView
+                    android:id="@+id/etPorcentaje"
+                    android:textColor="#000"
+                    android:fontFamily="serif"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/tabla_porcentaje"/>
+                <TextView
+                    android:id="@+id/etMedida"
+                    android:textColor="#000"
+                    android:fontFamily="serif"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/tabla_medida"/>
+            </TableRow>
+            <View
+                android:layout_height="3dip"
+                android:layout_width="match_parent"
+                android:background="@color/red80"/>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>

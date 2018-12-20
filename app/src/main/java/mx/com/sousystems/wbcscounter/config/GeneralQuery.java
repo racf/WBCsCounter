@@ -24,7 +24,7 @@ public class GeneralQuery {
             +ConstanteTabla.ESPACIO+ConstanteTabla.CANTIDAD_INPUT+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.FECHA+ConstanteTabla.ESPACIO+ConstanteTabla.TEXT+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.TOTAL_WBC_SNRBC+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
-            +ConstanteTabla.ESPACIO+ConstanteTabla.TOTAL_WBC_SNRBC+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
+            +ConstanteTabla.ESPACIO+ConstanteTabla.TOTAL_WBC_CNRBC+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.ESTATUS+ConstanteTabla.ESPACIO+ConstanteTabla.INTEGER+ConstanteTabla.PARENTESIS_CERRAR;
 
     public static final String CREAR_TABLA_CELULA = ConstanteTabla.CREATE+ConstanteTabla.ESPACIO+ConstanteTabla.TABLE+ConstanteTabla.ESPACIO+ConstanteTabla.CELULA
