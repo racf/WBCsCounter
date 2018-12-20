@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.Button;
 
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.controller.CelulaController;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Button btnResultado;
+    CelulaController celulaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         cargarComponente();
+
+        //Ejecuta metodo para cargar la información de las celulas
+        celulaController = new CelulaController(this);
+
     }
 
     private void cargarComponente(){

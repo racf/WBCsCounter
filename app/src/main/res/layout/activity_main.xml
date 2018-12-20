@@ -49,6 +49,45 @@
                 android:drawableLeft="@android:drawable/ic_menu_send"
                 android:text="@string/resultado"/>
             </LinearLayout>
+        <View
+            android:layout_height="1dip"
+            android:layout_width="match_parent"
+            android:background="@color/gray_dark"
+            android:layout_marginBottom="2dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEliminarUltimo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="12dp"
+                style="@style/ButtonStyleExportar"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_last"
+                android:text="@string/eliminar_ultimo"/>
+
+            <Button
+                android:id="@+id/btnReiniciar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/ButtonStyleCancelar"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/ic_reset"
+                android:text="@string/reiniciar"/>
+
+        </LinearLayout>
+        <View
+            android:layout_height="1dip"
+            android:layout_width="match_parent"
+            android:background="@color/gray_dark"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"/>
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

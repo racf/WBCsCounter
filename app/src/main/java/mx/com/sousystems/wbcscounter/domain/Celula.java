@@ -8,7 +8,7 @@ public class Celula implements Serializable{
     private String nombre;
     private String nombreAbrev;
     private String descripcion;
-    private String estatus;
+    private int estatus;
 
     public String getId() {
         return id;
@@ -42,11 +42,11 @@ public class Celula implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public String getEstatus() {
+    public int getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(String estatus) {
+    public void setEstatus(int estatus) {
         this.estatus = estatus;
     }
 
