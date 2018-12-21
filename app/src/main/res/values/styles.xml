@@ -48,7 +48,17 @@
         <item name="android:background">@drawable/button_background_guardar</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
+    <style name="TextViewCelulaCantidad">
+        <item name="android:background">@drawable/textview_background_celula_cantidad</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="TextViewNombreCelula">
+        <item name="android:background">@drawable/textview_background_celula_nombre</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="ButtonStyleExportar">
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingLeft">16dp</item>

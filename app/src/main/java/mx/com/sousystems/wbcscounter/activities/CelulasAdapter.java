@@ -6,26 +6,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.domain.Celula;
+import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 
 public class CelulasAdapter extends BaseAdapter {
-    private String celulas[];
+    private List<Celula> celulas;
     private Context context;
     private LayoutInflater layoutInflater;
-    public CelulasAdapter(String[] celulas, Context context){
+    private ArrayList<MuestraDetalle> muestraDetalleArrayList;
+    public CelulasAdapter(List<Celula> celulas, ArrayList<MuestraDetalle> muestraDetalleArrayList, Context context){
         this.celulas = celulas;
         this.context = context;
+        this.muestraDetalleArrayList = muestraDetalleArrayList;
     }
     @Override
     public int getCount() {
-        return celulas.length;
+        return celulas.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return celulas[position];
+        return celulas.get(position);
     }
 
     @Override
@@ -37,12 +45,18 @@ public class CelulasAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         layoutInflater = LayoutInflater.from(this.context);
         convertView = layoutInflater.inflate(R.layout.item_celula, parent, false);
-        Button btnNombreCelula = (Button) convertView.findViewById(R.id.btnNombreCelula);
+        ImageView ivIconoCelula = (ImageView) convertView.findViewById(R.id.ivIconoCelula);
+        TextView tvNombreCelula = (TextView) convertView.findViewById(R.id.tvNombreCelula);
         TextView tvCantidadPorCelula = (TextView) convertView.findViewById(R.id.tvCantidadPorCelula);
 
-        String celula = (String) getItem(position);
-
-        btnNombreCelula.setText(celula);
+        Celula celula = (Celula) getItem(position);
+        tvNombreCelula.setText(celula.getNombre());
+        tvCantidadPorCelula.setText("0");
+        for (MuestraDetalle muestraDetalle:muestraDetalleArrayList) {
+            if (muestraDetalle.getCelulaId().equalsIgnoreCase(celula.getId())){
+                tvCantidadPorCelula.setText(String.valueOf(muestraDetalle.getCantidad()));
+            }
+        }
         return convertView;
     }
 }

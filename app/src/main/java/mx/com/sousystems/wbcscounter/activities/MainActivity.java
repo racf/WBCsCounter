@@ -6,23 +6,34 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.controller.CelulaController;
+import mx.com.sousystems.wbcscounter.domain.Celula;
+import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
+import mx.com.sousystems.wbcscounter.util.Util;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Button btnResultado;
     private GridView gvCelulas;
-
-    CelulaController celulaController;
+    private ArrayList<MuestraDetalle> muestraDetalleArrayList;
+    private ArrayList<MuestraDetalle> previousMuestraDetalleArrayList;
+    private CelulaController celulaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +70,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         cargarComponente();
-
-
         crearCelulas();
-
-        //Ejecuta metodo para cargar la información de las celulas
-        celulaController = new CelulaController(this);
-
-
     }
+
+    //RELLENA CON VALORES CADA CELULA
+    //VERIFICO SI HAY POR LO MENOS RELLENA
+    //ENVIO LOS DATOS
+    //  SE ENVIA LOS DATOS (MUESTRA DETALLE CON INFORMACION)
+    //  SE RECIBEN LOS DATOS
+    //  RELLENAS EL OBJETO *MUESTRA*
 
     private void cargarComponente(){
         btnResultado = findViewById(R.id.btnResultado);
@@ -75,8 +86,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void crearCelulas(){
-        String[] celulas = getResources().getStringArray(R.array.celulas);
-        gvCelulas.setAdapter(new CelulasAdapter(celulas, this));
+        muestraDetalleArrayList = new ArrayList<>();
+        celulaController = new CelulaController(this);
+        List<Celula> celulasList = celulaController.obtenerTodasCelulas();
+        for (Celula celula:celulasList) {
+            MuestraDetalle muestraDetalle = new MuestraDetalle();
+            muestraDetalle.setCelulaId(celula.getId());
+            muestraDetalle.setCantidad(0);
+            muestraDetalleArrayList.add(muestraDetalle);
+            celula.setNombre(Util.getStringFromResourcesByName(this, celula.getId()));
+
+            Log.d("WBCsCounter", Util.getStringFromResourcesByName(this, celula.getId()));
+        }
+        gvCelulas.setAdapter(new CelulasAdapter(celulasList, muestraDetalleArrayList, this));
+        gvCelulas.setOnItemClickListener(this);
 
     }
     /**
@@ -104,10 +127,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btnResultado:
                 Intent intent = new Intent(this, CalculoActivity.class);
+                intent.putExtra("muestraDetalle", muestraDetalleArrayList);
                 startActivity(intent);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CelulasAdapter celulasAdapter = (CelulasAdapter) gvCelulas.getAdapter();
+        Celula celula = (Celula) celulasAdapter.getItem(position);
+        Log.d("WBCsCounter", celula.getNombre());
+        previousMuestraDetalleArrayList = muestraDetalleArrayList;
+        for (MuestraDetalle muestraDetalle:muestraDetalleArrayList){
+            if (muestraDetalle.getCelulaId().equalsIgnoreCase(celula.getId())){
+                muestraDetalle.setCantidad(muestraDetalle.getCantidad()+1);
+            }
+        }
+        celulasAdapter.notifyDataSetChanged();
     }
 }

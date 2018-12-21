@@ -47,17 +47,16 @@
     <string name="tabla_medida">/µL</string>
 
 
-    <string-array name="celulas">
-        <item name="baso">BASO</item>
-        <item name="eos">EOS</item>
-        <item name="mono">MONO</item>
-        <item name="st">ST</item>
-        <item name="seg">SEG</item>
-        <item name="lym">LYM</item>
-        <item name="nrbc">NRBC</item>
-        <item name="otro_uno">Otro 1</item>
-        <item name="otro_dos">Otro 2</item>
-    </string-array>
+    <string name="baso">BASO</string>
+    <string name="eos">EOS</string>
+    <string name="mono">MONO</string>
+    <string name="st">ST</string>
+    <string name="seg">SEG</string>
+    <string name="lym">LYM</string>
+    <string name="nrbc">NRBC</string>
+    <string name="other1">Otro 1</string>
+    <string name="other2">Otro 2</string>
+
 
     <string name="tabla_header_con_nrbc">Con nRBC</string>
     <string name="tabla_header_sin_nrbc">Sin nRBC</string>

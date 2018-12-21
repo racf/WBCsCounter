@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Compteur de globules - WBCs</string>
+
+    <!-- Menu nav options-->
+    <string name="menu_counter">Compteur différentiel de globules - WBC</string>
+    <string name="menu_patient">Patient</string>
+    <string name="menu_record">Historique</string>
+    <string name="menu_setting">Paramètres</string>
+
+    <!--Mensajes-->
+    <string name="mensaje_titulo_crear_paciente">Nouveau patient</string>
+    <string name="mensaje_exito_guardado">Enregistré avec succès!</string>
+    <string name="mensaje_campo_obligatorio">Champs obligatoires!</string>
+    <string name="mensaje_error">Erreur à l\'enregistrement!</string>
+    <string name="mensaje_seleccione_paciente">--Choisir patient--</string>
+
+    <string name="campo_obligatorio">*</string>
+
+    <string name="nombre">Prénom</string>
+    <string name="primer_apellido">Nom du père</string>
+    <string name="segundo_apellido">Nom maternel</string>
+    <string name="sexo">Sexe</string>
+    <string name="sexo_femenino">Feminin</string>
+    <string name="sexo_masculino">Masculin</string>
+    <string name="telefono">Téléphone</string>
+    <string name="input_cantidad_total">Quantité totale des WBC</string>
+
+    <!-- Botones -->
+    <string name="aceptar">Accepter</string>
+    <string name="cancelar">Annuler</string>
+    <string name="resultado">Résultat</string>
+    <string name="calcular">Calculer</string>
+    <string name="guardar">Enregistrer</string>
+    <string name="exportar">Exporter</string>
+    <string name="eliminar_ultimo">Annuler</string>
+    <string name="reiniciar">Effacer tout</string>
+
+    <!-- Etiquetas -->
+    <string name="cantidad_total">Quantité totale: </string>
+    <string name="asociar_a_paciente">Patient associé:</string>
+
+    <!-- Tabla -->
+    <string name="tabla_tipo">Types de globules - WBC</string>
+    <string name="tabla_cantidad">Quantité #</string>
+    <string name="tabla_porcentaje">% 100</string>
+    <string name="tabla_medida">/µL</string>
+
+
+    <string name="baso">BASO</string>
+    <string name="eos">EOS</string>
+    <string name="mono">MONO</string>
+    <string name="st">ST</string>
+    <string name="seg">SEG</string>
+    <string name="lym">LYM</string>
+    <string name="nrbc">NRBC</string>
+    <string name="other1">Autre 1</string>
+    <string name="other2">Autre 2</string>
+
+
+    <string name="tabla_header_con_nrbc">Avec nRBC</string>
+    <string name="tabla_header_sin_nrbc">Sans nRBC</string>
+    <string name="tabla_total_wbc">Totale de WBC</string>
+</resources>
