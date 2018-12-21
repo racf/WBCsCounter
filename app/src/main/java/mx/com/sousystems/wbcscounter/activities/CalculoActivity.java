@@ -1,6 +1,5 @@
 package mx.com.sousystems.wbcscounter.activities;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,7 +54,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
         //Inicio de la carga del cuerpo de la tabla
         //Cargando el listView
-        muestraDTO = new MuestraDTO();
+       /* muestraDTO = new MuestraDTO();
         muestraDTO.setTipo("ST");
         muestraDTO.setCantidad(14);
         muestraDTO.setPorcentaje(14.00);
@@ -71,13 +67,23 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         //Lista para el adapter
         listaMuestraDTO = new ArrayList<>();
         listaMuestraDTO.add(muestraDTO);
-        listaMuestraDTO.add(muestraDTO2);
-
+        listaMuestraDTO.add(muestraDTO2);*/
+       listaMuestraDTO = new ArrayList<>();
+        cargarDatosTabla(listaMuestraDTO);
         listViewTabla = findViewById(R.id.listViewTabla);
         tablaAdapter = new TablaAdapter(this, R.id.listViewTabla, listaMuestraDTO);
         tablaAdapter.notifyDataSetChanged();
         listViewTabla.setAdapter(tablaAdapter);
         //Fin de la carga del cuerpo de la tabla
+    }
+
+    private void cargarDatosTabla(List<MuestraDTO> listaMuestraDTO){
+        List<Celula> lista = celulaController.obtenerTodasCelulas();
+        for(int i=0; i< lista.size(); i++){
+            muestraDTO = new MuestraDTO();
+            muestraDTO.setTipo(lista.get(i).getId());
+            listaMuestraDTO.add(muestraDTO);
+        }
     }
 
     private void cargarComponente(){
@@ -141,10 +147,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnCalcular:
-                List<Celula> lista = celulaController.obtenerTodasCelulas();
-                for(int i=0; i< lista.size(); i++){
-                    Log.i("CELULA", lista.get(i).getId());
-                }
                 break;
 
             default:

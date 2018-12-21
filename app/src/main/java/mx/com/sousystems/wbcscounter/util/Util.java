@@ -1,5 +1,7 @@
 package mx.com.sousystems.wbcscounter.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +10,7 @@ import java.util.Calendar;
 public class Util {
 
     private static final String DATE_FORMAT_PATTERN = "YYYY-MM-dd";
+    private static final Integer PORCENTAJE = 100;
 
     private Util() {
         throw new IllegalStateException("Util class");
@@ -29,5 +32,20 @@ public class Util {
             fecha = simpleDateFormat.format(calendar.getTime());
         }
         return fecha;
+    }
+    public static double numeroDosDecimales(double numero) {
+        BigDecimal bd = new BigDecimal(Double.toString(numero));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public static double calcularPorcentaje(Integer cantidadtTotalCelula, Integer cantidadCelula){
+        double porcentaje = ((cantidadCelula*PORCENTAJE)/cantidadtTotalCelula);
+        return numeroDosDecimales(porcentaje);
+    }
+
+    public static double calcularUnidadMedida(double cantidadTotalWBC, double porcentaje){
+        double medida = (cantidadTotalWBC*porcentaje)/PORCENTAJE;
+        return numeroDosDecimales(medida);
     }
 }
