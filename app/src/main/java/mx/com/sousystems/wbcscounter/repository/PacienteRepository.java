@@ -10,5 +10,4 @@ public interface PacienteRepository {
     public boolean eliminarPaciente(Paciente paciente);
     public List<Paciente> obtenerTodosPacientes();
     public Paciente obtenerPacientePorId(String id);
-
 }

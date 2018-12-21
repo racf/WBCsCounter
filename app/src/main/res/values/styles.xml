@@ -35,8 +35,31 @@
         <item name="android:background">@drawable/button_background_cancelar</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="ButtonStyleCelula">
         <item name="android:background">@drawable/button_background_celula</item>
         <item name="android:textColor">@color/red</item>
     </style>
+
+
+    <style name="ButtonStyleGuardar">
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:background">@drawable/button_background_guardar</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonStyleExportar">
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:background">@drawable/button_background_exportar</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HeaderStyle">
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
 </resources>

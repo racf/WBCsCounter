@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import java.util.List;
 
 import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
@@ -55,6 +52,7 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onSupportNavigateUp(){
+        pacienteController = null;
         finish();
         return true;
     }
@@ -69,6 +67,7 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                pacienteController = null;
                 this.finish();
                 break;
             default:

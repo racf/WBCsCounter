@@ -13,12 +13,16 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.controller.CelulaController;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Button btnResultado;
     private GridView gvCelulas;
+
+    CelulaController celulaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cargarComponente();
 
+
         crearCelulas();
+
+        //Ejecuta metodo para cargar la información de las celulas
+        celulaController = new CelulaController(this);
+
+
     }
 
     private void cargarComponente(){

@@ -31,16 +31,21 @@
     <string name="cancelar">Cancelar</string>
     <string name="resultado">Resultado</string>
     <string name="calcular">Calcular</string>
+    <string name="guardar">Guardar</string>
+    <string name="exportar">Exportar</string>
+    <string name="eliminar_ultimo">Borrar último</string>
+    <string name="reiniciar">Reiniciar</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Cantidad total: </string>
-    <string name="asociar_a_paciente">Puede asociar a paciente</string>
+    <string name="asociar_a_paciente">Puede asociar a paciente:</string>
 
     <!-- Tabla -->
     <string name="tabla_tipo">Tipo WBC</string>
     <string name="tabla_cantidad">Cantidad #</string>
-    <string name="tabla_porcentaje">% #</string>
+    <string name="tabla_porcentaje">% 100</string>
     <string name="tabla_medida">/µL</string>
+
 
     <string-array name="celulas">
         <item name="baso">BASO</item>
@@ -53,4 +58,9 @@
         <item name="otro_uno">Otro 1</item>
         <item name="otro_dos">Otro 2</item>
     </string-array>
+
+    <string name="tabla_header_con_nrbc">Con nRBC</string>
+    <string name="tabla_header_sin_nrbc">Sin nRBC</string>
+    <string name="tabla_total_wbc">Total WBC</string>
+
 </resources>
