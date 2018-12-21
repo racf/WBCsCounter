@@ -1,5 +1,7 @@
 package mx.com.sousystems.wbcscounter.util;
 
+import android.util.Log;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -35,17 +37,17 @@ public class Util {
     }
     public static double numeroDosDecimales(double numero) {
         BigDecimal bd = new BigDecimal(Double.toString(numero));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
-    public static double calcularPorcentaje(Integer cantidadtTotalCelula, Integer cantidadCelula){
-        double porcentaje = ((cantidadCelula*PORCENTAJE)/cantidadtTotalCelula);
-        return numeroDosDecimales(porcentaje);
+    public static double calcularPorcentaje(int cantidadtTotalCelula, int cantidadCelula){
+        double porcentaje = (double)(cantidadCelula*PORCENTAJE)/cantidadtTotalCelula;
+        return porcentaje;
     }
 
     public static double calcularUnidadMedida(double cantidadTotalWBC, double porcentaje){
         double medida = (cantidadTotalWBC*porcentaje)/PORCENTAJE;
-        return numeroDosDecimales(medida);
+        return medida;
     }
 }

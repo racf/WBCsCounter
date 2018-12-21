@@ -13,6 +13,9 @@
     <string name="mensaje_campo_obligatorio">Required fields ..!</string>
     <string name="mensaje_error">Error saving ...!</string>
     <string name="mensaje_seleccione_paciente">--Select patient--</string>
+    <string name="mensaje_campo_obligatorio_calculo">Required field for calculation ...!</string>
+    <string name="mensaje_alerta_titulo">Export</string>
+
 
     <string name="campo_obligatorio">*</string>
 
@@ -41,7 +44,7 @@
 
     <!-- Tabla -->
     <string name="tabla_tipo">Type WBC</string>
-    <string name="tabla_cantidad">Quantity #</string>
+    <string name="tabla_cantidad">Quantity </string>
     <string name="tabla_porcentaje">% 100</string>
     <string name="tabla_medida">/µL</string>
 
