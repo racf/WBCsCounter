@@ -10,13 +10,15 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 
 import mx.com.sousystems.wbcscounter.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Button btnResultado;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Button btnResultado;
+    private GridView gvCelulas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setNavigationDrawer();
         drawerLayout =  findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navView);
-
+        gvCelulas = findViewById(R.id.gvCelulas);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         cargarComponente();
+
+        crearCelulas();
     }
 
     private void cargarComponente(){
@@ -60,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnResultado.setOnClickListener(this);
     }
 
+    private void crearCelulas(){
+        String[] celulas = getResources().getStringArray(R.array.celulas);
+        gvCelulas.setAdapter(new CelulasAdapter(celulas, this));
+
+    }
     /**
      * Funcion para cargar  el icono del Drawer en la barra tool
      */

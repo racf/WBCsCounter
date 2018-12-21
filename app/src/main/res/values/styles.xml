@@ -35,5 +35,8 @@
         <item name="android:background">@drawable/button_background_cancelar</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
+    <style name="ButtonStyleCelula">
+        <item name="android:background">@drawable/button_background_celula</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
 </resources>

@@ -41,4 +41,16 @@
     <string name="tabla_cantidad">Cantidad #</string>
     <string name="tabla_porcentaje">% #</string>
     <string name="tabla_medida">/µL</string>
+
+    <string-array name="celulas">
+        <item name="baso">BASO</item>
+        <item name="eos">EOS</item>
+        <item name="mono">MONO</item>
+        <item name="st">ST</item>
+        <item name="seg">SEG</item>
+        <item name="lym">LYM</item>
+        <item name="nrbc">NRBC</item>
+        <item name="otro_uno">Otro 1</item>
+        <item name="otro_dos">Otro 2</item>
+    </string-array>
 </resources>
