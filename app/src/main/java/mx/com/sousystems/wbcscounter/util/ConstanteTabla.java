@@ -32,7 +32,7 @@ public class ConstanteTabla implements BaseColumns {
 
     //celula
     public static final String NOMBRE_ABREV = "nombre_abrev";
-    public static final String DESCRIPCION = "descipcion";
+    public static final String DESCRIPCION = "descripcion";
 
     //muestra
     public static final String MUESTRA_ID = "muestra_id";

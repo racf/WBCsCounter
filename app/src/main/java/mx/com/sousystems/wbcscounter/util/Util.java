@@ -1,6 +1,10 @@
 package mx.com.sousystems.wbcscounter.util;
 
+
 import android.content.Context;
+
+import android.util.Log;
+
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -39,9 +43,10 @@ public class Util {
 
     public static double numeroDosDecimales(double numero) {
         BigDecimal bd = new BigDecimal(Double.toString(numero));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
 
     public static double calcularPorcentaje(Integer cantidadtTotalCelula, Integer cantidadCelula) {
         double porcentaje = ((cantidadCelula * PORCENTAJE) / cantidadtTotalCelula);
@@ -51,7 +56,9 @@ public class Util {
     public static double calcularUnidadMedida(double cantidadTotalWBC, double porcentaje) {
         double medida = (cantidadTotalWBC * porcentaje) / PORCENTAJE;
         return numeroDosDecimales(medida);
+
     }
+
 
     public static String getStringFromResourcesByName(Context context, String resourceName) {
         /*
