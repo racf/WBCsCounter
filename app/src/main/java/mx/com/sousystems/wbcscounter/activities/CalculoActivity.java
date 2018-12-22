@@ -1,6 +1,5 @@
 package mx.com.sousystems.wbcscounter.activities;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +51,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     Integer cantidadtTotalCelula;
     double cantidadWbc;
     CharSequence[] values = {" Excel "," PDF "};
+    ArrayList<MuestraDetalle> muestraDetalleArrayList;
     AlertDialog alertDialog1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +66,16 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         agregarDatosSpinner();
         cargarHeaderTabla();
 
-        celulaController = new CelulaController(this);
+        //Obtenemos el parametro de la vista principal
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            muestraDetalleArrayList = (ArrayList<MuestraDetalle>) extras.get("muestraDetalle");
+        }else{
+            muestraDetalleArrayList = new ArrayList<>();
+        }
+
+        celulaController = new CelulaController(this);
 
         //Inicio de la carga del cuerpo de la tabla
         //Cargando el listView
@@ -98,69 +106,22 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
     private List<MuestraDTO> cargarDatosTabla(double cantidadWbc){
         List<MuestraDTO> listaMuestrasDTO = new ArrayList<>();
-        List<MuestraDetalle> listaMuestraDetalle  = new ArrayList<>();
-        MuestraDetalle muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("BASO");
-        muestraDetalle.setCantidad(0);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("EOS");
-        muestraDetalle.setCantidad(1);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("MONO");
-        muestraDetalle.setCantidad(7);
-        listaMuestraDetalle.add(muestraDetalle);
-
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("ST");
-        muestraDetalle.setCantidad(14);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("SEG");
-        muestraDetalle.setCantidad(70);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("LYM");
-        muestraDetalle.setCantidad(7);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("NRBC");
-        muestraDetalle.setCantidad(1);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("OTHER1");
-        muestraDetalle.setCantidad(0);
-        listaMuestraDetalle.add(muestraDetalle);
-
-        muestraDetalle = new MuestraDetalle();
-        muestraDetalle.setCelulaId("OTHER1");
-        muestraDetalle.setCantidad(0);
-        listaMuestraDetalle.add(muestraDetalle);
 
         double muestraTotalConNrbc = 0;
         double muestraTotalSinNrbc = 0;
-
-        for(int i = 0; i <listaMuestraDetalle.size(); i++){
+        double muestraSinNrbc = 0;
+        for(int i = 0; i <muestraDetalleArrayList.size(); i++){
             muestraDTO = new MuestraDTO();
-            muestraDTO.setTipo(listaMuestraDetalle.get(i).getCelulaId());
-            muestraDTO.setCantidad(listaMuestraDetalle.get(i).getCantidad());
+            muestraDTO.setTipo(muestraDetalleArrayList.get(i).getCelulaId());
+            muestraDTO.setIdioma(Util.getStringFromResourcesByName(this, muestraDTO.getTipo()));
+            muestraDTO.setCantidad(muestraDetalleArrayList.get(i).getCantidad());
             if(muestraDTO.getCantidad() != 0){
                 double porcentaje = Util.calcularPorcentaje(cantidadtTotalCelula, muestraDTO.getCantidad());
                 muestraDTO.setPorcentaje(Util.numeroDosDecimales(porcentaje));
                 double resultado = calcularResultados(cantidadWbc, porcentaje, muestraDTO);
                 muestraTotalConNrbc += resultado;
                 if(muestraDTO.getTipo().equals("NRBC")){
-                    muestraTotalSinNrbc = muestraTotalConNrbc - resultado;
-                }else{
-                    muestraTotalSinNrbc = muestraTotalConNrbc;
+                    muestraSinNrbc += resultado;
                 }
             }else{
                 muestraDTO.setPorcentaje(0.0);
@@ -168,8 +129,9 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             }
             listaMuestrasDTO.add(muestraDTO);
         }
-        tvTotalConNrbc.setText(String.valueOf(muestraTotalConNrbc)+""+this.getString(R.string.tabla_medida));
-        tvTotalSinNRbc.setText(String.valueOf(muestraTotalSinNrbc)+""+this.getString(R.string.tabla_medida));
+        muestraTotalSinNrbc = muestraTotalConNrbc - muestraSinNrbc;
+        tvTotalConNrbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalConNrbc))+""+this.getString(R.string.tabla_medida));
+        tvTotalSinNRbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalSinNrbc))+""+this.getString(R.string.tabla_medida));
         return listaMuestrasDTO;
     }
 
@@ -251,7 +213,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                 break;
             case R.id.btnExportar:
                 alertaExportar();
-                //onCreateDialog();
                 break;
             default:
                 break;
@@ -265,6 +226,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                 .setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
+                        //
                     }
                 })
                 .setNegativeButton(R.string.cancelar,
@@ -272,13 +234,12 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //ACTIONS IF THE ANSWER IS NO
-                                //appPreferences.saveOnPreferenceBoolean(getApplicationContext(), ConstantSdk.PREFERENCE_NAME_GENERAL, ConstantSdk.PREFERENCE_USER_IS_DRIVING, false);
                             }
                         })
                 .setPositiveButton(R.string.aceptar,
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id){
-
+                            //
 
                             }
                         });

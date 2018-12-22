@@ -7,7 +7,6 @@
 
     <TextView
         android:id="@+id/tvDatoTipoWbc"
-        android:fontFamily="serif"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
@@ -18,7 +17,6 @@
     <TextView
         android:id="@+id/tvDatoPorCantidad"
         android:textColor="#000"
-        android:fontFamily="serif"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -28,7 +26,6 @@
         android:id="@+id/tvDatoPorcentaje"
         android:textColor="#000"
         android:background="@color/gray"
-        android:fontFamily="serif"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -37,7 +34,6 @@
     <TextView
         android:id="@+id/tvDatoMedida"
         android:textColor="#000"
-        android:fontFamily="serif"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

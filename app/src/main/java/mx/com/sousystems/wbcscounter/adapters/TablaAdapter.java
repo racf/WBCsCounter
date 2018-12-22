@@ -43,13 +43,13 @@ public class TablaAdapter extends BaseAdapter {
         //Inflamos la vista que nos ha llegado con nuestro layout personalizado
         LayoutInflater layoutInflater = LayoutInflater.from(this.context);
         view = layoutInflater.inflate(R.layout.lista_tabla, null);
-        String tipo = listaMuestraDTO.get(position).getTipo();
+        String idioma = listaMuestraDTO.get(position).getIdioma();
         Integer cantidad = listaMuestraDTO.get(position).getCantidad();
         double porcentaje = listaMuestraDTO.get(position).getPorcentaje();
         double unidadMedida = listaMuestraDTO.get(position).getUnidadMedida();
 
         TextView tvDatoTipoWbc = (TextView)view.findViewById(R.id.tvDatoTipoWbc);
-        tvDatoTipoWbc.setText(tipo);
+        tvDatoTipoWbc.setText(idioma);
         TextView tvDatoPorCantidad = (TextView)view.findViewById(R.id.tvDatoPorCantidad);
         tvDatoPorCantidad.setText(String.valueOf(cantidad));
         TextView tvDatoPorcentaje = (TextView)view.findViewById(R.id.tvDatoPorcentaje);
