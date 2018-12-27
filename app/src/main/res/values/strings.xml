@@ -35,7 +35,7 @@
     <string name="calcular">Calculate</string>
     <string name="guardar">Save</string>
     <string name="exportar">Export</string>
-    <string name="eliminar_ultimo">Delete Last</string>
+    <string name="eliminar_ultimo">Undo</string>
     <string name="reiniciar">Reset</string>
 
     <!-- Etiquetas -->
@@ -64,5 +64,7 @@
     <string name="tabla_header_con_nrbc">With nRBC</string>
     <string name="tabla_header_sin_nrbc">Without nRBC</string>
     <string name="tabla_total_wbc">Total WBC</string>
+
+    <string name="include_nrbc">Include nRBC</string>
 
 </resources>

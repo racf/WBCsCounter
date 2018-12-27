@@ -34,7 +34,7 @@
     <string name="guardar">Enregistrer</string>
     <string name="exportar">Exporter</string>
     <string name="eliminar_ultimo">Annuler</string>
-    <string name="reiniciar">Effacer tout</string>
+    <string name="reiniciar">Réinitialiser</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Quantité totale: </string>
@@ -61,4 +61,5 @@
     <string name="tabla_header_con_nrbc">Avec nRBC</string>
     <string name="tabla_header_sin_nrbc">Sans nRBC</string>
     <string name="tabla_total_wbc">Totale de WBC</string>
+    <string name="include_nrbc">Inclure nRBC</string>
 </resources>

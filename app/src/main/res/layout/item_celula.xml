@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:id="@+id/rlCelula">
 
     <RelativeLayout
         android:layout_width="90dp"
@@ -14,19 +16,17 @@
         <ImageView
             android:id="@+id/ivIconoCelula"
             style="@style/ButtonStyleCelula"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_centerInParent="true"
             android:src="@mipmap/ic_logo_foreground" />
 
         <TextView
             android:id="@+id/tvNombreCelula"
             style="@style/TextViewNombreCelula"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_centerInParent="true"
-
-
             android:text=""
              />
 

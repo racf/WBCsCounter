@@ -23,11 +23,16 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="ButtonStyleResultado">
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">@dimen/margin_padding_16</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_16</item>
         <item name="android:background">@drawable/button_background_aceptar</item>
         <item name="android:textColor">@color/white</item>
+
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_margin">@dimen/margin_padding_8</item>
     </style>
+
+
 
     <style name="ButtonStyleCancelar">
         <item name="android:paddingRight">16dp</item>
@@ -69,6 +74,44 @@
     <style name="HeaderStyle">
         <item name="android:textColor">@color/white</item>
     </style>
-
-
+    <!--Buttons Bootstrap-->
+    <style name="ButtonTextWhite">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingRight">@dimen/margin_padding_16</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_16</item>
+        <item name="android:paddingStart">@dimen/margin_padding_16</item>
+        <item name="android:paddingEnd">@dimen/margin_padding_16</item>
+    </style>
+    <style name="ButtonTextBody">
+        <item name="android:textColor">@color/body</item>
+        <item name="android:paddingRight">@dimen/margin_padding_16</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_16</item>
+        <item name="android:paddingStart">@dimen/margin_padding_16</item>
+        <item name="android:paddingEnd">@dimen/margin_padding_16</item>
+    </style>
+    <style name="ButtonPrimary" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_primary</item>
+    </style>
+    <style name="ButtonSecondary" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_secondary</item>
+    </style>
+    <style name="ButtonSuccess" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_success</item>
+    </style>
+    <style name="ButtonDanger" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_danger</item>
+    </style>
+    <style name="ButtonWarning" parent="ButtonTextBody">
+        <item name="android:background">@drawable/button_warning</item>
+    </style>
+    <style name="ButtonInfo" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_info</item>
+    </style>
+    <style name="ButtonLight" parent="ButtonTextBody">
+        <item name="android:background">@drawable/button_light</item>
+    </style>
+    <style name="ButtonDark" parent="ButtonTextWhite">
+        <item name="android:background">@drawable/button_dark</item>
+    </style>
+    <!--Buttons Bootstrap-->
 </resources>
