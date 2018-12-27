@@ -54,7 +54,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/calcular"
-                style="@style/ButtonStyleAceptar"
+                style="@style/ButtonPrimary"
                 />
         </RelativeLayout>
 
@@ -147,28 +147,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:gravity="end">
 
             <Button
                 android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="12dp"
-                style="@style/ButtonStyleGuardar"
-                android:layout_centerInParent="true"
-                android:drawableLeft="@android:drawable/ic_menu_save"
+                style="@style/ButtonSuccess"
+                android:drawableLeft="@drawable/baseline_save_white_18"
+                android:drawableStart="@drawable/baseline_save_white_18"
                 android:text="@string/guardar"/>
 
             <Button
                 android:id="@+id/btnExportar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/ButtonStyleExportar"
-                android:layout_centerInParent="true"
-                android:drawableLeft="@android:drawable/ic_menu_send"
-                android:text="@string/exportar"/>
+                style="@style/ButtonSecondary"
+                android:drawableLeft="@drawable/baseline_save_alt_white_18"
+                android:drawableStart="@drawable/baseline_save_alt_white_18"
+                android:text="@string/exportar"
+                android:layout_marginStart="@dimen/margin_padding_8"
+                android:layout_marginLeft="@dimen/margin_padding_8"
+                />
 
         </LinearLayout>
     </LinearLayout>
