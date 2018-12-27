@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +23,10 @@ import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.adapters.HeaderAdapter;
 import mx.com.sousystems.wbcscounter.adapters.TablaAdapter;
 import mx.com.sousystems.wbcscounter.controller.CelulaController;
+import mx.com.sousystems.wbcscounter.controller.MuestraController;
+import mx.com.sousystems.wbcscounter.controller.MuestraDetalleController;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
+import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
@@ -49,10 +53,13 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     List<HeaderTablaDTO> listaHeaderTabla;
     CelulaController celulaController;
     Integer cantidadtTotalCelula;
-    double cantidadWbc;
+    int cantidadWbc;
     CharSequence[] values = {" Excel "," PDF "};
     ArrayList<MuestraDetalle> muestraDetalleArrayList;
     AlertDialog alertDialog1;
+
+    //Objetos para almacenar la informacion a la DB
+    Muestra muestra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pacienteController = new PacienteController(this);
         listaPacienteAux = new ArrayList<>();
+        muestra = new Muestra();
         cantidadtTotalCelula = 100;
         cantidadWbc = 0;
         cargarComponente();
@@ -85,6 +93,8 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         tablaAdapter.notifyDataSetChanged();
         listViewTabla.setAdapter(tablaAdapter);
         //Fin de la carga del cuerpo de la tabla
+
+
     }
 
     private void cargarComponente(){
@@ -92,6 +102,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         spinnerPaciente.setOnItemSelectedListener(this);
         etCantidad = findViewById(R.id.etCantidad);
         etCantidad.setText(String.valueOf(cantidadWbc));
+        etCantidad.setSelection(etCantidad.length());
         tvTotalConNrbc = findViewById(R.id.tvTotalConNrbc);
         tvTotalConNrbc.setText(String.valueOf(0));
         tvTotalSinNRbc = findViewById(R.id.tvTotalSinNRbc);
@@ -108,7 +119,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         List<MuestraDTO> listaMuestrasDTO = new ArrayList<>();
 
         double muestraTotalConNrbc = 0;
-        double muestraTotalSinNrbc = 0;
         double muestraSinNrbc = 0;
         for(int i = 0; i <muestraDetalleArrayList.size(); i++){
             muestraDTO = new MuestraDTO();
@@ -129,7 +139,9 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             }
             listaMuestrasDTO.add(muestraDTO);
         }
-        muestraTotalSinNrbc = muestraTotalConNrbc - muestraSinNrbc;
+        double muestraTotalSinNrbc = muestraTotalConNrbc - muestraSinNrbc;
+        muestra.setTotalWbcCnrbc(muestraTotalConNrbc);
+        muestra.setTotalWbcSnrbc(muestraTotalSinNrbc);
         tvTotalConNrbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalConNrbc))+""+this.getString(R.string.tabla_medida));
         tvTotalSinNRbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalSinNrbc))+""+this.getString(R.string.tabla_medida));
         return listaMuestrasDTO;
@@ -182,8 +194,9 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position == 0){
-        //
+            muestra.setPacienteId(0);
         }else{
+            muestra.setPacienteId(listaPacienteAux.get(position).getId());
             Toast.makeText(getApplicationContext(), listaPacienteAux.get(position).getId()+" "+listaPacienteAux.get(position).getNombre(), Toast.LENGTH_LONG).show();
         }
 
@@ -199,7 +212,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         switch (v.getId()){
             case R.id.btnCalcular:
                 if(!TextUtils.isEmpty(etCantidad.getText().toString().trim())){
-                    cantidadWbc = Double.valueOf(etCantidad.getText().toString());
+                    cantidadWbc = Integer.valueOf(etCantidad.getText().toString());
                     listaMuestraDTO = cargarDatosTabla(cantidadWbc);
                     tablaAdapter = new TablaAdapter(this, R.id.listViewTabla, listaMuestraDTO);
                     tablaAdapter.notifyDataSetChanged();
@@ -210,12 +223,38 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
                 break;
             case R.id.btnGuardar:
+                    guardarInformacion();
                 break;
             case R.id.btnExportar:
                 alertaExportar();
+                MuestraController muestraController = new MuestraController(this);
+                MuestraDetalleController muestraDetalleController = new MuestraDetalleController(this);
+                List<Muestra> obtenerTodasMuestras = muestraController.obtenerTodasMuestras();
+                for (int i=0; i <obtenerTodasMuestras.size(); i++){
+                    Log.i("MUESTRA: ", obtenerTodasMuestras.get(i).getId()+" Fecha"+obtenerTodasMuestras.get(i).getFecha());
+                }
+                List<MuestraDetalle> obtenerTodasMuestraDetalle = muestraDetalleController.obtenerTodasMuestraDetalle();
+                for (int k=0; k <obtenerTodasMuestraDetalle.size(); k++){
+                    Log.i("MUESTRA_DETALLE: ", obtenerTodasMuestraDetalle.get(k).getId()+" MuestraId: "+obtenerTodasMuestraDetalle.get(k).getMuestraId()+" CelulaId: "+obtenerTodasMuestraDetalle.get(k).getCelulaId()+" Estatus: "+obtenerTodasMuestraDetalle.get(k).getEstatus());
+
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    private void guardarInformacion(){
+        if(TextUtils.isEmpty(etCantidad.getText().toString().trim())){
+            muestra.setCantidadInput(0);
+        }
+        muestra.setCantidadInput(Integer.parseInt(etCantidad.getText().toString().trim()));
+        muestra.setFecha(Util.fecha());
+        MuestraDetalleController muestraDetalleController = new MuestraDetalleController(this);
+        if(muestraDetalleController.crearMuestraDetalleTransaccion(muestra, muestraDetalleArrayList) > 0){
+            Toast.makeText(this, R.string.mensaje_exito_guardado, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, R.string.mensaje_error, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MuestraDetalle implements Serializable {
     private Integer id;
-    private Integer muestraId;
+    private long muestraId;
     private String celulaId;
     private int cantidad;
     private int estatus;
@@ -17,11 +17,11 @@ public class MuestraDetalle implements Serializable {
         this.id = id;
     }
 
-    public Integer getMuestraId() {
+    public long getMuestraId() {
         return muestraId;
     }
 
-    public void setMuestraId(Integer muestraId) {
+    public void setMuestraId(long muestraId) {
         this.muestraId = muestraId;
     }
 
@@ -45,7 +45,7 @@ public class MuestraDetalle implements Serializable {
         return estatus;
     }
 
-    public void setEstatus(int status) {
+    public void setEstatus(int estatus) {
         this.estatus = estatus;
     }
 

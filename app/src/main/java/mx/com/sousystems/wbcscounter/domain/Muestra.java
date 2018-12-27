@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Muestra implements Serializable {
     private Integer id;
-    private Integer pacienteId;
+    private Integer pacienteId = 0;
     private int cantidadInput;
     private String fecha;
     private double totalWbcSnrbc;
