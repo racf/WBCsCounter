@@ -1,6 +1,9 @@
 package mx.com.sousystems.wbcscounter.activities;
 
 import android.content.Intent;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CelulaController celulaController;
     private LinearLayout llCelulas;
     private TextView tvCantidad;
+    private Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         llCelulas = findViewById(R.id.llCelulas);
         tvCantidad = findViewById(R.id.tvCantidad);
+
+        vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -241,6 +249,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     total += muestraDetalle.getCantidad();
                 }
                 tvCantidad.setText(String.valueOf(total));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                }else{
+                    vibrator.vibrate(100);
+                }
                 break;
             default:
                 break;
