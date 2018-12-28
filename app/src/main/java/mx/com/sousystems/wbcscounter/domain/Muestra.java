@@ -11,6 +11,8 @@ public class Muestra implements Serializable {
     private double totalWbcCnrbc;
     private int estatus;
 
+    private Paciente paciente;
+
     public Integer getId() {
         return id;
     }
@@ -65,6 +67,14 @@ public class Muestra implements Serializable {
 
     public void setEstatus(int estatus) {
         this.estatus = estatus;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     @Override

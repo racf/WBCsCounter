@@ -3,6 +3,14 @@ package mx.com.sousystems.wbcscounter.activities;
 import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,8 +26,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
+import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
+
+import static mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView.*;
 
 public class HistorialActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
     Spinner spinnerPaciente;
@@ -32,6 +44,12 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     List<Paciente> listaPacienteAux;
     private static final int OPCION_1 = 1;
     private static final int OPCION_2 = 2;
+    //Recicler View
+    List<Muestra> listaMuestra;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+    int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +60,32 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         listaPacienteAux = new ArrayList<>();
         agregarDatosSpinner();
         obtenerFechaDefault();
+
+        //Recicler View
+        this.listaMuestra  = getAllMuestra();
+
+        //recyclerView.setHasFixedSize(true);
+        //Para un liner layout
+        layoutManager = new LinearLayoutManager(this);
+        //para un GridLayout
+        //layoutManager = new GridLayoutManager(this, 2);
+        //Renderizara dependiendo el formato de la vista que se tenga.
+        //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+
+        adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
+            @Override
+            public void onItemClick(Muestra muestra, int position) {
+                Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Generar animaciones para el RecyclerView
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     private void cargarComponente(){
@@ -57,6 +101,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         btnFechaFin.setOnClickListener(this);
         btnBuscar = findViewById(R.id.btnBuscar);
         btnBuscar.setOnClickListener(this);
+        recyclerView = findViewById(R.id.recyclerView);
     }
 
     private void agregarDatosSpinner(){
@@ -120,6 +165,150 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
 
     public void buscar(){
         //
+    }
+
+    private List<Muestra> getAllMuestra(){
+        List<Muestra> lista = new ArrayList<>();
+        Muestra muestra = null;
+        Paciente paciente = null;
+
+        muestra = new Muestra();
+        muestra.setId(1);
+        muestra.setFecha("2018-12-27");
+        paciente = new Paciente();
+        paciente.setNombre("Fernando");
+        paciente.setPrimerApellido("Ramirez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(2);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Carlos Alberto");
+        paciente.setPrimerApellido("Alvarez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        muestra = new Muestra();
+        muestra.setId(3);
+        muestra.setFecha("2018-12-28");
+        paciente = new Paciente();
+        paciente.setNombre("Diana Laura");
+        paciente.setPrimerApellido("Ramírez");
+        muestra.setPaciente(paciente);
+        lista.add(muestra);
+
+        return lista;
     }
 
     private void obtenerFecha(final int opcion){

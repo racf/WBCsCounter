@@ -48,6 +48,8 @@
     <string name="tabla_cantidad">Cantidad </string>
     <string name="tabla_porcentaje">% 100</string>
     <string name="tabla_medida">/µL</string>
+    <string name="tabla_fecha">Fecha</string>
+    <string name="tabla_nombre">Nombre</string>
 
 
     <string name="baso">BASO</string>

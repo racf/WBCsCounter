@@ -3,9 +3,6 @@ package mx.com.sousystems.wbcscounter.util;
 
 import android.content.Context;
 
-import android.util.Log;
-
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -49,14 +46,12 @@ public class Util {
 
 
     public static double calcularPorcentaje(Integer cantidadtTotalCelula, Integer cantidadCelula) {
-        double porcentaje = ((cantidadCelula * PORCENTAJE) / cantidadtTotalCelula);
-        return numeroDosDecimales(porcentaje);
+        return ((double)(cantidadCelula * PORCENTAJE) / cantidadtTotalCelula);
     }
 
     public static double calcularUnidadMedida(double cantidadTotalWBC, double porcentaje) {
         double medida = (cantidadTotalWBC * porcentaje) / PORCENTAJE;
         return numeroDosDecimales(medida);
-
     }
 
 

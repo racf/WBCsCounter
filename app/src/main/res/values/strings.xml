@@ -48,6 +48,8 @@
     <string name="tabla_cantidad">Quantity </string>
     <string name="tabla_porcentaje">% 100</string>
     <string name="tabla_medida">/µL</string>
+    <string name="tabla_fecha">Date</string>
+    <string name="tabla_nombre">Name</string>
 
     <string name="valor_cero" translatable="false">0</string>
 
