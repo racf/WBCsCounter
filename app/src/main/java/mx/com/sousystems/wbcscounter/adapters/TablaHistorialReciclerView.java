@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,16 +44,24 @@ public class TablaHistorialReciclerView extends RecyclerView.Adapter<TablaHistor
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvFecha;
         TextView tvNombre;
+        ImageButton btnOpciones;
 
         public ViewHolder(View view) {
             super(view);
             this.tvFecha = (TextView) view.findViewById(R.id.tvFecha);
             this.tvNombre = (TextView) view.findViewById(R.id.tvNombre);
+            this.btnOpciones = (ImageButton) view.findViewById(R.id.btnOpciones);
         }
 
         public void bind(final Muestra muestra, final ViewHolder.OnItemClickListener listener){
             this.tvFecha.setText(muestra.getFecha());
             this.tvNombre.setText(muestra.getPaciente().getNombre()+" "+muestra.getPaciente().getPrimerApellido());
+            this.btnOpciones.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   listener.btnOnClick(v, muestra, getAdapterPosition());
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,6 +72,7 @@ public class TablaHistorialReciclerView extends RecyclerView.Adapter<TablaHistor
 
         public interface OnItemClickListener{
             void onItemClick(Muestra muestra, int position);
+            void btnOnClick(View v, Muestra muestra, int position);
         }
     }
 }

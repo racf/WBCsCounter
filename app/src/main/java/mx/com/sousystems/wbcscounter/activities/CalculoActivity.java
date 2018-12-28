@@ -102,7 +102,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         spinnerPaciente = findViewById(R.id.spinnerPaciente);
         spinnerPaciente.setOnItemSelectedListener(this);
         etCantidad = findViewById(R.id.etCantidad);
-        etCantidad.setText(String.valueOf(cantidadWbc));
         etCantidad.setSelection(etCantidad.length());
         tvTotalConNrbc = findViewById(R.id.tvTotalConNrbc);
         tvTotalConNrbc.setText(String.valueOf(0));

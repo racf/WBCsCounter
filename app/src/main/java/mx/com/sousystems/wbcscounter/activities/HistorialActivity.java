@@ -1,24 +1,26 @@
 package mx.com.sousystems.wbcscounter.activities;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,8 +37,8 @@ import static mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView.
 
 public class HistorialActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener{
     Spinner spinnerPaciente;
-    EditText etFechaIni;
-    EditText etFechaFin;
+    TextView tvFechaIni;
+    TextView tvFechaFin;
     ImageButton btnFechaIni;
     ImageButton btnFechaFin;
     Button btnBuscar;
@@ -50,6 +52,9 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     int count = 0;
+
+    CharSequence[] values = {" Excel "," PDF "};
+    int itemValue = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,26 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         agregarDatosSpinner();
         obtenerFechaDefault();
 
+        cargarDatosReciclerView();
+    }
+
+    private void cargarComponente(){
+        spinnerPaciente = findViewById(R.id.spPaciente);
+        spinnerPaciente.setOnItemSelectedListener(this);
+        tvFechaIni = findViewById(R.id.tvFechaIni);
+        tvFechaIni.setOnClickListener(this);
+        tvFechaFin = findViewById(R.id.tvFechaFin);
+        tvFechaFin.setOnClickListener(this);
+        btnFechaIni = findViewById(R.id.btnFechaIni);
+        btnFechaIni.setOnClickListener(this);
+        btnFechaFin = findViewById(R.id.btnFechaFin);
+        btnFechaFin.setOnClickListener(this);
+        btnBuscar = findViewById(R.id.btnBuscar);
+        btnBuscar.setOnClickListener(this);
+        recyclerView = findViewById(R.id.recyclerView);
+    }
+
+    private void cargarDatosReciclerView(){
         //Recicler View
         this.listaMuestra  = getAllMuestra();
 
@@ -75,33 +100,43 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
             @Override
             public void onItemClick(Muestra muestra, int position) {
-                Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void btnOnClick(View v, Muestra muestra, int position) {
+                ImageButton btnMore = (ImageButton) v.findViewById(R.id.btnOpciones);
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(v.getContext(), btnMore);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.menu_recicler_view);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_exportar:
+                                alertaExportar();
+                                return true;
+                            case R.id.menu_eliminar:
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                //displaying the popup
+                popup.show();
             }
         });
 
         //Generar animaciones para el RecyclerView
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-    }
-
-    private void cargarComponente(){
-        spinnerPaciente = findViewById(R.id.spPaciente);
-        spinnerPaciente.setOnItemSelectedListener(this);
-        etFechaIni = findViewById(R.id.etFechaIni);
-        etFechaIni.setOnClickListener(this);
-        etFechaFin = findViewById(R.id.etFechaFin);
-        etFechaFin.setOnClickListener(this);
-        btnFechaIni = findViewById(R.id.btnFechaIni);
-        btnFechaIni.setOnClickListener(this);
-        btnFechaFin = findViewById(R.id.btnFechaFin);
-        btnFechaFin.setOnClickListener(this);
-        btnBuscar = findViewById(R.id.btnBuscar);
-        btnBuscar.setOnClickListener(this);
-        recyclerView = findViewById(R.id.recyclerView);
     }
 
     private void agregarDatosSpinner(){
@@ -149,10 +184,10 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
             case R.id.btnFechaFin:
                 obtenerFecha(OPCION_2);
                 break;
-            case R.id.etFechaIni:
+            case R.id.tvFechaIni:
                 obtenerFecha(OPCION_1);
                 break;
-            case R.id.etFechaFin:
+            case R.id.tvFechaFin:
                 obtenerFecha(OPCION_2);
                 break;
             case R.id.btnBuscar:
@@ -322,9 +357,9 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         if(opcion == 1){
-                            etFechaIni.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            tvFechaIni.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }else{
-                            etFechaFin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            tvFechaFin.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                         }
 
                     }
@@ -337,7 +372,41 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
-        etFechaIni.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
-        etFechaFin.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+        tvFechaIni.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+        tvFechaFin.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+    }
+
+    private void alertaExportar(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.mensaje_alerta_titulo)
+                .setIcon(R.mipmap.ic_logo_foreground)
+                .setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        itemValue = item;
+                        Log.i("ITEM: ", ""+item);
+                    }
+                })
+                .setNegativeButton(R.string.cancelar,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //ACTIONS IF THE ANSWER IS NO
+                            }
+                        })
+                .setPositiveButton(R.string.aceptar,
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                //Generar el archivo----
+                                if(itemValue == 0){//Gerar el archivo en excel
+                                    Log.i("ITEM EXCEL: ", ""+itemValue);
+                                }else{//Generar el archcivo en PDF
+                                    Log.i("ITEM PDF: ", ""+itemValue);
+                                }
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

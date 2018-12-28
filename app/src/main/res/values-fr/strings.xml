@@ -38,6 +38,7 @@
     <string name="eliminar_ultimo">Annuler</string>
     <string name="reiniciar">Réinitialiser</string>
     <string name="buscar">Search</string>
+    <string name="eliminar">Delete</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Quantité totale: </string>
