@@ -18,9 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PacienteActivity" />
-        <activity android:name=".activities.CalculoActivity" />
+        <activity android:name=".activities.CalculoActivity" android:configChanges="orientation|keyboardHidden" />
         <activity android:name=".activities.AjusteActivity" />
-        <activity android:name=".activities.HistorialActivity"></activity>
+        <activity android:name=".activities.HistorialActivity" android:configChanges="orientation|keyboardHidden"></activity>
     </application>
 
 </manifest>

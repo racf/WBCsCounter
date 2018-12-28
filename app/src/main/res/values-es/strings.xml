@@ -37,6 +37,7 @@
     <string name="exportar">Exportar</string>
     <string name="eliminar_ultimo">Deshacer</string>
     <string name="reiniciar">Reiniciar</string>
+    <string name="buscar">Buscar</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Cantidad total: </string>

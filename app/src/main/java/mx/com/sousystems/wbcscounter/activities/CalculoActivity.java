@@ -1,6 +1,7 @@
 package mx.com.sousystems.wbcscounter.activities;
 
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     Integer cantidadtTotalCelula;
     int cantidadWbc;
     CharSequence[] values = {" Excel "," PDF "};
+    int itemValue = 0;
     ArrayList<MuestraDetalle> muestraDetalleArrayList;
     AlertDialog alertDialog1;
 
@@ -68,20 +70,19 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         pacienteController = new PacienteController(this);
         listaPacienteAux = new ArrayList<>();
         muestra = new Muestra();
-        cantidadtTotalCelula = 100;
         cantidadWbc = 0;
-        cargarComponente();
-        agregarDatosSpinner();
-        cargarHeaderTabla();
-
         //Obtenemos el parametro de la vista principal
-
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             muestraDetalleArrayList = (ArrayList<MuestraDetalle>) extras.get("muestraDetalle");
+            cantidadtTotalCelula = (Integer) extras.get("cantidadTotal");
         }else{
             muestraDetalleArrayList = new ArrayList<>();
+            cantidadtTotalCelula = 0;
         }
+        cargarComponente();
+        agregarDatosSpinner();
+        cargarHeaderTabla();
 
         celulaController = new CelulaController(this);
 
@@ -208,6 +209,11 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnCalcular:
@@ -235,7 +241,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                 }
                 List<MuestraDetalle> obtenerTodasMuestraDetalle = muestraDetalleController.obtenerTodasMuestraDetalle();
                 for (int k=0; k <obtenerTodasMuestraDetalle.size(); k++){
-                    Log.i("MUESTRA_DETALLE: ", obtenerTodasMuestraDetalle.get(k).getId()+" MuestraId: "+obtenerTodasMuestraDetalle.get(k).getMuestraId()+" CelulaId: "+obtenerTodasMuestraDetalle.get(k).getCelulaId()+" Estatus: "+obtenerTodasMuestraDetalle.get(k).getEstatus());
+                    Log.i("MUESTRA_DETALLE: ", obtenerTodasMuestraDetalle.get(k).getId()+" MuestraId: "+obtenerTodasMuestraDetalle.get(k).getMuestraId()+" CelulaId: "+obtenerTodasMuestraDetalle.get(k).getCelulaId()+" Cantidad: "+obtenerTodasMuestraDetalle.get(k).getCantidad());
 
                 }
                 break;
@@ -257,15 +263,15 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             Toast.makeText(this, R.string.mensaje_error, Toast.LENGTH_SHORT).show();
         }
     }
-
     private void alertaExportar(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage(R.string.mensaje_alerta_titulo)
-                .setIcon(R.drawable.button_background_exportar)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.mensaje_alerta_titulo)
+                .setIcon(R.mipmap.ic_logo_foreground)
                 .setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
-                        //
+                        itemValue = item;
+                        Log.i("ITEM: ", ""+item);
                     }
                 })
                 .setNegativeButton(R.string.cancelar,
@@ -278,11 +284,16 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                 .setPositiveButton(R.string.aceptar,
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id){
-                            //
-
+                                //Generar el archivo----
+                                if(itemValue == 0){//Gerar el archivo en excel
+                                    Log.i("ITEM EXCEL: ", ""+itemValue);
+                                }else{//Generar el archcivo en PDF
+                                    Log.i("ITEM PDF: ", ""+itemValue);
+                                }
                             }
                         });
-        AlertDialog alert = alertDialogBuilder.create();
+
+        AlertDialog alert = builder.create();
         alert.show();
     }
 }

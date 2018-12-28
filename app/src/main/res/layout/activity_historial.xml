@@ -20,27 +20,50 @@
             android:layout_marginTop="8dp"
             />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Date Picker Widget"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="YYYY-MM-dd"
+                android:id="@+id/etFechaIni"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnFechaIni"
+                android:background="@color/transparent"
+                android:src="@android:drawable/ic_menu_my_calendar"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="YYYY-MM-dd"
+                android:id="@+id/etFechaFin"
+                />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnFechaFin"
+                android:background="@color/transparent"
+                android:src="@android:drawable/ic_menu_my_calendar"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:id="@+id/btnBuscar"
+            android:text="@string/buscar"
+            style="@style/ButtonPrimary"
+            android:drawableStart="@drawable/ic_search_white"
+            android:drawableLeft="@drawable/ic_search_white"/>
 
     </LinearLayout>
 

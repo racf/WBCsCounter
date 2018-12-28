@@ -14,6 +14,8 @@
     <string name="mensaje_campo_obligatorio">Champs obligatoires!</string>
     <string name="mensaje_error">Erreur à l\'enregistrement!</string>
     <string name="mensaje_seleccione_paciente">--Choisir patient--</string>
+    <string name="mensaje_campo_obligatorio_calculo">Required field for calculation ...!</string>
+    <string name="mensaje_alerta_titulo">Export</string>
 
     <string name="campo_obligatorio">*</string>
 
@@ -35,6 +37,7 @@
     <string name="exportar">Exporter</string>
     <string name="eliminar_ultimo">Annuler</string>
     <string name="reiniciar">Réinitialiser</string>
+    <string name="buscar">Search</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Quantité totale: </string>
