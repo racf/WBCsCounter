@@ -48,10 +48,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="@dimen/margin_padding_8"
                 android:drawableStart="@drawable/baseline_send_white_18"
                 android:drawableLeft="@drawable/baseline_send_white_18"
-                android:text="@string/resultado"
-                android:layout_marginTop="@dimen/margin_padding_8"/>
+                android:text="@string/resultado" />
 
             <View
                 android:layout_width="match_parent"
@@ -64,8 +64,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnEliminarUltimo"
@@ -74,19 +74,18 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/baseline_undo_black_18"
                     android:drawableLeft="@drawable/baseline_undo_black_18"
-                    android:text="@string/eliminar_ultimo"
-                    />
+                    android:text="@string/eliminar_ultimo" />
 
                 <Button
                     android:id="@+id/btnReiniciar"
                     style="@style/ButtonDanger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_padding_8"
+                    android:layout_marginLeft="@dimen/margin_padding_8"
                     android:drawableStart="@drawable/baseline_delete_forever_white_18"
                     android:drawableLeft="@drawable/baseline_delete_forever_white_18"
-                    android:text="@string/reiniciar"
-                    android:layout_marginStart="@dimen/margin_padding_8"
-                    android:layout_marginLeft="@dimen/margin_padding_8"/>
+                    android:text="@string/reiniciar" />
             </LinearLayout>
 
             <View

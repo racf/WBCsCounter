@@ -8,5 +8,7 @@
     <dimen name="subtitulo_4">12sp</dimen>
     <dimen name="cantidad">30sp</dimen>
     <dimen name="margin_padding_16">16dp</dimen>
+    <dimen name="margin_padding_12">12dp</dimen>
     <dimen name="margin_padding_8">8dp</dimen>
+    <dimen name="margin_padding_6">6dp</dimen>
 </resources>

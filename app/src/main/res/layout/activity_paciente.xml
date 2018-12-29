@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PacienteActivity"
-    >
+    tools:context=".activities.PacienteActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:padding="@dimen/margin_padding_16">
 
         <TextView
             android:layout_width="match_parent"
@@ -25,41 +24,46 @@
 
         <EditText
             android:id="@+id/etNombre"
-            android:focusable="true"
-            style="@style/EditTextStyleOne"
+            style="@style/Input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:focusable="true"
             android:inputType="textPersonName" />
 
         <EditText
-        android:id="@+id/etPrimerApellido"
-        style="@style/EditTextStyleOne"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:inputType="textPersonName" />
+            android:id="@+id/etPrimerApellido"
+            style="@style/Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_8"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/etSegundoApellido"
-            style="@style/EditTextStyleOne"
+            style="@style/Input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/margin_padding_8"
             android:hint="@string/segundo_apellido"
             android:inputType="textPersonName" />
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        <RadioGroup
             android:id="@+id/radioGroupSexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_8"
+
             android:orientation="vertical">
-            <RadioButton android:id="@+id/radioFemenino"
-                android:checked="true"
+
+            <RadioButton
+                android:id="@+id/radioFemenino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="@string/sexo_femenino" />
-            <RadioButton android:id="@+id/radioMasculino"
+
+            <RadioButton
+                android:id="@+id/radioMasculino"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sexo_masculino" />
@@ -67,27 +71,30 @@
 
         <EditText
             android:id="@+id/etTelefono"
-            style="@style/EditTextStyleOne"
+            style="@style/Input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/margin_padding_8"
             android:hint="@string/telefono"
             android:inputType="phone" />
+
+
         <Button
             android:id="@+id/btnCrearPaciente"
+            style="@style/ButtonPrimary"
             android:layout_width="match_parent"
-            style="@style/ButtonStyleAceptar"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/aceptar"/>
+            android:layout_marginTop="@dimen/margin_padding_16"
+            android:text="@string/aceptar" />
 
         <Button
             android:id="@+id/btnCancelarPaciente"
+            style="@style/ButtonSecondary"
             android:layout_width="match_parent"
-            style="@style/ButtonStyleCancelar"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/cancelar"/>
+            android:layout_marginTop="@dimen/margin_padding_8"
+            android:text="@string/cancelar" />
+
 
     </LinearLayout>
 </ScrollView>
