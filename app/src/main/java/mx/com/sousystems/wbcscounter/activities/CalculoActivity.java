@@ -70,6 +70,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         pacienteController = new PacienteController(this);
         listaPacienteAux = new ArrayList<>();
         muestra = new Muestra();
+        muestra.setPacienteId(1);
         cantidadWbc = 0;
         //Obtenemos el parametro de la vista principal
         Bundle extras = getIntent().getExtras();
@@ -162,8 +163,10 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         listaNombre.add(this.getString(R.string.mensaje_seleccione_paciente));
         listaPacienteAux.add(null);
         for (int i = 0; i < listaPaciente.size(); i++){
-            listaNombre.add(listaPaciente.get(i).getNombre());
-            listaPacienteAux.add(listaPaciente.get(i));
+            if(!listaPaciente.get(i).getNombre().equals("default")){
+                listaNombre.add(listaPaciente.get(i).getNombre());
+                listaPacienteAux.add(listaPaciente.get(i));
+            }
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, listaNombre);
@@ -194,7 +197,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position == 0){
-            muestra.setPacienteId(0);
+            muestra.setPacienteId(1);
         }else{
             muestra.setPacienteId(listaPacienteAux.get(position).getId());
             Toast.makeText(getApplicationContext(), listaPacienteAux.get(position).getId()+" "+listaPacienteAux.get(position).getNombre(), Toast.LENGTH_LONG).show();

@@ -19,6 +19,10 @@ public class MuestraController {
         return  muestraRepository.crearMuestra(muestra);
     }
 
+    public List<Muestra> obtenerMuestras(Integer pacienteId, String fechaIni, String fechaFin) {
+        return muestraRepository.obtenerMuestras(pacienteId, fechaIni, fechaFin);
+    }
+
     public List<Muestra> obtenerTodasMuestras() {
         return muestraRepository.obtenerTodasMuestras();
     }

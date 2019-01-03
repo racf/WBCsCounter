@@ -11,5 +11,4 @@ public interface MuestraRepository {
     public List<Muestra> obtenerMuestras(Integer pacienteId, String fechaIni, String fechaFin);
     public List<Muestra> obtenerTodasMuestras();
     public Muestra obtenerMuestraPorId(String id);
-    public Muestra obtenerUltimaMuestra();
 }

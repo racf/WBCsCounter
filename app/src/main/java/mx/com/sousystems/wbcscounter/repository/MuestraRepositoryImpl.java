@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.sousystems.wbcscounter.config.DbConfigHelper;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
+import mx.com.sousystems.wbcscounter.domain.Paciente;
 import mx.com.sousystems.wbcscounter.util.ConstanteTabla;
 
 public class MuestraRepositoryImpl implements MuestraRepository {
@@ -54,7 +56,55 @@ public class MuestraRepositoryImpl implements MuestraRepository {
 
     @Override
     public List<Muestra> obtenerMuestras(Integer pacienteId, String fechaIni, String fechaFin) {
-        return null;
+        List<Muestra> lista = new ArrayList<>();
+        String query = ConstanteTabla.SELECT.concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ID).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PACIENTE_ID).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.CANTIDAD_INPUT).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.FECHA).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.TOTAL_WBC_SNRBC).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.TOTAL_WBC_CNRBC).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ESTATUS).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ID).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.NOMBRE).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PRIMER_APELLIDO).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.SEGUNDO_APELLIDO).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.SEXO).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.TELEFONO)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.FROM).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.INNER).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.JOIN).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.ON).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PACIENTE_ID).concat(ConstanteTabla.IGUAL).concat(ConstanteTabla.PACIENTE).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ID)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.WHERE).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ESTATUS).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.IGUAL).concat(ConstanteTabla.ESPACIO)+ConstanteTabla.ESTADO_1;
+        if(pacienteId == 1){
+            query += ConstanteTabla.ESPACIO.concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.FECHA).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.BETWEEN).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaIni).concat(ConstanteTabla.COMILLA_SIMPLE).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaFin).concat(ConstanteTabla.COMILLA_SIMPLE);
+        }else{
+            query += ConstanteTabla.ESPACIO.concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PACIENTE_ID).concat(ConstanteTabla.IGUAL).concat(""+pacienteId+"").concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.FECHA).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.BETWEEN).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaIni).concat(ConstanteTabla.COMILLA_SIMPLE).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaFin).concat(ConstanteTabla.COMILLA_SIMPLE);
+        }
+        Log.i("QUERY: ", ""+query);
+        SQLiteDatabase db = dbConfigHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Muestra muestra = new Muestra();
+                muestra.setId(cursor.getInt(0));
+                muestra.setPacienteId(cursor.getInt(1));
+                muestra.setCantidadInput(cursor.getInt(2));
+                muestra.setFecha(cursor.getString(3));
+                muestra.setTotalWbcSnrbc(cursor.getDouble(4));
+                muestra.setTotalWbcCnrbc(cursor.getDouble(5));
+                muestra.setEstatus(cursor.getInt(6));
+
+                Paciente paciente = new Paciente();
+                paciente.setId(cursor.getInt(7));
+                paciente.setNombre(cursor.getString(8));
+                paciente.setPrimerApellido(cursor.getString(9));
+                paciente.setSegundoApellido(cursor.getString(10));
+                paciente.setSexo(cursor.getString(11));
+                paciente.setTelefono(cursor.getString(12));
+                muestra.setPaciente(paciente);
+                lista.add(muestra);
+            }while (cursor.moveToNext());
+        }
+        db.close();
+        return lista;
     }
 
     @Override
@@ -105,8 +155,4 @@ public class MuestraRepositoryImpl implements MuestraRepository {
         return null;
     }
 
-    @Override
-    public Muestra obtenerUltimaMuestra() {
-        return null;
-    }
 }

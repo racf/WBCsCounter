@@ -67,6 +67,10 @@ public class ConstanteTabla implements BaseColumns {
     public static final String PRIMARY_KEY = "PRIMARY KEY";
     public static final String AUTOINCREMENT = "AUTOINCREMENT";
     public static final String NOT_NULL = "NOT NULL";
+    public static final String INNER  = "INNER";
+    public static final String JOIN = "JOIN";
+    public static final String ON = "ON";
+    public static final String BETWEEN = "BETWEEN";
 
     public static final int ESTADO_1 = 1;
     public static final int ESTADO_0 = 0;

@@ -7,3 +7,4 @@ INSERT INTO celula (id, nombre, nombre_abrev, descripcion, estatus) VALUES ('LYM
 INSERT INTO celula (id, nombre, nombre_abrev, descripcion, estatus) VALUES ('NRBC', 'Nucleated red blood cells', '', '', 1);
 INSERT INTO celula (id, nombre, nombre_abrev, descripcion, estatus) VALUES ('OTHER1', 'Other 1', '', '', 1);
 INSERT INTO celula (id, nombre, nombre_abrev, descripcion, estatus) VALUES ('OTHER2', 'Other 2', '', '', 1);
+INSERT INTO paciente (nombre, primer_apellido, segundo_apellido, sexo, telefono, estatus) VALUES ('default', 'default', 'default', 'default', 'default', 1);
