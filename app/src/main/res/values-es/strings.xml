@@ -16,6 +16,7 @@
     <string name="mensaje_seleccione_paciente">--Seleccione paciente--</string>
     <string name="mensaje_campo_obligatorio_calculo">Campo obligatorio para el cálculo ...!</string>
     <string name="mensaje_alerta_titulo">Exportar</string>
+    <string name="mensaje_sin_historial">Sin historial</string>
 
     <string name="campo_obligatorio">*</string>
 

@@ -87,6 +87,12 @@
             android:drawableStart="@drawable/ic_search_white"
             android:drawableLeft="@drawable/ic_search_white"/>
 
+        <ListView
+            android:id="@+id/listViewHeaderHistorialTabla"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"></ListView>
+
         <View
             android:layout_height="1dip"
             android:layout_marginTop="8dp"

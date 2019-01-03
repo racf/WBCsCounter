@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,11 +28,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.adapters.HeaderHistorialAdapter;
 import mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView;
 import mx.com.sousystems.wbcscounter.controller.MuestraController;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
+import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
 
 import static mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView.*;
 
@@ -48,6 +51,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     private static final int OPCION_1 = 1;
     private static final int OPCION_2 = 2;
     Integer pacienteId = 1;
+    ListView listViewHeaderTabla;
     //Recicler View
     List<Muestra> listaMuestra;
     RecyclerView recyclerView;
@@ -67,6 +71,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         listaPacienteAux = new ArrayList<>();
         agregarDatosSpinner();
         obtenerFechaDefault();
+        cargarHeaderTabla();
     }
 
     private void cargarComponente(){
@@ -84,58 +89,74 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         btnBuscar.setOnClickListener(this);
         recyclerView = findViewById(R.id.recyclerView);
     }
+    //Cargar el Header de la tabla
+    private void cargarHeaderTabla(){
+        HeaderTablaDTO headerTablaDTO = new HeaderTablaDTO();
+        headerTablaDTO.setFecha(this.getString(R.string.tabla_fecha));
+        headerTablaDTO.setNombre(this.getString(R.string.tabla_nombre));
+        List<HeaderTablaDTO> listaHeaderTabla = new ArrayList<>();
+        listaHeaderTabla.add(headerTablaDTO);
+        listViewHeaderTabla = findViewById(R.id.listViewHeaderHistorialTabla);
+        HeaderHistorialAdapter headerHistorialAdapter = new HeaderHistorialAdapter(this, R.id.listViewHeaderTabla, listaHeaderTabla);
+        headerHistorialAdapter.notifyDataSetChanged();
+        listViewHeaderTabla.setAdapter(headerHistorialAdapter);
+    }
 
     private void cargarDatosReciclerView(){
         //Recicler View
         this.listaMuestra  = buscar();
 
-        //Para un liner layout
-        layoutManager = new LinearLayoutManager(this);
-        //para un GridLayout
-        //layoutManager = new GridLayoutManager(this, 2);
-        //Renderizara dependiendo el formato de la vista que se tenga.
-        //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+        if(!this.listaMuestra.isEmpty()) {
+            //Para un liner layout
+            layoutManager = new LinearLayoutManager(this);
+            //para un GridLayout
+            //layoutManager = new GridLayoutManager(this, 2);
+            //Renderizara dependiendo el formato de la vista que se tenga.
+            //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
 
-        adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
-            @Override
-            public void onItemClick(Muestra muestra, int position) {
-                //Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
-            }
+            adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
+                @Override
+                public void onItemClick(Muestra muestra, int position) {
+                    //Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void btnOnClick(View v, Muestra muestra, int position) {
-                ImageButton btnMore = (ImageButton) v.findViewById(R.id.btnOpciones);
-                //creating a popup menu
-                PopupMenu popup = new PopupMenu(v.getContext(), btnMore);
-                //inflating menu from xml resource
-                popup.inflate(R.menu.menu_recicler_view);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_exportar:
-                                alertaExportar();
-                                return true;
-                            case R.id.menu_eliminar:
-                                return true;
-                            default:
-                                return false;
+                @Override
+                public void btnOnClick(View v, Muestra muestra, int position) {
+                    ImageButton btnMore = (ImageButton) v.findViewById(R.id.btnOpciones);
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(v.getContext(), btnMore);
+                    //inflating menu from xml resource
+                    popup.inflate(R.menu.menu_recicler_view);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menu_exportar:
+                                    alertaExportar();
+                                    return true;
+                                case R.id.menu_eliminar:
+                                    return true;
+                                default:
+                                    return false;
+                            }
                         }
-                    }
-                });
-                //displaying the popup
-                popup.show();
-            }
-        });
+                    });
+                    //displaying the popup
+                    popup.show();
+                }
+            });
 
-        //Generar animaciones para el RecyclerView
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+            //Generar animaciones para el RecyclerView
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(itemDecoration);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+        }else{
+            Toast.makeText(this, this.getString(R.string.mensaje_sin_historial), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void agregarDatosSpinner(){
@@ -204,12 +225,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     public List<Muestra> buscar(){
         String fechaIni = String.valueOf(tvFechaIni.getText());
         String fechaFin = String.valueOf(tvFechaFin.getText());
-        List<Muestra> lista = muestraController.obtenerMuestras(pacienteId, fechaIni, fechaFin);
-        for(int i=0; i < lista.size(); i++){
-            Log.i("DATO--- ", ""+lista.get(i).getId()+" "+lista.get(i).getFecha()+" "+lista.get(i).getPaciente().getNombre());
-        }
-
-        return lista;
+        return muestraController.obtenerMuestras(pacienteId, fechaIni, fechaFin);
     }
 
     private void obtenerFecha(final int opcion){

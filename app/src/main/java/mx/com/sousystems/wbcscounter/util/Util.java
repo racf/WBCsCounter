@@ -2,13 +2,16 @@ package mx.com.sousystems.wbcscounter.util;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Util {
 
@@ -36,6 +39,45 @@ public class Util {
             fecha = simpleDateFormat.format(calendar.getTime());
         }
         return fecha;
+    }
+
+    public static boolean compareDate(String fechaIni, String fechaFin){
+        boolean band;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate localDateIni = LocalDate.parse(fechaIni);
+            LocalDate localDateFinal = LocalDate.parse(fechaFin);
+            if(localDateIni.equals(localDateFinal)){
+                band = true;
+            }else if(localDateFinal.isAfter(localDateIni)){
+                band = true;
+            }else{
+                band = false;
+            }
+        }else{
+           band = validateFecha(fechaIni, fechaFin);
+        }
+        return band;
+    }
+
+    private static boolean validateFecha(String fechaIni, String fechaFin){
+        boolean band;
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT_PATTERN);
+        try {
+            Date fechaInicial = format.parse(fechaIni);
+            Date fechaFinal = format.parse(fechaFin);
+            if(fechaInicial.equals(fechaFinal)){
+                band = true;
+            }else if(fechaFinal.after(fechaInicial)){
+                band = true;
+            }else{
+                band = false;
+            }
+        } catch (ParseException e) {
+            band = false;
+            Log.e("ERRO: ", e.getMessage());
+        }
+
+        return band;
     }
 
     public static double numeroDosDecimales(double numero) {
@@ -93,5 +135,11 @@ public class Util {
 
         // Return the string value
         return context.getString(resourceId);
+    }
+
+    public static void main (String srg[]){
+        String fechaIni="2018-01-01";
+        String fechaFin="2018-01-01";
+        System.out.println(validateFecha(fechaIni, fechaFin));
     }
 }

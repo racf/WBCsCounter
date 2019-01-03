@@ -5,6 +5,8 @@ public class HeaderTablaDTO {
     private String cantidad;
     private String porcentaje;
     private String unidadMedida;
+    private String fecha;
+    private String nombre;
 
     public String getTipo() {
         return tipo;
@@ -36,6 +38,22 @@ public class HeaderTablaDTO {
 
     public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
