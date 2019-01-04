@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PacienteActivity" />
-        <activity android:name=".activities.CalculoActivity" android:configChanges="orientation|keyboardHidden" />
-        <activity android:name=".activities.AjusteActivity" />
-        <activity android:name=".activities.HistorialActivity" android:configChanges="orientation|keyboardHidden"></activity>
+        <activity android:name=".activities.PacienteActivity" android:label="@string/menu_patient"/>
+        <activity android:name=".activities.CalculoActivity" android:label="@string/resultado" android:configChanges="orientation|keyboardHidden" />
+        <activity android:name=".activities.AjusteActivity" android:label="@string/menu_setting"/>
+        <activity android:name=".activities.HistorialActivity" android:label="@string/menu_record" android:configChanges="orientation|keyboardHidden"></activity>
     </application>
 
 </manifest>

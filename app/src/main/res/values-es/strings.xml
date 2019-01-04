@@ -16,7 +16,11 @@
     <string name="mensaje_seleccione_paciente">--Seleccione paciente--</string>
     <string name="mensaje_campo_obligatorio_calculo">Campo obligatorio para el cálculo ...!</string>
     <string name="mensaje_alerta_titulo">Exportar</string>
-    <string name="mensaje_sin_historial">Sin historial</string>
+    <string name="mensaje_sin_historial">Sin historial ...!</string>
+    <string name="mensaje_fechas">Verifique el rango de fechas de búsqueda ...!</string>
+    <string name="mensaje_eliminar_registro">¿Esta seguro de eliminar el registro?</string>
+    <string name="mensaje_registro_eliminado_exitoso">Registro eliminado exitosamente</string>
+    <string name="mensaje_registro_eliminado_error">Error al eliminar el registro</string>
 
     <string name="campo_obligatorio">*</string>
 

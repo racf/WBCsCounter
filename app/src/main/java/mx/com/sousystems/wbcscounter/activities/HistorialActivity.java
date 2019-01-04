@@ -35,6 +35,7 @@ import mx.com.sousystems.wbcscounter.controller.PacienteController;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
+import mx.com.sousystems.wbcscounter.util.Util;
 
 import static mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView.*;
 
@@ -103,59 +104,59 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     }
 
     private void cargarDatosReciclerView(){
-        //Recicler View
-        this.listaMuestra  = buscar();
+        if(Util.compareDate(String.valueOf(tvFechaIni.getText()), String.valueOf(tvFechaFin.getText()))) {
+            //Recicler View
+            this.listaMuestra = buscar();
+            if (!this.listaMuestra.isEmpty()) {
+                //Para un liner layout
+                layoutManager = new LinearLayoutManager(this);
+                adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Muestra muestra, int position) {
+                        //
+                    }
 
-        if(!this.listaMuestra.isEmpty()) {
-            //Para un liner layout
-            layoutManager = new LinearLayoutManager(this);
-            //para un GridLayout
-            //layoutManager = new GridLayoutManager(this, 2);
-            //Renderizara dependiendo el formato de la vista que se tenga.
-            //layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
-
-            adapter = new TablaHistorialReciclerView(listaMuestra, R.layout.recicler_view_historial, new ViewHolder.OnItemClickListener() {
-                @Override
-                public void onItemClick(Muestra muestra, int position) {
-                    //Toast.makeText(HistorialActivity.this, muestra.getPaciente().getNombre()+" - "+position, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void btnOnClick(View v, Muestra muestra, int position) {
-                    ImageButton btnMore = (ImageButton) v.findViewById(R.id.btnOpciones);
-                    //creating a popup menu
-                    PopupMenu popup = new PopupMenu(v.getContext(), btnMore);
-                    //inflating menu from xml resource
-                    popup.inflate(R.menu.menu_recicler_view);
-                    //adding click listener
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.menu_exportar:
-                                    alertaExportar();
-                                    return true;
-                                case R.id.menu_eliminar:
-                                    return true;
-                                default:
-                                    return false;
+                    @Override
+                    public void btnOnClick(View v, final Muestra muestra, int position) {
+                        ImageButton btnMore = (ImageButton) v.findViewById(R.id.btnOpciones);
+                        //creating a popup menu
+                        PopupMenu popup = new PopupMenu(v.getContext(), btnMore);
+                        //inflating menu from xml resource
+                        popup.inflate(R.menu.menu_recicler_view);
+                        //adding click listener
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.menu_exportar:
+                                        alertaExportar();
+                                        return true;
+                                    case R.id.menu_eliminar:
+                                        eliminarRegistro(muestra);
+                                        return true;
+                                    default:
+                                        return false;
+                                }
                             }
-                        }
-                    });
-                    //displaying the popup
-                    popup.show();
-                }
-            });
+                        });
+                        //displaying the popup
+                        popup.show();
+                    }
+                });
 
-            //Generar animaciones para el RecyclerView
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
+                //Generar animaciones para el RecyclerView
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-            RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-            recyclerView.addItemDecoration(itemDecoration);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
+                RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+                recyclerView.addItemDecoration(itemDecoration);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+            } else {
+                recyclerView.setAdapter(null);
+                Toast.makeText(this, this.getString(R.string.mensaje_sin_historial), Toast.LENGTH_SHORT).show();
+            }
         }else{
-            Toast.makeText(this, this.getString(R.string.mensaje_sin_historial), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.mensaje_fechas), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -180,6 +181,8 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public boolean onSupportNavigateUp(){
+        muestraController = null;
+        pacienteController = null;
         finish();
         return true;
     }
@@ -190,7 +193,6 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
             pacienteId = 1;
         }else{
             pacienteId = listaPacienteAux.get(position).getId();
-            Toast.makeText(getApplicationContext(), listaPacienteAux.get(position).getId()+" "+listaPacienteAux.get(position).getNombre(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -317,5 +319,39 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void eliminarRegistro(final Muestra muestra){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String fecha = muestra.getFecha();
+        String nombre = muestra.getPaciente().getNombre()+" "+muestra.getPaciente().getPrimerApellido();
+        builder.setTitle(R.string.eliminar)
+                .setIcon(R.drawable.ic_delete_red80)
+                .setMessage("¿Esta seguro de eliminar el registro?\n"+fecha+"\n"+nombre+"")
+                .setNegativeButton(R.string.cancelar,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //ACTIONS IF THE ANSWER IS NO
+                            }
+                        })
+                .setPositiveButton(R.string.aceptar,
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                               eliminar(muestra);
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void eliminar(Muestra muestra){
+        if(muestraController.eliminarMuestraTransaccion(muestra)){
+            cargarDatosReciclerView();
+            Toast.makeText(this, this.getString(R.string.mensaje_registro_eliminado_exitoso), Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, this.getString(R.string.mensaje_registro_eliminado_error), Toast.LENGTH_SHORT).show();
+        }
     }
 }

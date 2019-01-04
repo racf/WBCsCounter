@@ -2,6 +2,8 @@ package mx.com.sousystems.wbcscounter.util;
 
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.math.BigDecimal;
@@ -12,10 +14,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Util {
 
-    private static final String DATE_FORMAT_PATTERN = "YYYY-MM-dd";
+    private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
     private static final Integer PORCENTAJE = 100;
 
     private Util() {
@@ -65,6 +68,8 @@ public class Util {
         try {
             Date fechaInicial = format.parse(fechaIni);
             Date fechaFinal = format.parse(fechaFin);
+            System.out.println(fechaInicial.compareTo(fechaFinal));
+            System.out.println(fechaFinal.compareTo(fechaFinal));
             if(fechaInicial.equals(fechaFinal)){
                 band = true;
             }else if(fechaFinal.after(fechaInicial)){
@@ -135,11 +140,5 @@ public class Util {
 
         // Return the string value
         return context.getString(resourceId);
-    }
-
-    public static void main (String srg[]){
-        String fechaIni="2018-01-01";
-        String fechaFin="2018-01-01";
-        System.out.println(validateFecha(fechaIni, fechaFin));
     }
 }

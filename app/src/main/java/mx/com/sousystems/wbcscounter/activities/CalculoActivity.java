@@ -200,7 +200,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             muestra.setPacienteId(1);
         }else{
             muestra.setPacienteId(listaPacienteAux.get(position).getId());
-            Toast.makeText(getApplicationContext(), listaPacienteAux.get(position).getId()+" "+listaPacienteAux.get(position).getNombre(), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -255,11 +254,15 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     private void guardarInformacion(){
         if(TextUtils.isEmpty(etCantidad.getText().toString().trim())){
             muestra.setCantidadInput(0);
+        }else{
+            muestra.setCantidadInput(Integer.parseInt(etCantidad.getText().toString().trim()));
         }
-        muestra.setCantidadInput(Integer.parseInt(etCantidad.getText().toString().trim()));
+
         muestra.setFecha(Util.fecha());
         MuestraDetalleController muestraDetalleController = new MuestraDetalleController(this);
         if(muestraDetalleController.crearMuestraDetalleTransaccion(muestra, muestraDetalleArrayList) > 0){
+            btnGuardar.setBackgroundColor(getResources().getColor(R.color.transparent));
+            btnGuardar.setEnabled(false);
             Toast.makeText(this, R.string.mensaje_exito_guardado, Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, R.string.mensaje_error, Toast.LENGTH_SHORT).show();

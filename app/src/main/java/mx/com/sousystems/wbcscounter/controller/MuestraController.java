@@ -26,4 +26,8 @@ public class MuestraController {
     public List<Muestra> obtenerTodasMuestras() {
         return muestraRepository.obtenerTodasMuestras();
     }
+
+    public boolean eliminarMuestraTransaccion(Muestra muestra) {
+        return muestraRepository.eliminarMuestraTransaccion(muestra);
+    }
 }

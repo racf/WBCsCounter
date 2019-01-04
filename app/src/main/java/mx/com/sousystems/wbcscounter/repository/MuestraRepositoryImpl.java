@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +54,44 @@ public class MuestraRepositoryImpl implements MuestraRepository {
     }
 
     @Override
+    public boolean eliminarMuestraTransaccion(Muestra muestra) {
+        boolean bandGral = false;
+        boolean bandMuestra = false;
+        boolean bandMuestraDetalle = false;
+        if(muestra != null){
+            SQLiteDatabase db = dbConfigHelper.getWritableDatabase();
+            db.beginTransaction();
+            // Define 'where' part of query.
+            String selectionMuestra = ConstanteTabla.ID + " = ?";
+            // Specify arguments in placeholder order.
+            String[] selectionMuestraArgs = {String.valueOf(muestra.getId())};
+            // Issue SQL statement.
+            long countMuestra = db.delete(ConstanteTabla.MUESTRA, selectionMuestra, selectionMuestraArgs);
+            if(countMuestra >= 1){
+                bandMuestra = true;
+            }else{
+                bandMuestra = false;
+            }
+
+            String selectionMuestraDetalle = ConstanteTabla.MUESTRA_ID + " = ?";
+            String[] selectionMuestraDetalleArgs = {String.valueOf(muestra.getId())};
+            long countMuestraDetalle = db.delete(ConstanteTabla.MUESTRA_DETALLE, selectionMuestraDetalle, selectionMuestraDetalleArgs);
+            if(countMuestraDetalle >= 1){
+                bandMuestraDetalle = true;
+            }else{
+                bandMuestraDetalle = false;
+            }
+            if(bandMuestra && bandMuestraDetalle){
+                bandGral = true;
+            }
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            db.close();
+        }
+        return bandGral;
+    }
+
+    @Override
     public List<Muestra> obtenerMuestras(Integer pacienteId, String fechaIni, String fechaFin) {
         List<Muestra> lista = new ArrayList<>();
         String query = ConstanteTabla.SELECT.concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ID).concat(ConstanteTabla.COMA)
@@ -78,7 +115,6 @@ public class MuestraRepositoryImpl implements MuestraRepository {
         }else{
             query += ConstanteTabla.ESPACIO.concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PACIENTE_ID).concat(ConstanteTabla.IGUAL).concat(""+pacienteId+"").concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.FECHA).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.BETWEEN).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaIni).concat(ConstanteTabla.COMILLA_SIMPLE).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.AND).concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.COMILLA_SIMPLE).concat(fechaFin).concat(ConstanteTabla.COMILLA_SIMPLE);
         }
-        Log.i("QUERY: ", ""+query);
         SQLiteDatabase db = dbConfigHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
