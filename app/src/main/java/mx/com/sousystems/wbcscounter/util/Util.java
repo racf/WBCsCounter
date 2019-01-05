@@ -2,6 +2,7 @@ package mx.com.sousystems.wbcscounter.util;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -101,7 +102,12 @@ public class Util {
         return numeroDosDecimales(medida);
     }
 
-
+    public static int getDrawableResourceIDFromResourcesByName(Context context, String resourceName) {
+        String packageName = context.getPackageName();
+        int resourceId = context.getResources().getIdentifier(resourceName.toLowerCase(), "drawable", packageName);
+        //return context.getDrawable(resourceId);
+        return resourceId;
+    }
     public static String getStringFromResourcesByName(Context context, String resourceName) {
         /*
             getPackageName()

@@ -145,6 +145,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             LinearLayout.LayoutParams lpCelulaParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
             llCelulasRow.addView(rlCelula, lpCelulaParams);
             vistasAgregadas++;
+
+            int resId = Util.getDrawableResourceIDFromResourcesByName(this, celula.getId());
+            Log.d("WBCsCounter", "ResId: " + resId);
+            if (resId!=0) {
+                ivIconoCelula.setImageResource(resId);
+            }
             if (vistasAgregadas == 3) {
                 llCelulas.addView(llCelulasRow);
                 vistasAgregadas = 0;
