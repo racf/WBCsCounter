@@ -8,6 +8,9 @@ public class MuestraDetalle implements Serializable {
     private String celulaId;
     private int cantidad;
     private int estatus;
+    private Muestra muestra;
+    private Celula celula;
+
 
     public Integer getId() {
         return id;
@@ -47,6 +50,22 @@ public class MuestraDetalle implements Serializable {
 
     public void setEstatus(int estatus) {
         this.estatus = estatus;
+    }
+
+    public Muestra getMuestra() {
+        return muestra;
+    }
+
+    public void setMuestra(Muestra muestra) {
+        this.muestra = muestra;
+    }
+
+    public Celula getCelula() {
+        return celula;
+    }
+
+    public void setCelula(Celula celula) {
+        this.celula = celula;
     }
 
     @Override
