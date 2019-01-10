@@ -12,7 +12,7 @@
     <string name="mensaje_titulo_crear_paciente">Crear paciente</string>
     <string name="mensaje_exito_guardado">Guardado exitosamente ...!</string>
     <string name="mensaje_campo_obligatorio">Campos obligatorios ...!</string>
-    <string name="mensaje_error">Error al guardar ...!</string>
+    <string name="mensaje_error_guardar">Error al guardar ...!</string>
     <string name="mensaje_seleccione_paciente">--Seleccione paciente--</string>
     <string name="mensaje_campo_obligatorio_calculo">Campo obligatorio para el cálculo ...!</string>
     <string name="mensaje_alerta_titulo">Exportar</string>
@@ -21,6 +21,7 @@
     <string name="mensaje_eliminar_registro">¿Esta seguro de eliminar el registro?</string>
     <string name="mensaje_registro_eliminado_exitoso">Registro eliminado exitosamente</string>
     <string name="mensaje_registro_eliminado_error">Error al eliminar el registro</string>
+    <string name="mensaje_error_exportar">Error al exportar ...!</string>
 
     <string name="campo_obligatorio">*</string>
 
@@ -74,7 +75,20 @@
     <string name="tabla_total_wbc">Total WBC</string>
     <string name="include_nrbc">Incluir nRBC</string>
 
+
     <!--Settings-->
     <string name="seleccione_cantidad_alertar">--Seleccione cantidad de alerta--</string>
+
+    <!--Reporte-->
+    <string name="etiqueta_nombre">Nombre:</string>
+    <string name="etiqueta_fecha">Fecha:</string>
+    <string name="etiqueta_telefono">Teléfono:</string>
+    <string name="etiqueta_cantidad_total_wbc">Cantidad total de WBC:</string>
+    <string name="etiqueta_total_wbc">Total de WBC</string>
+    <string name="etiqueta_total_con_nrbc">Con nRBC</string>
+    <string name="etiqueta_total_sin_nrbc">Sin nRBC</string>
+    <string name="etiqueta_fecha_generacion">Fecha actual:</string>
+
+    <string name="mensaje_indefinido">Indefinido</string>
 
 </resources>

@@ -2,11 +2,10 @@ package mx.com.sousystems.wbcscounter.util;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
@@ -15,12 +14,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+
+import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
+import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
 
 public class Util {
 
     private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
     private static final Integer PORCENTAJE = 100;
+    private static final String WBCS = "wbcs";
 
     private Util() {
         throw new IllegalStateException("Util class");
@@ -69,8 +72,6 @@ public class Util {
         try {
             Date fechaInicial = format.parse(fechaIni);
             Date fechaFinal = format.parse(fechaFin);
-            System.out.println(fechaInicial.compareTo(fechaFinal));
-            System.out.println(fechaFinal.compareTo(fechaFinal));
             if(fechaInicial.equals(fechaFinal)){
                 band = true;
             }else if(fechaFinal.after(fechaInicial)){
@@ -105,7 +106,6 @@ public class Util {
     public static int getDrawableResourceIDFromResourcesByName(Context context, String resourceName) {
         String packageName = context.getPackageName();
         int resourceId = context.getResources().getIdentifier(resourceName.toLowerCase(), "drawable", packageName);
-        //return context.getDrawable(resourceId);
         return resourceId;
     }
     public static String getStringFromResourcesByName(Context context, String resourceName) {
@@ -146,5 +146,80 @@ public class Util {
 
         // Return the string value
         return context.getString(resourceId);
+    }
+
+    //FUNCIONES PARA LA GESTIÓN DE ARCHIVOS...
+
+    /**
+     * Checks if external storage is available for read and write
+     * @return un valor verdadero o falso.
+     */
+    public static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Checks if external storage is available to at least read
+     * @return un valor verdadero o falso.
+     */
+    public static boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @return verdadero si el directorio existe.
+     */
+    public static boolean directoryExists(){
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS;
+        File dir = new File(path);
+        if(dir.exists()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static boolean generarDirectorio(){
+        boolean band;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS;
+        File folder = new File(path);
+        if(!folder.exists()){
+            if(!folder.mkdir()){
+                band = false;
+            }else{
+                band = true;
+            }
+        }else{
+            band = true;
+        }
+        return band;
+    }
+
+    public static ReporteDTO cargarReporte(ReporteDTO reporteDTO, Context context, int cantidad){
+        ReporteEtiquetasDTO reporteEtiquetasDTO = new ReporteEtiquetasDTO();
+        reporteEtiquetasDTO.setEtiquetaNombre(context.getString(R.string.etiqueta_nombre));
+        reporteEtiquetasDTO.setEtiquetaFecha(context.getString(R.string.etiqueta_fecha));
+        reporteEtiquetasDTO.setEtiquetaTelefono(context.getString(R.string.etiqueta_telefono));
+        reporteEtiquetasDTO.setEtiquetaCantidadTotalWbc(context.getString(R.string.etiqueta_cantidad_total_wbc));
+        reporteEtiquetasDTO.setEtiquetaTotalWbc(context.getString(R.string.etiqueta_total_wbc));
+        reporteEtiquetasDTO.setEtiquetaTotalConNrbc(context.getString(R.string.etiqueta_total_con_nrbc));
+        reporteEtiquetasDTO.setEtiquetaTotalSinNrbc(context.getString(R.string.etiqueta_total_sin_nrbc));
+        reporteEtiquetasDTO.setEtiquetaFechaGeneracion(context.getString(R.string.etiqueta_fecha_generacion));
+        reporteEtiquetasDTO.setHeaderTipoWbc(context.getString(R.string.tabla_tipo));
+        reporteEtiquetasDTO.setHeaderNombreWbc(context.getString(R.string.tabla_nombre));
+        reporteEtiquetasDTO.setHeaderCantidad(context.getString(R.string.tabla_cantidad)+" "+cantidad);
+        reporteEtiquetasDTO.setHeaderPorcentaje(context.getString(R.string.tabla_porcentaje));
+        reporteEtiquetasDTO.setHeaderMedida(context.getString(R.string.tabla_medida));
+        reporteDTO.setReporteEtiquetasDTO(reporteEtiquetasDTO);
+        return reporteDTO;
     }
 }
