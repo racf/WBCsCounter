@@ -78,6 +78,7 @@
 
     <!--Settings-->
     <string name="seleccione_cantidad_alertar">--Choisir quantité d\'alerte--</string>
+    <string name="cantidad_alerta">Quantité d\'alerte</string>
 
     <!--Reporte-->
     <string name="etiqueta_nombre">Name:</string>
@@ -90,5 +91,8 @@
     <string name="etiqueta_fecha_generacion">Current date:</string>
 
     <string name="mensaje_indefinido">Undefined</string>
-
+    <string name="configuracion_botones">Configuration des boutons</string>
+    <string name="vibrar">Vibrer</string>
+    <string name="sonido">Son</string>
+    <string name="filtros">Filtres</string>
 </resources>

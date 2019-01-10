@@ -78,6 +78,7 @@
 
     <string name="include_nrbc">Include nRBC</string>
     <string name="seleccione_cantidad_alertar">--Select alert quantity--</string>
+    <string name="cantidad_alerta">Alert quantity</string>
 
 
     <!--Reporte-->
@@ -91,5 +92,9 @@
     <string name="etiqueta_fecha_generacion">Current date:</string>
 
     <string name="mensaje_indefinido">Undefined</string>
+    <string name="configuracion_botones">Button configuration</string>
+    <string name="vibrar">Vibrate</string>
+    <string name="sonido">Sound</string>
+    <string name="filtros">Filters</string>
 
 </resources>

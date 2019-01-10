@@ -75,9 +75,9 @@
     <string name="tabla_total_wbc">Total WBC</string>
     <string name="include_nrbc">Incluir nRBC</string>
 
-
     <!--Settings-->
     <string name="seleccione_cantidad_alertar">--Seleccione cantidad de alerta--</string>
+    <string name="cantidad_alerta">Cantidad de alerta</string>
 
     <!--Reporte-->
     <string name="etiqueta_nombre">Nombre:</string>
@@ -90,5 +90,8 @@
     <string name="etiqueta_fecha_generacion">Fecha actual:</string>
 
     <string name="mensaje_indefinido">Indefinido</string>
-
+    <string name="configuracion_botones">Configuración de botones</string>
+    <string name="vibrar">Vibrar</string>
+    <string name="sonido">Sonido</string>
+    <string name="filtros">Filtros</string>
 </resources>
