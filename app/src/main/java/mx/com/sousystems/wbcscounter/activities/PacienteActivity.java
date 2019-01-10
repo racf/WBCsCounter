@@ -88,7 +88,7 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
             if(pacienteController.crearPaciente(paciente)){
                 Toast.makeText(this, this.getString(R.string.mensaje_exito_guardado), Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(this, this.getString(R.string.mensaje_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getString(R.string.mensaje_error_guardar), Toast.LENGTH_SHORT).show();
             }
         }else {
             Toast.makeText(this, this.getString(R.string.mensaje_campo_obligatorio), Toast.LENGTH_SHORT).show();

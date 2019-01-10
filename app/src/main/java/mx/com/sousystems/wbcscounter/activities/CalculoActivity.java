@@ -1,5 +1,6 @@
 package mx.com.sousystems.wbcscounter.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +31,8 @@ import mx.com.sousystems.wbcscounter.controller.PacienteController;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
+import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
+import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
 import mx.com.sousystems.wbcscounter.dto.MuestraDTO;
 import mx.com.sousystems.wbcscounter.util.Util;
@@ -58,10 +61,12 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     CharSequence[] values = {" Excel "," PDF "};
     int itemValue = 0;
     ArrayList<MuestraDetalle> muestraDetalleArrayList;
-    AlertDialog alertDialog1;
 
     //Objetos para almacenar la informacion a la DB
     Muestra muestra;
+
+    //Reporte
+    ReporteDTO reporteDTO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +77,8 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         muestra = new Muestra();
         muestra.setPacienteId(1);
         cantidadWbc = 0;
+        //Reporte
+        reporteDTO = new ReporteDTO();
         //Obtenemos el parametro de la vista principal
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -116,6 +123,8 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         btnExportar.setOnClickListener(this);
     }
 
+
+
     private List<MuestraDTO> cargarDatosTabla(double cantidadWbc){
         List<MuestraDTO> listaMuestrasDTO = new ArrayList<>();
 
@@ -143,6 +152,8 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         double muestraTotalSinNrbc = muestraTotalConNrbc - muestraSinNrbc;
         muestra.setTotalWbcCnrbc(muestraTotalConNrbc);
         muestra.setTotalWbcSnrbc(muestraTotalSinNrbc);
+        reporteDTO.setTotalConNrbc(muestraTotalConNrbc);
+        reporteDTO.setTotalSinNrbc(muestraTotalSinNrbc);
         tvTotalConNrbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalConNrbc))+""+this.getString(R.string.tabla_medida));
         tvTotalSinNRbc.setText(String.valueOf(Util.numeroDosDecimales(muestraTotalSinNrbc))+""+this.getString(R.string.tabla_medida));
         return listaMuestrasDTO;
@@ -198,8 +209,12 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position == 0){
             muestra.setPacienteId(1);
+            reporteDTO.setNombre(this.getString(R.string.mensaje_indefinido));
+            reporteDTO.setTelefono(this.getString(R.string.mensaje_indefinido));
         }else{
             muestra.setPacienteId(listaPacienteAux.get(position).getId());
+            reporteDTO.setNombre(listaPacienteAux.get(position).getNombre()+" "+listaPacienteAux.get(position).getPrimerApellido());
+            reporteDTO.setTelefono(listaPacienteAux.get(position).getTelefono());
         }
 
     }
@@ -234,17 +249,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                 break;
             case R.id.btnExportar:
                 alertaExportar();
-                MuestraController muestraController = new MuestraController(this);
-                MuestraDetalleController muestraDetalleController = new MuestraDetalleController(this);
-                List<Muestra> obtenerTodasMuestras = muestraController.obtenerTodasMuestras();
-                for (int i=0; i <obtenerTodasMuestras.size(); i++){
-                    Log.i("MUESTRA: ", obtenerTodasMuestras.get(i).getId()+" Fecha"+obtenerTodasMuestras.get(i).getFecha());
-                }
-                List<MuestraDetalle> obtenerTodasMuestraDetalle = muestraDetalleController.obtenerTodasMuestraDetalle();
-                for (int k=0; k <obtenerTodasMuestraDetalle.size(); k++){
-                    Log.i("MUESTRA_DETALLE: ", obtenerTodasMuestraDetalle.get(k).getId()+" MuestraId: "+obtenerTodasMuestraDetalle.get(k).getMuestraId()+" CelulaId: "+obtenerTodasMuestraDetalle.get(k).getCelulaId()+" Cantidad: "+obtenerTodasMuestraDetalle.get(k).getCantidad());
-
-                }
                 break;
             default:
                 break;
@@ -265,7 +269,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             btnGuardar.setEnabled(false);
             Toast.makeText(this, R.string.mensaje_exito_guardado, Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, R.string.mensaje_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.mensaje_error_guardar, Toast.LENGTH_SHORT).show();
         }
     }
     private void alertaExportar(){
@@ -292,6 +296,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                                 //Generar el archivo----
                                 if(itemValue == 0){//Gerar el archivo en excel
                                     Log.i("ITEM EXCEL: ", ""+itemValue);
+                                    exportarArchivo();
                                 }else{//Generar el archcivo en PDF
                                     Log.i("ITEM PDF: ", ""+itemValue);
                                 }
@@ -300,5 +305,15 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private void exportarArchivo(){
+        if(Util.generarDirectorio()){
+            reporteDTO.setCantidadTotalWbc(cantidadWbc);
+            reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
+            Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula);
+        }else{
+            Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+        }
     }
 }

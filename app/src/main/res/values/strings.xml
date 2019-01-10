@@ -13,7 +13,7 @@
     <string name="mensaje_titulo_crear_paciente">Create patient</string>
     <string name="mensaje_exito_guardado">Saved successfully ...!</string>
     <string name="mensaje_campo_obligatorio">Required fields ...!</string>
-    <string name="mensaje_error">Error saving ...!</string>
+    <string name="mensaje_error_guardar">Error saving ...!</string>
     <string name="mensaje_seleccione_paciente">--Select patient--</string>
     <string name="mensaje_campo_obligatorio_calculo">Required field for calculation ...!</string>
     <string name="mensaje_alerta_titulo">Export</string>
@@ -22,6 +22,7 @@
     <string name="mensaje_eliminar_registro">Are you sure to delete the record?</string>
     <string name="mensaje_registro_eliminado_exitoso">Registry successfully deleted</string>
     <string name="mensaje_registro_eliminado_error">Error deleting the record</string>
+    <string name="mensaje_error_exportar">Failed to export ...!</string>
 
     <string name="campo_obligatorio">*</string>
 
@@ -76,5 +77,17 @@
     <string name="tabla_total_wbc">Total WBC</string>
 
     <string name="include_nrbc">Include nRBC</string>
+
+    <!--Reporte-->
+    <string name="etiqueta_nombre">Name:</string>
+    <string name="etiqueta_fecha">Date:</string>
+    <string name="etiqueta_telefono">Phone:</string>
+    <string name="etiqueta_cantidad_total_wbc">Total amount of WBC:</string>
+    <string name="etiqueta_total_wbc">Total WBC:</string>
+    <string name="etiqueta_total_con_nrbc">With nRBC</string>
+    <string name="etiqueta_total_sin_nrbc">Without nRBC</string>
+    <string name="etiqueta_fecha_generacion">Current date:</string>
+
+    <string name="mensaje_indefinido">Undefined</string>
 
 </resources>
