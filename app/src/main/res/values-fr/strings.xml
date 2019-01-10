@@ -73,4 +73,7 @@
     <string name="tabla_header_sin_nrbc">Sans nRBC</string>
     <string name="tabla_total_wbc">Totale de WBC</string>
     <string name="include_nrbc">Inclure nRBC</string>
+
+    <!--Settings-->
+    <string name="seleccione_cantidad_alertar">--Choisir quantité d\'alerte--</string>
 </resources>

@@ -74,4 +74,7 @@
     <string name="tabla_total_wbc">Total WBC</string>
     <string name="include_nrbc">Incluir nRBC</string>
 
+    <!--Settings-->
+    <string name="seleccione_cantidad_alertar">--Seleccione cantidad de alerta--</string>
+
 </resources>
