@@ -32,9 +32,10 @@ import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
 import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
-import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
 import mx.com.sousystems.wbcscounter.dto.MuestraDTO;
+import mx.com.sousystems.wbcscounter.service.ExportarService;
+import mx.com.sousystems.wbcscounter.service.ExportarServiceImpl;
 import mx.com.sousystems.wbcscounter.util.Util;
 
 public class CalculoActivity extends AppCompatActivity implements  AdapterView.OnItemSelectedListener, View.OnClickListener{
@@ -67,6 +68,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
     //Reporte
     ReporteDTO reporteDTO;
+    ExportarService exportarService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         cantidadWbc = 0;
         //Reporte
         reporteDTO = new ReporteDTO();
+        exportarService = new ExportarServiceImpl();
         //Obtenemos el parametro de la vista principal
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -312,6 +315,11 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             reporteDTO.setCantidadTotalWbc(cantidadWbc);
             reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
             Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula);
+            if(exportarService.reporteExcel(Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula), this) != null){
+
+            }else{
+
+            }
         }else{
             Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
         }

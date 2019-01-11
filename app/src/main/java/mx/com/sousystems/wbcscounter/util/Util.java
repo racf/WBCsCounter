@@ -22,6 +22,7 @@ import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
 public class Util {
 
     private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
+    private static final String DATE_FORMAT_PATTERN2 = "yyyy-MM-dd-HH:mm:ss";
     private static final Integer PORCENTAJE = 100;
     private static final String WBCS = "wbcs";
 
@@ -46,6 +47,12 @@ public class Util {
             fecha = simpleDateFormat.format(calendar.getTime());
         }
         return fecha;
+    }
+
+    public static String fechaActual(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN2);
+        Calendar calendar = Calendar.getInstance();
+        return simpleDateFormat.format(calendar.getTime());
     }
 
     public static boolean compareDate(String fechaIni, String fechaFin){
