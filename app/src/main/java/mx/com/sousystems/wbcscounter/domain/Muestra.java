@@ -6,6 +6,7 @@ public class Muestra implements Serializable {
     private Integer id;
     private Integer pacienteId = 0;
     private int cantidadInput;
+    private Integer cantidadTotalCelula;
     private String fecha;
     private double totalWbcSnrbc;
     private double totalWbcCnrbc;
@@ -35,6 +36,14 @@ public class Muestra implements Serializable {
 
     public void setCantidadInput(int cantidadInput) {
         this.cantidadInput = cantidadInput;
+    }
+
+    public Integer getCantidadTotalCelula() {
+        return cantidadTotalCelula;
+    }
+
+    public void setCantidadTotalCelula(Integer cantidadTotalCelula) {
+        this.cantidadTotalCelula = cantidadTotalCelula;
     }
 
     public String getFecha() {
@@ -76,6 +85,7 @@ public class Muestra implements Serializable {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
 
     @Override
     public String toString() {

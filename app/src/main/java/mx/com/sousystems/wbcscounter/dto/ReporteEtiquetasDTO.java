@@ -1,4 +1,4 @@
-package mx.com.sousystems.wbcscounter.domain;
+package mx.com.sousystems.wbcscounter.dto;
 
 public class ReporteEtiquetasDTO {
     private String etiquetaNombre;

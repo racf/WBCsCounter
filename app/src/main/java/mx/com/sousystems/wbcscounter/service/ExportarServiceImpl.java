@@ -3,25 +3,16 @@ package mx.com.sousystems.wbcscounter.service;
 import android.content.Context;
 import android.os.Environment;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
-import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
-import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
+import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
 import mx.com.sousystems.wbcscounter.util.Exportacion;
 import mx.com.sousystems.wbcscounter.util.Util;
 
@@ -30,24 +21,17 @@ public class ExportarServiceImpl implements ExportarService {
 
     @Override
     public Workbook reporteExcel(ReporteDTO reporteDTO, Context context) {
-       /* HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
-        ReporteEtiquetasDTO reporteEtiquetasDTO = reporteDTO.getReporteEtiquetasDTO();
-        String titulo = "Titulo del reporte";
-        String subTitutlo = "Subtitulo";
-        HSSFSheet sheet = hssfWorkbook.createSheet(WBC);
-        Exportacion.crearTitulo(hssfWorkbook, sheet, titulo, subTitutlo);
-
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/fiware/";
-        String fileName = "MyExcel.xls";*/
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS+"/";
-        String fileName = reporteDTO.getNombre().concat(Util.fechaActual()).concat(".xls");
+        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(".xls");
 
-        ReporteEtiquetasDTO reporteEtiquetasDTO = reporteDTO.getReporteEtiquetasDTO();
         String titulo = "Titulo del reporte";
 
-        Workbook wb = new HSSFWorkbook();
-        Sheet sheet = wb.createSheet(WBCS);
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet(WBCS);
         Exportacion.crearTitulo(wb, sheet, titulo);
+        Exportacion.crearDescripcion(wb, sheet, reporteDTO);
+        List<String> encabezado = Exportacion.crearEncabezado(sheet, reporteDTO);
+        Exportacion.crearCuerpoReporte(context,sheet,reporteDTO, encabezado);
 
         //Genera el archivo
         File file = new File(path,fileName);

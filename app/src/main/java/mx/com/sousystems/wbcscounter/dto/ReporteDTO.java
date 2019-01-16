@@ -1,11 +1,14 @@
-package mx.com.sousystems.wbcscounter.domain;
+package mx.com.sousystems.wbcscounter.dto;
 
 import java.util.List;
+
+import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 
 public class ReporteDTO {
     private String nombre;
     private String fecha;
     private String telefono;
+    private Integer cantidadTotalCelula;
     private Integer cantidadTotalWbc;
     private double totalConNrbc;
     private double totalSinNrbc;
@@ -35,6 +38,14 @@ public class ReporteDTO {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public Integer getCantidadTotalCelula() {
+        return cantidadTotalCelula;
+    }
+
+    public void setCantidadTotalCelula(Integer cantidadTotalCelula) {
+        this.cantidadTotalCelula = cantidadTotalCelula;
     }
 
     public Integer getCantidadTotalWbc() {

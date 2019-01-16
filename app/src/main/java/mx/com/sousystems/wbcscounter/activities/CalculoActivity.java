@@ -1,6 +1,5 @@
 package mx.com.sousystems.wbcscounter.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
@@ -25,13 +24,12 @@ import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.adapters.HeaderAdapter;
 import mx.com.sousystems.wbcscounter.adapters.TablaAdapter;
 import mx.com.sousystems.wbcscounter.controller.CelulaController;
-import mx.com.sousystems.wbcscounter.controller.MuestraController;
 import mx.com.sousystems.wbcscounter.controller.MuestraDetalleController;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
-import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
+import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
 import mx.com.sousystems.wbcscounter.dto.MuestraDTO;
 import mx.com.sousystems.wbcscounter.service.ExportarService;
@@ -87,9 +85,11 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         if(extras != null){
             muestraDetalleArrayList = (ArrayList<MuestraDetalle>) extras.get("muestraDetalle");
             cantidadtTotalCelula = (Integer) extras.get("cantidadTotal");
+            muestra.setCantidadTotalCelula(cantidadtTotalCelula);
         }else{
             muestraDetalleArrayList = new ArrayList<>();
             cantidadtTotalCelula = 0;
+            muestra.setCantidadTotalCelula(cantidadtTotalCelula);
         }
         cargarComponente();
         agregarDatosSpinner();
@@ -312,7 +312,9 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
     private void exportarArchivo(){
         if(Util.generarDirectorio()){
+            reporteDTO.setFecha(Util.fecha());
             reporteDTO.setCantidadTotalWbc(cantidadWbc);
+            reporteDTO.setCantidadTotalCelula(cantidadtTotalCelula);
             reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
             Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula);
             if(exportarService.reporteExcel(Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula), this) != null){

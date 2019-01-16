@@ -22,6 +22,7 @@ public class GeneralQuery {
             +ConstanteTabla.ESPACIO+ConstanteTabla.PARENTESIS_ABRIR+ConstanteTabla.ID+ConstanteTabla.ESPACIO+ConstanteTabla.INTEGER+ConstanteTabla.ESPACIO+ConstanteTabla.PRIMARY_KEY+ConstanteTabla.ESPACIO+ConstanteTabla.AUTOINCREMENT+ConstanteTabla.ESPACIO+ConstanteTabla.NOT_NULL+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.PACIENTE_ID+ConstanteTabla.ESPACIO+ConstanteTabla.INTEGER+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.CANTIDAD_INPUT+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
+            +ConstanteTabla.ESPACIO+ConstanteTabla.CANTIDAD_TOTAL_CELULA+ConstanteTabla.ESPACIO+ConstanteTabla.INTEGER+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.FECHA+ConstanteTabla.ESPACIO+ConstanteTabla.TEXT+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.TOTAL_WBC_SNRBC+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA
             +ConstanteTabla.ESPACIO+ConstanteTabla.TOTAL_WBC_CNRBC+ConstanteTabla.ESPACIO+ConstanteTabla.REAL+ConstanteTabla.COMA

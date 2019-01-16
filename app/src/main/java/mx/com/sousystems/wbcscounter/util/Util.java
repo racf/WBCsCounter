@@ -16,13 +16,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import mx.com.sousystems.wbcscounter.R;
-import mx.com.sousystems.wbcscounter.domain.ReporteDTO;
-import mx.com.sousystems.wbcscounter.domain.ReporteEtiquetasDTO;
+import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
+import mx.com.sousystems.wbcscounter.dto.ReporteEtiquetasDTO;
 
 public class Util {
 
     private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
-    private static final String DATE_FORMAT_PATTERN2 = "yyyy-MM-dd-HH:mm:ss";
+    private static final String DATE_FORMAT_PATTERN2 = "yyyy-MM-dd-HH-mm-ss";
     private static final Integer PORCENTAJE = 100;
     private static final String WBCS = "wbcs";
 
@@ -36,7 +36,7 @@ public class Util {
      * @return la fecha actual
      */
     public static String fecha() {
-        String fecha = null;
+        String fecha;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDate date = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
@@ -101,8 +101,8 @@ public class Util {
     }
 
 
-    public static double calcularPorcentaje(Integer cantidadtTotalCelula, Integer cantidadCelula) {
-        return ((double)(cantidadCelula * PORCENTAJE) / cantidadtTotalCelula);
+    public static double calcularPorcentaje(Integer cantidadTotalCelula, Integer cantidadCelula) {
+        return ((double)(cantidadCelula * PORCENTAJE) / cantidadTotalCelula);
     }
 
     public static double calcularUnidadMedida(double cantidadTotalWBC, double porcentaje) {

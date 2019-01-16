@@ -26,6 +26,7 @@ public class ConstanteTabla implements BaseColumns {
     //muestra
     public static final String PACIENTE_ID = "paciente_id";
     public static final String CANTIDAD_INPUT = "cantidad_input";
+    public static final String CANTIDAD_TOTAL_CELULA = "cantidad_total_celula";
     public static final String FECHA = "fecha";
     public static final String TOTAL_WBC_SNRBC = "total_wbc_snrbc";
     public static final String TOTAL_WBC_CNRBC = "total_wbc_cnrbc";
