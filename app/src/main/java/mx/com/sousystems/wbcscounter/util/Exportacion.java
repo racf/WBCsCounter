@@ -12,6 +12,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
 import mx.com.sousystems.wbcscounter.dto.ReporteEtiquetasDTO;
@@ -79,7 +80,7 @@ public class Exportacion {
         HSSFRow rowEncabezado = sheet.createRow(6);
         rowEncabezado.setHeightInPoints(14);
         for (int i = 0; i < encabezado.size(); i++){
-            HSSFCell cellEncabezado = rowEncabezado.createCell(i+1);
+            HSSFCell cellEncabezado = rowEncabezado.createCell(i);
             cellEncabezado.setCellValue(encabezado.get(i));
         }
 
@@ -93,7 +94,7 @@ public class Exportacion {
         for (int i = 0; i < matrix.length; i++) {
             HSSFRow row = sheet.createRow(indiceFila++);
             for (int j = 0; j < matrix[i].length; j++) {
-                HSSFCell cell = row.createCell(j+1);
+                HSSFCell cell = row.createCell(j);
                 if (matrix[i][j] instanceof String) {
                     cell.setCellValue((String) matrix[i][j]);
                 }else if(matrix[i][j] instanceof Integer){
@@ -113,15 +114,46 @@ public class Exportacion {
         int matrixCol = encabezado.size();
         Object[][] matrix = new Object[matrixRow][matrixCol];
         for (int i = 0; i < matrixRow; i++) {
-            matrix[i][0] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId());
-            matrix[i][1] = "Test"+i;
-            //matrix[i][1] = listaMuestraDetalle.get(i).getCelula().getNombre();
+            matrix[i][0] = listaMuestraDetalle.get(i).getCelula().getNombre();
+            if(listaMuestraDetalle.get(i).getCelula().getId().equals("OTHER1") || listaMuestraDetalle.get(i).getCelula().getId().equals("OTHER2")){
+                matrix[i][1] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId());
+            }else{
+                matrix[i][1] = listaMuestraDetalle.get(i).getCelula().getDescripcion();
+            }
             matrix[i][2] = listaMuestraDetalle.get(i).getCantidad();
-            //double porcentaje = Util.calcularPorcentaje(listaMuestraDetalle.get(i).getMuestra().getCantidadTotalCelula(), listaMuestraDetalle.get(i).getCantidad());
             double porcentaje = Util.calcularPorcentaje(reporteDTO.getCantidadTotalCelula(), listaMuestraDetalle.get(i).getCantidad());
-            matrix[i][3] = porcentaje;
-            matrix[i][4] = Util.calcularUnidadMedida(reporteDTO.getCantidadTotalWbc(), porcentaje);
+            matrix[i][3] = Util.numeroDosDecimales(porcentaje);
+            matrix[i][4] = Util.numeroDosDecimales(Util.calcularUnidadMedida(reporteDTO.getCantidadTotalWbc(), porcentaje));
         }
         return matrix;
+    }
+
+    public static void footerTabla(Context context, HSSFSheet sheet, ReporteDTO reporteDTO){
+        int fila = reporteDTO.getListaMuestraDetalle().size()+8;
+        //Encabezado del header footer
+        HSSFRow rowHeaderFooter = sheet.createRow(fila);
+        HSSFCell cellHeaderConNrbc = rowHeaderFooter.createCell(1);
+        cellHeaderConNrbc.setCellValue(context.getString(R.string.tabla_header_con_nrbc));
+
+        HSSFCell cellHeaderSinNrbc = rowHeaderFooter.createCell(2);
+        cellHeaderSinNrbc.setCellValue(context.getString(R.string.tabla_header_sin_nrbc));
+
+        //Muestra el resultado
+        HSSFRow rowHeaderResultado = sheet.createRow(fila+1);
+        HSSFCell cellHeaderTotalWbc = rowHeaderResultado.createCell(0);
+        cellHeaderTotalWbc.setCellValue(context.getString(R.string.tabla_total_wbc));
+
+        HSSFCell cellHeaderTotalConNrbc = rowHeaderResultado.createCell(1);
+        cellHeaderTotalConNrbc.setCellValue(Util.numeroDosDecimales(reporteDTO.getTotalConNrbc())+""+context.getString(R.string.tabla_medida));
+
+        HSSFCell cellHeaderTotalSinNrbc = rowHeaderResultado.createCell(2);
+        cellHeaderTotalSinNrbc.setCellValue(Util.numeroDosDecimales(reporteDTO.getTotalSinNrbc())+""+context.getString(R.string.tabla_medida));
+
+        //Fecha generación del reporte
+        //Muestra el resultado
+        HSSFRow rowFecha = sheet.createRow(fila+3);
+        HSSFCell cellFecha = rowFecha.createCell(0);
+        cellFecha.setCellValue(Util.fechaExportacion());
+
     }
 }

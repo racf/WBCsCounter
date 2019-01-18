@@ -13,18 +13,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import mx.com.sousystems.wbcscounter.R;
@@ -126,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MuestraDetalle muestraDetalle = new MuestraDetalle();
             muestraDetalle.setCelulaId(celula.getId());
             muestraDetalle.setCantidad(0);
+            muestraDetalle.setCelula(celula);
             muestraDetalleArrayList.add(muestraDetalle);
             celula.setNombre(Util.getStringFromResourcesByName(this, celula.getId()));
 
@@ -265,6 +261,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
 }

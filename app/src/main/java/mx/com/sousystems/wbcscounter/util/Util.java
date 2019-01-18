@@ -23,6 +23,7 @@ public class Util {
 
     private static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
     private static final String DATE_FORMAT_PATTERN2 = "yyyy-MM-dd-HH-mm-ss";
+    private static final String DATE_FORMAT_PATTERN3 = "yyyy-MM-dd HH:mm:ss";
     private static final Integer PORCENTAJE = 100;
     private static final String WBCS = "wbcs";
 
@@ -51,6 +52,12 @@ public class Util {
 
     public static String fechaActual(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN2);
+        Calendar calendar = Calendar.getInstance();
+        return simpleDateFormat.format(calendar.getTime());
+    }
+
+    public static String fechaExportacion(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN3);
         Calendar calendar = Calendar.getInstance();
         return simpleDateFormat.format(calendar.getTime());
     }

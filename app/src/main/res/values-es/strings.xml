@@ -88,10 +88,13 @@
     <string name="etiqueta_total_con_nrbc">Con nRBC</string>
     <string name="etiqueta_total_sin_nrbc">Sin nRBC</string>
     <string name="etiqueta_fecha_generacion">Fecha actual:</string>
+    <string name="titulo_reporte">Reporte de la muestra de WBC</string>
 
     <string name="mensaje_indefinido">Indefinido</string>
     <string name="configuracion_botones">Configuración de botones</string>
     <string name="vibrar">Vibrar</string>
     <string name="sonido">Sonido</string>
     <string name="filtros">Filtros</string>
+
+    <string name="message_permission_denied">Algunos permisos son denegados</string>
 </resources>
