@@ -1,6 +1,7 @@
 package mx.com.sousystems.wbcscounter.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
+    private boolean bActivarVibracion, bActivarSonido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         llCelulas = findViewById(R.id.llCelulas);
         tvCantidad = findViewById(R.id.tvCantidad);
 
-        vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -91,9 +94,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cargarComponente();
         crearCelulas();
+        //cargarPreferencias();
         permisos();
     }
 
+    @Override
+    protected void onResume() {
+        cargarPreferencias();
+        super.onResume();
+    }
+
+    private void cargarPreferencias(){
+        String sActivarSonido = Util.readSharedPreference(this, R.string.activar_sonido_preference);
+        if (!sActivarSonido.isEmpty()){
+            bActivarSonido = Boolean.parseBoolean(sActivarSonido);
+        }
+        String sActivarVibracion = Util.readSharedPreference(this, R.string.activar_vibracion_preference);
+        if (!sActivarVibracion.isEmpty()){
+            bActivarVibracion = Boolean.parseBoolean(sActivarVibracion);
+        }
+    }
     private void permisos(){
         //Comprobando la version de Android...
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -289,21 +309,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     previousMuestraDetalleArrayList.add(muestraDetalleNueva);
                 }
                 int total = 0;
+                int indexCelula = 0;
+                int indexTmp = 0;
                 for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
                     if (muestraDetalle.getCelulaId().equalsIgnoreCase(celulaId)) {
+                        indexCelula = indexTmp;
                         muestraDetalle.setCantidad(muestraDetalle.getCantidad() + 1);
-
                         TextView tvCantidadPorCelula = (TextView) v.findViewById(R.id.tvCantidadPorCelula);
                         tvCantidadPorCelula.setText(String.valueOf(muestraDetalle.getCantidad()));
 
                     }
                     total += muestraDetalle.getCantidad();
+                    indexTmp++;
                 }
                 tvCantidad.setText(String.valueOf(total));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
-                }else{
-                    vibrator.vibrate(100);
+                if (bActivarVibracion) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                    } else {
+                        vibrator.vibrate(100);
+                    }
+                }
+                if (bActivarSonido){
+                    int frequency = 100 * indexCelula;
+                    Util.playSound(2500 + frequency, 44100);
                 }
                 break;
             default:

@@ -109,4 +109,5 @@
     <string name="filtros">Filtres</string>
 
     <string name="message_permission_denied">Some Permission is Denied</string>
+    <string name="from">From:</string>
 </resources>

@@ -111,4 +111,11 @@
 
     <string name="message_permission_denied">Some Permission is Denied</string>
 
+    <string name="preference_file_key" translatable="false">WBCsCounterPreferences</string>
+    <string name="cantidad_alertar_preference" translatable="false">CantidadAlertarPreference</string>
+    <string name="activar_sonido_preference" translatable="false">ActivarSonidoPreference</string>
+    <string name="activar_vibracion_preference">ActivarVibracionPreference</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+
 </resources>

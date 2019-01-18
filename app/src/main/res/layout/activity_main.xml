@@ -51,6 +51,7 @@
                 android:layout_marginTop="@dimen/margin_padding_8"
                 android:drawableStart="@drawable/baseline_send_white_18"
                 android:drawableLeft="@drawable/baseline_send_white_18"
+
                 android:text="@string/resultado" />
 
             <View
