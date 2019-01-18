@@ -1,6 +1,8 @@
 package mx.com.sousystems.wbcscounter.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -19,8 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.controller.CelulaController;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout llCelulas;
     private TextView tvCantidad;
     private Vibrator vibrator;
+
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cargarComponente();
         crearCelulas();
+        permisos();
+    }
+
+    private void permisos(){
+        //Comprobando la version de Android...
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final List<String> permissionsList = new ArrayList<>();
+            addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (permissionsList.size() > 0) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            }
+
+        }
+    }
+
+    /**
+     * Añade los permisos a una lista en caso de que no esten autorizados por el usuario.
+     * @param permissionsList lista de los permisos
+     * @param permission los permisos que se van a permitir.
+     * @return verdadero si los permisos ya fueron autorizados por el usuario.
+     */
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if(checkPermission(permission) == false){
+            permissionsList.add(permission);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!shouldShowRequestPermissionRationale(permission))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Metodo que comprueba si tenemos activo algun determinado permiso.
+     * @param permission los permisos que se verifican si estan activos o no.
+     * @return verdadero si los permisos se encuentran activos.
+     */
+    private boolean checkPermission(String permission){
+        int result = this.checkCallingOrSelfPermission(permission);
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     //RELLENA CON VALORES CADA CELULA
@@ -259,6 +308,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             default:
                 break;
+        }
+    }
+
+
+    /**
+     * Devolución de llamada para el resultado de la solicitud de permisos. Este método se invoca para cada llamada en requestPermissions(android.app.Activity, String[], int).
+     * @param requestCode El código de solicitud pasó en requestPermissions (android.app.Activity, String [], int)
+     * @param permissions String: Los permisos solicitados. Nunca nulo
+     * @param grantResults int: Los resultados de la concesión para los permisos correspondientes son PERMISSION_GANTED o PERMISSION_DENIED. Nunca nulo
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
+            {
+                Map<String, Integer> perms = new HashMap<String, Integer>();
+                // Initial
+                perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                //perms.put(Manifest.permission.READ_PHONE_STATE, PackageManager.PERMISSION_GRANTED);
+                // Fill with results
+                for (int i = 0; i < permissions.length; i++)
+                    perms.put(permissions[i], grantResults[i]);
+                // Check for ACCESS_FINE_LOCATION
+                if (perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    // All Permissions Granted
+                } else {
+                    // Permission Denied
+                    this.finish();
+                    Toast.makeText(MainActivity.this, R.string.message_permission_denied, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

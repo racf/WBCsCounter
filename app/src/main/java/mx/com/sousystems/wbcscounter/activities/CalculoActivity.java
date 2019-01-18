@@ -318,7 +318,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
             Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula);
             if(exportarService.reporteExcel(Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula), this) != null){
-
+                Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
             }

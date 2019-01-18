@@ -115,11 +115,7 @@ public class Exportacion {
         Object[][] matrix = new Object[matrixRow][matrixCol];
         for (int i = 0; i < matrixRow; i++) {
             matrix[i][0] = listaMuestraDetalle.get(i).getCelula().getNombre();
-            if(listaMuestraDetalle.get(i).getCelula().getId().equals("OTHER1") || listaMuestraDetalle.get(i).getCelula().getId().equals("OTHER2")){
-                matrix[i][1] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId());
-            }else{
-                matrix[i][1] = listaMuestraDetalle.get(i).getCelula().getDescripcion();
-            }
+            matrix[i][1] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId()+"_des");
             matrix[i][2] = listaMuestraDetalle.get(i).getCantidad();
             double porcentaje = Util.calcularPorcentaje(reporteDTO.getCantidadTotalCelula(), listaMuestraDetalle.get(i).getCantidad());
             matrix[i][3] = Util.numeroDosDecimales(porcentaje);

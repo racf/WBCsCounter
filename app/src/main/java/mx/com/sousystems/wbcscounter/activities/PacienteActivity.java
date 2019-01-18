@@ -49,6 +49,13 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
         btnCancelarPaciente = findViewById(R.id.btnCancelarPaciente);
         btnCancelarPaciente.setOnClickListener(this);
     }
+    private void limpiarTexto(){
+        etNombre.setText("");
+        etPrimerApellido.setText("");
+        etSegundoApellido.setText("");
+        etTelefono.setText("");
+
+    }
 
     @Override
     public boolean onSupportNavigateUp(){
@@ -86,6 +93,7 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
         paciente.setTelefono(String.valueOf(etTelefono.getText()));
         if(!TextUtils.isEmpty(paciente.getNombre().trim()) && !TextUtils.isEmpty(paciente.getPrimerApellido().trim())){
             if(pacienteController.crearPaciente(paciente)){
+                limpiarTexto();
                 Toast.makeText(this, this.getString(R.string.mensaje_exito_guardado), Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(this, this.getString(R.string.mensaje_error_guardar), Toast.LENGTH_SHORT).show();

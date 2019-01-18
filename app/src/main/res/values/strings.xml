@@ -23,6 +23,7 @@
     <string name="mensaje_registro_eliminado_exitoso">Registry successfully deleted</string>
     <string name="mensaje_registro_eliminado_error">Error deleting the record</string>
     <string name="mensaje_error_exportar">Failed to export ...!</string>
+    <string name="mensaje_exito_exportar">Correct export of the report ...!</string>
 
     <string name="campo_obligatorio">*</string>
 
@@ -70,6 +71,16 @@
     <string name="nrbc">NRBC</string>
     <string name="other1">Other 1</string>
     <string name="other2">Other 2</string>
+
+    <string name="baso_des">Basophils</string>
+    <string name="eos_des">Eosinophils</string>
+    <string name="mono_des">Monocytes</string>
+    <string name="st_des">Immature granulocyte</string>
+    <string name="seg_des">Neutrophils</string>
+    <string name="lym_des">Lymphocytes</string>
+    <string name="nrbc_des">Nucleated red blood cells</string>
+    <string name="other1_des">Other 1</string>
+    <string name="other2_des">Other 2</string>
 
 
     <string name="tabla_header_con_nrbc">With nRBC</string>
