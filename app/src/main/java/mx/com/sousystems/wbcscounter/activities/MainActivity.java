@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
-    private boolean bActivarVibracion, bActivarSonido;
+    private String sActivarVibracion, sActivarSonido;
     private int iCantidadAlertar;
+    private List<Celula> celulasList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,14 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 iCantidadAlertar = -1;
             }
         }
-        String sActivarSonido = Util.readSharedPreference(this, R.string.activar_sonido_preference);
-        if (!sActivarSonido.isEmpty()){
-            bActivarSonido = Boolean.parseBoolean(sActivarSonido);
-        }
-        String sActivarVibracion = Util.readSharedPreference(this, R.string.activar_vibracion_preference);
-        if (!sActivarVibracion.isEmpty()){
-            bActivarVibracion = Boolean.parseBoolean(sActivarVibracion);
-        }
+        sActivarSonido = Util.readSharedPreference(this, R.string.activar_sonido_preference);
+        sActivarVibracion = Util.readSharedPreference(this, R.string.activar_vibracion_preference);
+
     }
     private void permisos(){
         //Comprobando la version de Android...
@@ -168,12 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
-    //RELLENA CON VALORES CADA CELULA
-    //VERIFICO SI HAY POR LO MENOS RELLENA
-    //ENVIO LOS DATOS
-    //  SE ENVIA LOS DATOS (MUESTRA DETALLE CON INFORMACION)
-    //  SE RECIBEN LOS DATOS
-    //  RELLENAS EL OBJETO *MUESTRA*
 
     private void cargarComponente() {
         btnResultado = findViewById(R.id.btnResultado);
@@ -189,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvCantidad.setText("0");
         muestraDetalleArrayList = new ArrayList<>();
         celulaController = new CelulaController(this);
-        List<Celula> celulasList = celulaController.obtenerTodasCelulas();
+        celulasList = celulaController.obtenerTodasCelulas();
         int vistasAgregadas = 0;
         LinearLayout llCelulasRow = null;
         for (Celula celula : celulasList) {
@@ -234,11 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 llCelulas.addView(llCelulasRow);
                 vistasAgregadas = 0;
             }
-
         }
-        //gvCelulas.setAdapter(new CelulasAdapter(celulasList, muestraDetalleArrayList, this));
-        //gvCelulas.setOnItemClickListener(this);
-
     }
 
     /**
@@ -321,6 +307,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.rlCelula:
                 Log.d("WBCsCounter", (String) v.getTag());
                 String celulaId = (String) v.getTag();
+                int indexCelula = -1;
+
+                for (int i = 0; i < celulasList.size(); i++) {
+                    if (celulasList.get(i) !=null && celulasList.get(i).getId().equals(celulaId)) {
+                        indexCelula = i;
+                    }
+                }
+
+
                 previousMuestraDetalleArrayList = new ArrayList<>();
                 for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
                     MuestraDetalle muestraDetalleNueva = new MuestraDetalle();
@@ -330,28 +325,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     previousMuestraDetalleArrayList.add(muestraDetalleNueva);
                 }
                 int total = 0;
-                int indexCelula = 0;
-                int indexTmp = 0;
                 for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
                     if (muestraDetalle.getCelulaId().equalsIgnoreCase(celulaId)) {
-                        indexCelula = indexTmp;
+
                         muestraDetalle.setCantidad(muestraDetalle.getCantidad() + 1);
                         TextView tvCantidadPorCelula = (TextView) v.findViewById(R.id.tvCantidadPorCelula);
                         tvCantidadPorCelula.setText(String.valueOf(muestraDetalle.getCantidad()));
 
                     }
                     total += muestraDetalle.getCantidad();
-                    indexTmp++;
                 }
                 tvCantidad.setText(String.valueOf(total));
-                if (bActivarVibracion) {
+                if (sActivarVibracion.isEmpty() || (!sActivarVibracion.isEmpty() && Boolean.parseBoolean(sActivarVibracion))) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
                     } else {
                         vibrator.vibrate(100);
                     }
                 }
-                if (bActivarSonido){
+                if (sActivarSonido.isEmpty() || (!sActivarSonido.isEmpty() && Boolean.parseBoolean(sActivarSonido))) {
                     int frequency = 100 * indexCelula;
                     Util.playSound(2500 + frequency, 44100);
                 }

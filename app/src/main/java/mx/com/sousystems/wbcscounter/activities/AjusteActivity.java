@@ -40,10 +40,12 @@ public class AjusteActivity extends AppCompatActivity implements AdapterView.OnI
         cbActivarSonido.setOnCheckedChangeListener(this);
         cbActivarVibracion.setOnCheckedChangeListener(this);
         String sActivarSonido = Util.readSharedPreference(this, R.string.activar_sonido_preference);
+        cbActivarSonido.setChecked(true);
         if (!sActivarSonido.isEmpty()){
             cbActivarSonido.setChecked(Boolean.parseBoolean(sActivarSonido));
         }
         String sActivarVibracion = Util.readSharedPreference(this, R.string.activar_vibracion_preference);
+        cbActivarVibracion.setChecked(true);
         if (!sActivarVibracion.isEmpty()){
             cbActivarVibracion.setChecked(Boolean.parseBoolean(sActivarVibracion));
         }
