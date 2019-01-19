@@ -120,4 +120,6 @@
     <string name="calcular_resultado">Calculate result</string>
     <string name="continuar_contando">Continue counting</string>
     <string name="cantidad_total_mayor_cero">The total amount must be greater than 0</string>
+    <string name="admob_app_id" translatable="false">ex-amp-les-3940256099942544~3347511713</string>
+    <string name="add_unit_id_one" translatable="false">ex-amp-les-3940256099942544/6300978111</string>
 </resources>
