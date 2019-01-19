@@ -110,4 +110,7 @@
 
     <string name="message_permission_denied">Some Permission is Denied</string>
     <string name="from">From:</string>
+    <string name="calcular_resultado">Calculer le résultat</string>
+    <string name="continuar_contando">Continuer à compter</string>
+    <string name="cantidad_total_mayor_cero">Le montant total doit être supérieur à 0</string>
 </resources>

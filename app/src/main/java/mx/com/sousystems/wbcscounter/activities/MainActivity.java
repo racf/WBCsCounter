@@ -2,6 +2,7 @@ package mx.com.sousystems.wbcscounter.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     private boolean bActivarVibracion, bActivarSonido;
+    private int iCantidadAlertar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void cargarPreferencias(){
+        String sCantidadAlertar = Util.readSharedPreference(this, R.string.cantidad_alertar_preference);
+        if (!sCantidadAlertar.isEmpty()){
+            try {
+                iCantidadAlertar = Integer.parseInt(sCantidadAlertar);
+            }catch (Exception e){
+                iCantidadAlertar = -1;
+            }
+        }
         String sActivarSonido = Util.readSharedPreference(this, R.string.activar_sonido_preference);
         if (!sActivarSonido.isEmpty()){
             bActivarSonido = Boolean.parseBoolean(sActivarSonido);
@@ -247,18 +259,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    private void calcularResultado(){
+        int cantidadTotal = 0;
+        for (MuestraDetalle muestraDetalle: muestraDetalleArrayList){
+            cantidadTotal += muestraDetalle.getCantidad();
+        }
+        if (cantidadTotal>0){
+            Intent intent = new Intent(this, CalculoActivity.class);
+            intent.putExtra("muestraDetalle", muestraDetalleArrayList);
+            intent.putExtra("cantidadTotal", cantidadTotal);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, R.string.cantidad_total_mayor_cero, Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnResultado:
-                Intent intent = new Intent(this, CalculoActivity.class);
-                intent.putExtra("muestraDetalle", muestraDetalleArrayList);
-                int cantidadTotal = 0;
-                for (MuestraDetalle muestraDetalle: muestraDetalleArrayList){
-                    cantidadTotal += muestraDetalle.getCantidad();
-                }
-                intent.putExtra("cantidadTotal", cantidadTotal);
-                startActivity(intent);
+                calcularResultado();
                 break;
             case R.id.btnEliminarUltimo:
                 if (previousMuestraDetalleArrayList != null && previousMuestraDetalleArrayList.size() > 0) {
@@ -333,6 +352,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (bActivarSonido){
                     int frequency = 100 * indexCelula;
                     Util.playSound(2500 + frequency, 44100);
+                }
+                if(iCantidadAlertar!=-1 && total==iCantidadAlertar){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(R.string.cantidad_alerta)
+                            .setPositiveButton(R.string.calcular, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    calcularResultado();
+                                }
+                            })
+                            .setNegativeButton(R.string.continuar_contando, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+                    // Create the AlertDialog object and return it
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
                 break;
             default:

@@ -109,4 +109,8 @@
 
     <string name="message_permission_denied">Algunos permisos son denegados</string>
     <string name="from">From:</string>
+
+    <string name="calcular_resultado">Calcular resultado</string>
+    <string name="continuar_contando">Continuar contando</string>
+    <string name="cantidad_total_mayor_cero">La cantidad total debe ser mayor que 0</string>
 </resources>
