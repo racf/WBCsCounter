@@ -305,10 +305,9 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
                             public void onClick(DialogInterface dialog, int id){
                                 //Generar el archivo----
                                 if(itemValue == 0){//Gerar el archivo en excel
-                                    exportarArchivo(muestra);
-                                    Log.i("ITEM EXCEL: ", ""+itemValue);
+                                    exportarArchivo(muestra, itemValue);
                                 }else{//Generar el archcivo en PDF
-                                    Log.i("ITEM PDF: ", ""+itemValue);
+                                    exportarArchivo(muestra, itemValue);
                                 }
                             }
                         });
@@ -351,15 +350,28 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         }
     }
 
-    private void exportarArchivo(Muestra muestra){
+    /**
+     * @param muestra el objeto de la muestra cargado con la información del paciente que se seleccione en el historial
+     * @param itemValue valor de 0 cuando se exporta a excel y valor de 1 cuando se exporta a PDF* @param itemValue valor de 0 cuando se exporta a excel y valor de 1 cuando se exporta a PDF
+     */
+    private void exportarArchivo(Muestra muestra, int itemValue){
         if(Util.generarDirectorio()){
             List<MuestraDetalle> listaMuestraDetalle = muestraDetalleController.obtenerMuestraDetallePorMuestraId(muestra.getId());
             reporteDTO = Util.cargarReporteHistorico(this, muestra, listaMuestraDetalle);
-            if(exportarService.reporteExcel(this, reporteDTO, 1) != null){
-                Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+            if(itemValue == 0){
+                if(exportarService.reporteExcel(this, reporteDTO, 1) != null){
+                    Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                }
             }else{
-                Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                if(exportarService.reportePDF(this, reporteDTO, 1) != null){
+                    Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                }
             }
+
         }else{
             Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
         }

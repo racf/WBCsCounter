@@ -1,7 +1,14 @@
 package mx.com.sousystems.wbcscounter.util;
 
 import android.content.Context;
-import android.util.Log;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -21,6 +28,10 @@ public class Exportacion {
     private static final String A = "A";
     private static final String G = "G";
 
+    //Pdf
+    private static Font FONT_TITULO = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+            Font.BOLD);
+
     private Exportacion() {
         throw new IllegalStateException("Exportacion class");
     }
@@ -33,6 +44,7 @@ public class Exportacion {
         cell.setCellValue(titulo);
         sheet.addMergedRegion(CellRangeAddress.valueOf("$" + A + "$1:$" + G + "$1"));
     }
+
 
     public static void crearDescripcion(HSSFWorkbook wb, HSSFSheet sheet, ReporteDTO reporteDTO){
         //Nombre
@@ -78,19 +90,24 @@ public class Exportacion {
     }
 
     public static List<String> crearEncabezado(HSSFSheet sheet, ReporteDTO reporteDTO){
-        List<String> encabezado = new ArrayList<>();
-        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderTipoWbc());
-        encabezado.add((reporteDTO.getReporteEtiquetasDTO().getHeaderNombreWbc()));
-        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderCantidad());
-        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderPorcentaje());
-        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderMedida());
-
+        List<String> encabezado = datosEncaezado(reporteDTO);
         HSSFRow rowEncabezado = sheet.createRow(6);
         rowEncabezado.setHeightInPoints(14);
         for (int i = 0; i < encabezado.size(); i++){
             HSSFCell cellEncabezado = rowEncabezado.createCell(i);
             cellEncabezado.setCellValue(encabezado.get(i));
         }
+
+        return encabezado;
+    }
+
+    private static List<String> datosEncaezado(ReporteDTO reporteDTO){
+        List<String> encabezado = new ArrayList<>();
+        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderTipoWbc());
+        encabezado.add((reporteDTO.getReporteEtiquetasDTO().getHeaderNombreWbc()));
+        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderCantidad());
+        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderPorcentaje());
+        encabezado.add(reporteDTO.getReporteEtiquetasDTO().getHeaderMedida());
 
         return encabezado;
     }
@@ -165,5 +182,126 @@ public class Exportacion {
         HSSFCell cellFecha = rowFecha.createCell(0);
         cellFecha.setCellValue(Util.fechaExportacion());
 
+    }
+
+
+    public static void crearTituloPDF(Document document, String titulo){
+        Paragraph preface = new Paragraph();
+        try {
+            // We add one empty line
+            addEmptyLine(preface, 1);
+            // Lets write a big header
+            preface.add(new Paragraph(titulo, FONT_TITULO));
+            preface.setAlignment(Element.ALIGN_CENTER);
+
+            addEmptyLine(preface, 1);
+            document.add(preface);
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void crearTablaDescripcionPDF(Document document, ReporteDTO reporteDTO){
+        PdfPTable tablaDescripcion = new PdfPTable(4);
+
+        PdfPTable tablaCatidatWbc = new PdfPTable(2);
+        try {
+            tablaDescripcion.setWidths(new int[]{1, 3, 1, 2});
+            tablaCatidatWbc.setWidths(new int[]{2, 2});
+
+            tablaDescripcion.addCell(reporteDTO.getReporteEtiquetasDTO().getEtiquetaNombre());
+            tablaDescripcion.addCell(reporteDTO.getNombre());
+
+            tablaDescripcion.addCell(reporteDTO.getReporteEtiquetasDTO().getEtiquetaSexo());
+            tablaDescripcion.addCell(reporteDTO.getSexo());
+
+            tablaDescripcion.addCell(reporteDTO.getReporteEtiquetasDTO().getEtiquetaTelefono());
+            tablaDescripcion.addCell(reporteDTO.getTelefono());
+
+            tablaDescripcion.addCell(reporteDTO.getReporteEtiquetasDTO().getEtiquetaFecha());
+            tablaDescripcion.addCell(reporteDTO.getFecha());
+            document.add(tablaDescripcion);
+
+            tablaCatidatWbc.setSpacingBefore(10f);
+            tablaCatidatWbc.addCell(reporteDTO.getReporteEtiquetasDTO().getEtiquetaCantidadTotalWbc());
+            tablaCatidatWbc.addCell(String.valueOf(reporteDTO.getCantidadTotalWbc()));
+
+            document.add(tablaCatidatWbc);
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void crearTablaPDF(Context context, Document document, ReporteDTO reporteDTO, int opcion){
+        List<String> encabezado = datosEncaezado(reporteDTO);
+        try {
+            PdfPTable tabla = new PdfPTable(encabezado.size());
+            tabla.setSpacingBefore(12f);
+            for(int i = 0; i <encabezado.size(); i++){
+                PdfPCell cellHeader = new PdfPCell(new Phrase(encabezado.get(i)));
+                cellHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cellHeader.setUseBorderPadding(true);
+                cellHeader.setBorderWidthBottom(1f);
+                tabla.addCell(cellHeader);
+            }
+
+            //Cuerpo de la tabla
+            Object[][] matrix = addMatrixObjFormato(context, reporteDTO, encabezado, opcion);
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    tabla.addCell(String.valueOf(matrix[i][j]));
+                }
+            }
+            document.add(tabla);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void footerTablaPDF(Context context, Document document, ReporteDTO reporteDTO){
+        PdfPTable tabla = new PdfPTable(3);
+        tabla.setSpacingBefore(15f);
+        try {
+            PdfPCell cellHeaderBlanco = new PdfPCell(new Phrase(""));
+            cellHeaderBlanco.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellHeaderBlanco.setUseBorderPadding(true);
+            cellHeaderBlanco.setBorderWidthBottom(1f);
+            tabla.addCell(cellHeaderBlanco);
+
+            PdfPCell cellHeaderConNrbc = new PdfPCell(new Phrase(context.getString(R.string.tabla_header_con_nrbc)));
+            cellHeaderConNrbc.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellHeaderConNrbc.setUseBorderPadding(true);
+            cellHeaderConNrbc.setBorderWidthBottom(1f);
+            tabla.addCell(cellHeaderConNrbc);
+
+            PdfPCell cellHeaderSinNrbc = new PdfPCell(new Phrase(context.getString(R.string.tabla_header_sin_nrbc)));
+            cellHeaderSinNrbc.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellHeaderSinNrbc.setUseBorderPadding(true);
+            cellHeaderSinNrbc.setBorderWidthBottom(1f);
+            tabla.addCell(cellHeaderSinNrbc);
+
+            tabla.addCell(context.getString(R.string.tabla_total_wbc));
+            tabla.addCell(Util.numeroDosDecimales(reporteDTO.getTotalConNrbc())+""+context.getString(R.string.tabla_medida));
+            tabla.addCell(Util.numeroDosDecimales(reporteDTO.getTotalSinNrbc())+""+context.getString(R.string.tabla_medida));
+
+            document.add(tabla);
+
+            Paragraph paragraph = new Paragraph(Util.fechaExportacion());
+            paragraph.setAlignment(Element.ALIGN_LEFT);
+            paragraph.setSpacingBefore(20f);
+            document.add(paragraph);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static void addEmptyLine(Paragraph paragraph, int number) {
+        for (int i = 0; i < number; i++) {
+            paragraph.add(new Paragraph(" "));
+        }
     }
 }

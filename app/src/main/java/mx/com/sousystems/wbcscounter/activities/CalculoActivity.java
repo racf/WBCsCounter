@@ -301,9 +301,9 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                             public void onClick(DialogInterface dialog, int id){
                                 //Generar el archivo----
                                 if(itemValue == 0){//Gerar el archivo en excel
-                                    exportarArchivo();
+                                    exportarArchivo(itemValue);
                                 }else{//Generar el archcivo en PDF
-                                    Log.i("ITEM PDF: ", ""+itemValue);
+                                    exportarArchivo(itemValue);
                                 }
                             }
                         });
@@ -312,17 +312,29 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         alert.show();
     }
 
-    private void exportarArchivo(){
+    /**
+     * @param itemValue valor de 0 cuando se exporta a excel y valor de 1 cuando se exporta a PDF
+     */
+    private void exportarArchivo(int itemValue){
         if(Util.generarDirectorio()){
             reporteDTO.setFecha(Util.fecha());
             reporteDTO.setCantidadTotalWbc(cantidadWbc);
             reporteDTO.setCantidadTotalCelula(cantidadtTotalCelula);
             reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
-            if(exportarService.reporteExcel(this, Util.cargarReporteActual(this, reporteDTO, cantidadtTotalCelula), 0) != null){
-                Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+            if(itemValue == 0){
+                if(exportarService.reporteExcel(this, Util.cargarReporteActual(this, reporteDTO, cantidadtTotalCelula), 0) != null){
+                    Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                }
             }else{
-                Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                if(exportarService.reportePDF(this, Util.cargarReporteActual(this, reporteDTO, cantidadtTotalCelula), 0) != null){
+                    Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+                }
             }
+
         }else{
             Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
         }

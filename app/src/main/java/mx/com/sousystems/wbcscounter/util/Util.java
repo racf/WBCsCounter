@@ -270,7 +270,7 @@ public class Util {
     private static ReporteEtiquetasDTO cargarEtiquetasReporte(Context context, int cantidad){
         ReporteEtiquetasDTO reporteEtiquetasDTO = new ReporteEtiquetasDTO();
         reporteEtiquetasDTO.setEtiquetaNombre(context.getString(R.string.etiqueta_nombre));
-        reporteEtiquetasDTO.setEtiquetaSexo(context.getString(R.string.sexo));
+        reporteEtiquetasDTO.setEtiquetaSexo(context.getString(R.string.sexo).concat(":"));
         reporteEtiquetasDTO.setEtiquetaFecha(context.getString(R.string.etiqueta_fecha));
         reporteEtiquetasDTO.setEtiquetaTelefono(context.getString(R.string.etiqueta_telefono));
         reporteEtiquetasDTO.setEtiquetaCantidadTotalWbc(context.getString(R.string.etiqueta_cantidad_total_wbc));
