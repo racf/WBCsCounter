@@ -19,11 +19,11 @@ import mx.com.sousystems.wbcscounter.util.Util;
 
 public class ExportarServiceImpl implements ExportarService {
     private static final String WBCS = "wbcs";
-
+    private static final String XLS = ".xls";
     @Override
-    public Workbook reporteExcel(ReporteDTO reporteDTO, Context context) {
+    public Workbook reporteExcel(Context context, ReporteDTO reporteDTO, int opcion) {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS+"/";
-        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(".xls");
+        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(XLS);
 
         String titulo = context.getString(R.string.titulo_reporte);
 
@@ -32,7 +32,7 @@ public class ExportarServiceImpl implements ExportarService {
         Exportacion.crearTitulo(wb, sheet, titulo);
         Exportacion.crearDescripcion(wb, sheet, reporteDTO);
         List<String> encabezado = Exportacion.crearEncabezado(sheet, reporteDTO);
-        Exportacion.crearCuerpoReporte(context,sheet,reporteDTO, encabezado);
+        Exportacion.crearCuerpoReporte(context,sheet,reporteDTO, encabezado, opcion);
         Exportacion.footerTabla(context, sheet, reporteDTO);
         //Genera el archivo
         File file = new File(path,fileName);
@@ -46,6 +46,7 @@ public class ExportarServiceImpl implements ExportarService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return wb;
     }
 }

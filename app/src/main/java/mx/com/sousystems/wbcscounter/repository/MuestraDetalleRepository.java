@@ -10,4 +10,5 @@ public interface MuestraDetalleRepository {
     public long crearMuestraDetalle(MuestraDetalle muestraDetalle);
     public long crearMuestraDetalleTransaccion(Muestra muestra, ArrayList<MuestraDetalle> listaMuestraDetalle);
     public List<MuestraDetalle> obtenerTodasMuestraDetalle();
+    public List<MuestraDetalle> obtenerMuestraDetallePorMuestraId(Integer muestraId);
 }

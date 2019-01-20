@@ -1,6 +1,7 @@
 package mx.com.sousystems.wbcscounter.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -15,7 +16,6 @@ import java.util.List;
 import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
-import mx.com.sousystems.wbcscounter.dto.ReporteEtiquetasDTO;
 
 public class Exportacion {
     private static final String A = "A";
@@ -43,12 +43,13 @@ public class Exportacion {
         HSSFCell cellNombre = row2.createCell(1);
         cellNombre.setCellValue(reporteDTO.getNombre());
 
-        //Fecha
-        HSSFCell cellEtiquetaFecha = row2.createCell(4);
-        cellEtiquetaFecha.setCellValue(reporteDTO.getReporteEtiquetasDTO().getEtiquetaFecha());
+        //Sexo
+        HSSFCell cellEtiquetaSexo = row2.createCell(4);
+        cellEtiquetaSexo.setCellValue(reporteDTO.getReporteEtiquetasDTO().getEtiquetaSexo());
 
-        HSSFCell cellFecha = row2.createCell(5);
-        cellFecha.setCellValue(reporteDTO.getFecha());
+        HSSFCell cellSexo = row2.createCell(5);
+        cellSexo.setCellValue(reporteDTO.getSexo());
+
 
         //Telefono
         HSSFRow row3 = sheet.createRow(3);
@@ -57,6 +58,13 @@ public class Exportacion {
 
         HSSFCell cellTelefono = row3.createCell(1);
         cellTelefono.setCellValue(reporteDTO.getTelefono());
+
+        //Fecha
+        HSSFCell cellEtiquetaFecha = row3.createCell(4);
+        cellEtiquetaFecha.setCellValue(reporteDTO.getReporteEtiquetasDTO().getEtiquetaFecha());
+
+        HSSFCell cellFecha = row3.createCell(5);
+        cellFecha.setCellValue(reporteDTO.getFecha());
 
         //Cantidad total
         HSSFRow row5 = sheet.createRow(5);
@@ -87,8 +95,8 @@ public class Exportacion {
         return encabezado;
     }
 
-    public static void crearCuerpoReporte(Context context, HSSFSheet sheet, ReporteDTO reporteDTO, List<String> encabezado){
-        Object[][] matrix = addMatrixObjFormato(context, reporteDTO, encabezado);
+    public static void crearCuerpoReporte(Context context, HSSFSheet sheet, ReporteDTO reporteDTO, List<String> encabezado, int opcion){
+        Object[][] matrix = addMatrixObjFormato(context, reporteDTO, encabezado, opcion);
 
         int indiceFila = 7;
         for (int i = 0; i < matrix.length; i++) {
@@ -108,19 +116,25 @@ public class Exportacion {
         }
     }
 
-    private static Object[][] addMatrixObjFormato(Context context, ReporteDTO reporteDTO, List<String> encabezado) {
+    private static Object[][] addMatrixObjFormato(Context context, ReporteDTO reporteDTO, List<String> encabezado, int opcion) {
         List<MuestraDetalle> listaMuestraDetalle = reporteDTO.getListaMuestraDetalle();
         int matrixRow = listaMuestraDetalle.size();
         int matrixCol = encabezado.size();
         Object[][] matrix = new Object[matrixRow][matrixCol];
         for (int i = 0; i < matrixRow; i++) {
-            matrix[i][0] = listaMuestraDetalle.get(i).getCelula().getNombre();
+            if(opcion == 0){
+                matrix[i][0] = listaMuestraDetalle.get(i).getCelula().getNombre();
+            }else{
+                matrix[i][0] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId());
+            }
+
             matrix[i][1] = Util.getStringFromResourcesByName(context, listaMuestraDetalle.get(i).getCelulaId()+"_des");
             matrix[i][2] = listaMuestraDetalle.get(i).getCantidad();
             double porcentaje = Util.calcularPorcentaje(reporteDTO.getCantidadTotalCelula(), listaMuestraDetalle.get(i).getCantidad());
             matrix[i][3] = Util.numeroDosDecimales(porcentaje);
             matrix[i][4] = Util.numeroDosDecimales(Util.calcularUnidadMedida(reporteDTO.getCantidadTotalWbc(), porcentaje));
         }
+
         return matrix;
     }
 

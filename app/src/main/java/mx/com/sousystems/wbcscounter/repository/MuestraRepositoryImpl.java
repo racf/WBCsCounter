@@ -4,13 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.com.sousystems.wbcscounter.config.DbConfigHelper;
+import mx.com.sousystems.wbcscounter.config.GeneralQuery;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
+import mx.com.sousystems.wbcscounter.util.Constant;
 import mx.com.sousystems.wbcscounter.util.ConstanteTabla;
 
 public class MuestraRepositoryImpl implements MuestraRepository {
@@ -97,6 +100,7 @@ public class MuestraRepositoryImpl implements MuestraRepository {
         String query = ConstanteTabla.SELECT.concat(ConstanteTabla.ESPACIO).concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.ID).concat(ConstanteTabla.COMA)
                 +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.PACIENTE_ID).concat(ConstanteTabla.COMA)
                 +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.CANTIDAD_INPUT).concat(ConstanteTabla.COMA)
+                +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.CANTIDAD_TOTAL_CELULA).concat(ConstanteTabla.COMA)
                 +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.FECHA).concat(ConstanteTabla.COMA)
                 +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.TOTAL_WBC_SNRBC).concat(ConstanteTabla.COMA)
                 +ConstanteTabla.ESPACIO.concat(ConstanteTabla.MUESTRA).concat(ConstanteTabla.PUNTO).concat(ConstanteTabla.TOTAL_WBC_CNRBC).concat(ConstanteTabla.COMA)
@@ -123,18 +127,19 @@ public class MuestraRepositoryImpl implements MuestraRepository {
                 muestra.setId(cursor.getInt(0));
                 muestra.setPacienteId(cursor.getInt(1));
                 muestra.setCantidadInput(cursor.getInt(2));
-                muestra.setFecha(cursor.getString(3));
-                muestra.setTotalWbcSnrbc(cursor.getDouble(4));
-                muestra.setTotalWbcCnrbc(cursor.getDouble(5));
-                muestra.setEstatus(cursor.getInt(6));
+                muestra.setCantidadTotalCelula(cursor.getInt(3));
+                muestra.setFecha(cursor.getString(4));
+                muestra.setTotalWbcSnrbc(cursor.getDouble(5));
+                muestra.setTotalWbcCnrbc(cursor.getDouble(6));
+                muestra.setEstatus(cursor.getInt(7));
 
                 Paciente paciente = new Paciente();
-                paciente.setId(cursor.getInt(7));
-                paciente.setNombre(cursor.getString(8));
-                paciente.setPrimerApellido(cursor.getString(9));
-                paciente.setSegundoApellido(cursor.getString(10));
-                paciente.setSexo(cursor.getString(11));
-                paciente.setTelefono(cursor.getString(12));
+                paciente.setId(cursor.getInt(8));
+                paciente.setNombre(cursor.getString(9));
+                paciente.setPrimerApellido(cursor.getString(10));
+                paciente.setSegundoApellido(cursor.getString(11));
+                paciente.setSexo(cursor.getString(12));
+                paciente.setTelefono(cursor.getString(13));
                 muestra.setPaciente(paciente);
                 lista.add(muestra);
             }while (cursor.moveToNext());
@@ -152,6 +157,7 @@ public class MuestraRepositoryImpl implements MuestraRepository {
                 ConstanteTabla.ID,
                 ConstanteTabla.PACIENTE_ID,
                 ConstanteTabla.CANTIDAD_INPUT,
+                ConstanteTabla.CANTIDAD_TOTAL_CELULA,
                 ConstanteTabla.FECHA,
                 ConstanteTabla.TOTAL_WBC_SNRBC,
                 ConstanteTabla.TOTAL_WBC_CNRBC,

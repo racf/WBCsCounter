@@ -11,22 +11,26 @@ import mx.com.sousystems.wbcscounter.repository.MuestraDetalleRepository;
 import mx.com.sousystems.wbcscounter.repository.MuestraDetalleRepositoryImpl;
 
 public class MuestraDetalleController {
-    MuestraDetalleRepository muestrarDetalleRepository;
+    MuestraDetalleRepository muestraDetalleRepository;
 
     public MuestraDetalleController(Context context){
-        muestrarDetalleRepository = new MuestraDetalleRepositoryImpl(context);
+        muestraDetalleRepository = new MuestraDetalleRepositoryImpl(context);
     }
 
     public long crearMuestraDetalle(MuestraDetalle muestraDetalle) {
-        return muestrarDetalleRepository.crearMuestraDetalle(muestraDetalle);
+        return muestraDetalleRepository.crearMuestraDetalle(muestraDetalle);
     }
 
     public long crearMuestraDetalleTransaccion(Muestra muestra, ArrayList<MuestraDetalle> listaMuestraDetalle) {
-        return muestrarDetalleRepository.crearMuestraDetalleTransaccion(muestra, listaMuestraDetalle);
+        return muestraDetalleRepository.crearMuestraDetalleTransaccion(muestra, listaMuestraDetalle);
+    }
+
+    public List<MuestraDetalle> obtenerMuestraDetallePorMuestraId(Integer muestraId) {
+        return muestraDetalleRepository.obtenerMuestraDetallePorMuestraId(muestraId);
     }
 
     public List<MuestraDetalle> obtenerTodasMuestraDetalle() {
-        return muestrarDetalleRepository.obtenerTodasMuestraDetalle();
+        return muestraDetalleRepository.obtenerTodasMuestraDetalle();
     }
 
 }

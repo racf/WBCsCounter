@@ -20,8 +20,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import mx.com.sousystems.wbcscounter.R;
+import mx.com.sousystems.wbcscounter.domain.Muestra;
+import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
 import mx.com.sousystems.wbcscounter.dto.ReporteEtiquetasDTO;
 
@@ -264,9 +267,10 @@ public class Util {
         return band;
     }
 
-    public static ReporteDTO cargarReporte(ReporteDTO reporteDTO, Context context, int cantidad){
+    private static ReporteEtiquetasDTO cargarEtiquetasReporte(Context context, int cantidad){
         ReporteEtiquetasDTO reporteEtiquetasDTO = new ReporteEtiquetasDTO();
         reporteEtiquetasDTO.setEtiquetaNombre(context.getString(R.string.etiqueta_nombre));
+        reporteEtiquetasDTO.setEtiquetaSexo(context.getString(R.string.sexo));
         reporteEtiquetasDTO.setEtiquetaFecha(context.getString(R.string.etiqueta_fecha));
         reporteEtiquetasDTO.setEtiquetaTelefono(context.getString(R.string.etiqueta_telefono));
         reporteEtiquetasDTO.setEtiquetaCantidadTotalWbc(context.getString(R.string.etiqueta_cantidad_total_wbc));
@@ -279,7 +283,29 @@ public class Util {
         reporteEtiquetasDTO.setHeaderCantidad(context.getString(R.string.tabla_cantidad)+" "+cantidad);
         reporteEtiquetasDTO.setHeaderPorcentaje(context.getString(R.string.tabla_porcentaje));
         reporteEtiquetasDTO.setHeaderMedida(context.getString(R.string.tabla_medida));
-        reporteDTO.setReporteEtiquetasDTO(reporteEtiquetasDTO);
+        return reporteEtiquetasDTO;
+    }
+
+    public static ReporteDTO cargarReporteActual(Context context, ReporteDTO reporteDTO, int cantidad){
+        reporteDTO.setReporteEtiquetasDTO(cargarEtiquetasReporte(context, cantidad));
+        return reporteDTO;
+    }
+
+    public static ReporteDTO cargarReporteHistorico(Context context, Muestra muestra, List<MuestraDetalle> listaMuestraDetalle){
+        ReporteDTO reporteDTO = new ReporteDTO();
+        //Cargar encabezado del reporte
+        reporteDTO.setFecha(muestra.getFecha());
+        reporteDTO.setCantidadTotalWbc(muestra.getCantidadInput());
+        reporteDTO.setCantidadTotalCelula(muestra.getCantidadTotalCelula());
+        reporteDTO.setTotalConNrbc(muestra.getTotalWbcCnrbc());
+        reporteDTO.setTotalSinNrbc(muestra.getTotalWbcSnrbc());
+        reporteDTO.setNombre(muestra.getPaciente().getNombre()+" "+muestra.getPaciente().getPrimerApellido()+" "+muestra.getPaciente().getSegundoApellido());
+        reporteDTO.setTelefono(muestra.getPaciente().getTelefono());
+        reporteDTO.setSexo(muestra.getPaciente().getSexo());
+        reporteDTO.setFechaGeneracion(fechaExportacion());
+        reporteDTO.setReporteEtiquetasDTO(cargarEtiquetasReporte(context, reporteDTO.getCantidadTotalCelula()));
+
+        reporteDTO.setListaMuestraDetalle(listaMuestraDetalle);
         return reporteDTO;
     }
 }

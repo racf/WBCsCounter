@@ -6,6 +6,7 @@ import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 
 public class ReporteDTO {
     private String nombre;
+    private String sexo;
     private String fecha;
     private String telefono;
     private Integer cantidadTotalCelula;
@@ -22,6 +23,14 @@ public class ReporteDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public String getFecha() {

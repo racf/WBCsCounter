@@ -31,10 +31,15 @@ import mx.com.sousystems.wbcscounter.R;
 import mx.com.sousystems.wbcscounter.adapters.HeaderHistorialAdapter;
 import mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView;
 import mx.com.sousystems.wbcscounter.controller.MuestraController;
+import mx.com.sousystems.wbcscounter.controller.MuestraDetalleController;
 import mx.com.sousystems.wbcscounter.controller.PacienteController;
 import mx.com.sousystems.wbcscounter.domain.Muestra;
+import mx.com.sousystems.wbcscounter.domain.MuestraDetalle;
 import mx.com.sousystems.wbcscounter.domain.Paciente;
 import mx.com.sousystems.wbcscounter.dto.HeaderTablaDTO;
+import mx.com.sousystems.wbcscounter.dto.ReporteDTO;
+import mx.com.sousystems.wbcscounter.service.ExportarService;
+import mx.com.sousystems.wbcscounter.service.ExportarServiceImpl;
 import mx.com.sousystems.wbcscounter.util.Util;
 
 import static mx.com.sousystems.wbcscounter.adapters.TablaHistorialReciclerView.*;
@@ -48,6 +53,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     Button btnBuscar;
     PacienteController pacienteController;
     MuestraController muestraController;
+    MuestraDetalleController muestraDetalleController;
     List<Paciente> listaPacienteAux;
     private static final int OPCION_1 = 1;
     private static final int OPCION_2 = 2;
@@ -61,6 +67,10 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
 
     CharSequence[] values = {" Excel "," PDF "};
     int itemValue = 0;
+
+    //Reporte
+    ReporteDTO reporteDTO;
+    ExportarService exportarService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +79,13 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         cargarComponente();
         pacienteController = new PacienteController(this);
         muestraController = new MuestraController(this);
+        muestraDetalleController = new MuestraDetalleController(this);
         listaPacienteAux = new ArrayList<>();
         agregarDatosSpinner();
         obtenerFechaDefault();
         cargarHeaderTabla();
+        //Reporte
+        exportarService = new ExportarServiceImpl();
     }
 
     private void cargarComponente(){
@@ -129,7 +142,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
                                     case R.id.menu_exportar:
-                                        alertaExportar();
+                                        alertaExportar(muestra);
                                         return true;
                                     case R.id.menu_eliminar:
                                         eliminarRegistro(muestra);
@@ -265,29 +278,11 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     }
 
     private void obtenerFechaDefault(){
-        Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
-        String month = "";
-        String day = "";
-        if(String.valueOf(mMonth).length()==1){
-            month = "0"+(mMonth + 1);
-        }else{
-            month = String.valueOf((mMonth + 1));
-        }
-
-        if(String.valueOf(mDay).length()==1){
-            day = "0"+mDay;
-        }else{
-            day = String.valueOf(mDay);
-        }
-
-        tvFechaIni.setText(mYear + "-" + month + "-" + day);
-        tvFechaFin.setText(mYear + "-" + month + "-" + day);
+        tvFechaIni.setText(Util.fecha());
+        tvFechaFin.setText(Util.fecha());
     }
 
-    private void alertaExportar(){
+    private void alertaExportar(final Muestra muestra){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.mensaje_alerta_titulo)
                 .setIcon(R.mipmap.ic_logo_foreground)
@@ -310,6 +305,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
                             public void onClick(DialogInterface dialog, int id){
                                 //Generar el archivo----
                                 if(itemValue == 0){//Gerar el archivo en excel
+                                    exportarArchivo(muestra);
                                     Log.i("ITEM EXCEL: ", ""+itemValue);
                                 }else{//Generar el archcivo en PDF
                                     Log.i("ITEM PDF: ", ""+itemValue);
@@ -352,6 +348,20 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
             Toast.makeText(this, this.getString(R.string.mensaje_registro_eliminado_exitoso), Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, this.getString(R.string.mensaje_registro_eliminado_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void exportarArchivo(Muestra muestra){
+        if(Util.generarDirectorio()){
+            List<MuestraDetalle> listaMuestraDetalle = muestraDetalleController.obtenerMuestraDetallePorMuestraId(muestra.getId());
+            reporteDTO = Util.cargarReporteHistorico(this, muestra, listaMuestraDetalle);
+            if(exportarService.reporteExcel(this, reporteDTO, 1) != null){
+                Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();
         }
     }
 }

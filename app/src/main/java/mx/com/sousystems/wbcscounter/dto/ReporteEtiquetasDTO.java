@@ -2,6 +2,7 @@ package mx.com.sousystems.wbcscounter.dto;
 
 public class ReporteEtiquetasDTO {
     private String etiquetaNombre;
+    private String etiquetaSexo;
     private String etiquetaFecha;
     private String etiquetaTelefono;
     private String etiquetaCantidadTotalWbc;
@@ -21,6 +22,14 @@ public class ReporteEtiquetasDTO {
 
     public void setEtiquetaNombre(String etiquetaNombre) {
         this.etiquetaNombre = etiquetaNombre;
+    }
+
+    public String getEtiquetaSexo() {
+        return etiquetaSexo;
+    }
+
+    public void setEtiquetaSexo(String etiquetaSexo) {
+        this.etiquetaSexo = etiquetaSexo;
     }
 
     public String getEtiquetaFecha() {

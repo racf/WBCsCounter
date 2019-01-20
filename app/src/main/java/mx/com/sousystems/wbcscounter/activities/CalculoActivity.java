@@ -214,10 +214,12 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             muestra.setPacienteId(1);
             reporteDTO.setNombre(this.getString(R.string.mensaje_indefinido));
             reporteDTO.setTelefono(this.getString(R.string.mensaje_indefinido));
+            reporteDTO.setSexo(this.getString(R.string.mensaje_indefinido));
         }else{
             muestra.setPacienteId(listaPacienteAux.get(position).getId());
             reporteDTO.setNombre(listaPacienteAux.get(position).getNombre()+" "+listaPacienteAux.get(position).getPrimerApellido());
             reporteDTO.setTelefono(listaPacienteAux.get(position).getTelefono());
+            reporteDTO.setSexo(listaPacienteAux.get(position).getSexo());
         }
 
     }
@@ -267,6 +269,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
 
         muestra.setFecha(Util.fecha());
         MuestraDetalleController muestraDetalleController = new MuestraDetalleController(this);
+
         if(muestraDetalleController.crearMuestraDetalleTransaccion(muestra, muestraDetalleArrayList) > 0){
             btnGuardar.setBackgroundColor(getResources().getColor(R.color.transparent));
             btnGuardar.setEnabled(false);
@@ -298,7 +301,6 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
                             public void onClick(DialogInterface dialog, int id){
                                 //Generar el archivo----
                                 if(itemValue == 0){//Gerar el archivo en excel
-                                    Log.i("ITEM EXCEL: ", ""+itemValue);
                                     exportarArchivo();
                                 }else{//Generar el archcivo en PDF
                                     Log.i("ITEM PDF: ", ""+itemValue);
@@ -316,8 +318,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
             reporteDTO.setCantidadTotalWbc(cantidadWbc);
             reporteDTO.setCantidadTotalCelula(cantidadtTotalCelula);
             reporteDTO.setListaMuestraDetalle(muestraDetalleArrayList);
-            Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula);
-            if(exportarService.reporteExcel(Util.cargarReporte(reporteDTO, this, cantidadtTotalCelula), this) != null){
+            if(exportarService.reporteExcel(this, Util.cargarReporteActual(this, reporteDTO, cantidadtTotalCelula), 0) != null){
                 Toast.makeText(this, R.string.mensaje_exito_exportar, Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(this, R.string.mensaje_error_exportar, Toast.LENGTH_SHORT).show();

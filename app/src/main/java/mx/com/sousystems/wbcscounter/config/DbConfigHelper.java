@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DbConfigHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "counter.db";
     Context context;
 

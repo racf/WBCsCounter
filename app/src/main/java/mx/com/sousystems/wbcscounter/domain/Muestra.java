@@ -93,6 +93,7 @@ public class Muestra implements Serializable {
                 "id=" + id +
                 ", pacienteId=" + pacienteId +
                 ", cantidadInput=" + cantidadInput +
+                ", cantidadInput=" + cantidadTotalCelula +
                 ", fecha='" + fecha + '\'' +
                 ", totalWbcSnrbc=" + totalWbcSnrbc +
                 ", totalWbcCnrbc=" + totalWbcCnrbc +
