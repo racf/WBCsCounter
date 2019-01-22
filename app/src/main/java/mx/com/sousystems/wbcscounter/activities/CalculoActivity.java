@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -71,7 +72,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar();
         pacienteController = new PacienteController(this);
         listaPacienteAux = new ArrayList<>();
         muestra = new Muestra();
@@ -107,6 +108,14 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         //Fin de la carga del cuerpo de la tabla
 
 
+    }
+    // SET TOOLBAR METHOD
+    private void setToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.resultado);
     }
 
     private void cargarComponente(){

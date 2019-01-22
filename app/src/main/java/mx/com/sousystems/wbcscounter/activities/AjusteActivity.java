@@ -2,6 +2,7 @@ package mx.com.sousystems.wbcscounter.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +29,7 @@ public class AjusteActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajuste);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar();
         cargarComponentes();
         agregarDatosSpinner();
     }
@@ -68,6 +69,14 @@ public class AjusteActivity extends AppCompatActivity implements AdapterView.OnI
             }
             spAlertarCantidad.setSelection(index);
         }
+    }
+
+    private void setToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.menu_setting);
     }
 
     @Override

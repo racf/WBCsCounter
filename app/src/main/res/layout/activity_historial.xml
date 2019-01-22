@@ -5,200 +5,208 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.HistorialActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_padding_16">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/filtros"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8">
-
-            <Spinner
-                android:id="@+id/spPaciente"
-                style="@style/Input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_padding_6"
-                android:clickable="false"
-                android:contentDescription="@string/empty"
-                android:src="@drawable/baseline_arrow_drop_down_black_18" />
-        </RelativeLayout>
+        android:orientation="vertical">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="12"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:baselineAligned="false">
+            android:orientation="vertical"
+            android:padding="@dimen/margin_padding_16">
+
             <TextView
-                android:layout_width="0dp"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/from"
-                android:layout_gravity="center_vertical"/>
+                android:text="@string/filtros"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
 
             <RelativeLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_weight="8">
+                android:layout_marginTop="@dimen/margin_padding_8">
 
+                <Spinner
+                    android:id="@+id/spPaciente"
+                    style="@style/Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_padding_6"
+                    android:clickable="false"
+                    android:contentDescription="@string/empty"
+                    android:src="@drawable/baseline_arrow_drop_down_black_18" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="12"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:baselineAligned="false">
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="@string/from"
+                    android:layout_gravity="center_vertical"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="8">
+
+                    <TextView
+                        android:id="@+id/tvFechaIni"
+                        style="@style/InputGroup"
+                        android:layout_width="184dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:layout_toStartOf="@+id/btnFechaIni"
+                        android:layout_toLeftOf="@id/btnFechaIni"
+                        android:hint="YYYY-MM-DD" />
+
+                    <ImageButton
+                        android:id="@+id/btnFechaIni"
+                        style="@style/ButtonSecondaryGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/baseline_calendar_today_white_18" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="12"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:baselineAligned="false">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="@string/to"
+                    android:layout_gravity="center_vertical"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8">
+
+                    <TextView
+                        android:id="@+id/tvFechaFin"
+                        style="@style/InputGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="YYYY-MM-DD"
+                        android:layout_toLeftOf="@id/btnFechaFin"
+                        android:layout_toStartOf="@+id/btnFechaFin"/>
+
+                    <ImageButton
+                        android:id="@+id/btnFechaFin"
+                        style="@style/ButtonSecondaryGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/baseline_calendar_today_white_18" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:orientation="horizontal">
+
+               <TextView
                     android:id="@+id/tvFechaIni"
-                    style="@style/InputGroup"
-                    android:layout_width="184dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_toStartOf="@+id/btnFechaIni"
-                    android:layout_toLeftOf="@id/btnFechaIni"
-                    android:hint="YYYY-MM-DD" />
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:gravity="center"
+                    android:hint="YYYY-MM-dd" />
 
                 <ImageButton
                     android:id="@+id/btnFechaIni"
-                    style="@style/ButtonSecondaryGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/baseline_calendar_today_white_18" />
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="12"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:baselineAligned="false">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/to"
-                android:layout_gravity="center_vertical"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8">
+                    android:background="@color/transparent"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
 
                 <TextView
                     android:id="@+id/tvFechaFin"
-                    style="@style/InputGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:hint="YYYY-MM-DD"
-                    android:layout_toLeftOf="@id/btnFechaFin"
-                    android:layout_toStartOf="@+id/btnFechaFin"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:gravity="center"
+                    android:hint="YYYY-MM-dd" />
 
                 <ImageButton
                     android:id="@+id/btnFechaFin"
-                    style="@style/ButtonSecondaryGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/baseline_calendar_today_white_18" />
-            </RelativeLayout>
+                    android:background="@color/transparent"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
+
+            </LinearLayout>-->
+
+            <Button
+                android:id="@+id/btnBuscar"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:drawableStart="@drawable/ic_search_white"
+                android:drawableLeft="@drawable/ic_search_white"
+                android:text="@string/buscar" />
+
+            <ListView
+                android:id="@+id/listViewHeaderHistorialTabla"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"></ListView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:background="@color/red80" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="@color/red80" />
+
         </LinearLayout>
-
-        <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:orientation="horizontal">
-
-           <TextView
-                android:id="@+id/tvFechaIni"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/gray"
-                android:gravity="center"
-                android:hint="YYYY-MM-dd" />
-
-            <ImageButton
-                android:id="@+id/btnFechaIni"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:src="@android:drawable/ic_menu_my_calendar" />
-
-            <TextView
-                android:id="@+id/tvFechaFin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/gray"
-                android:gravity="center"
-                android:hint="YYYY-MM-dd" />
-
-            <ImageButton
-                android:id="@+id/btnFechaFin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:src="@android:drawable/ic_menu_my_calendar" />
-
-        </LinearLayout>-->
-
-        <Button
-            android:id="@+id/btnBuscar"
-            style="@style/ButtonPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:drawableStart="@drawable/ic_search_white"
-            android:drawableLeft="@drawable/ic_search_white"
-            android:text="@string/buscar" />
-
-        <ListView
-            android:id="@+id/listViewHeaderHistorialTabla"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"></ListView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:background="@color/red80" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="@color/red80" />
-
     </LinearLayout>
 
 </ScrollView>

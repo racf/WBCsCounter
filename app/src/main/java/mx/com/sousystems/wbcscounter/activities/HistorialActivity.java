@@ -10,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,7 +76,7 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar();
         cargarComponente();
         pacienteController = new PacienteController(this);
         muestraController = new MuestraController(this);
@@ -191,6 +192,13 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
         spinnerPaciente.setAdapter(dataAdapter);
     }
 
+    private void setToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.menu_record);
+    }
 
     @Override
     public boolean onSupportNavigateUp(){

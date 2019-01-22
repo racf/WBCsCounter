@@ -9,93 +9,102 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_padding_16">
+        android:orientation="vertical">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:text="@string/mensaje_titulo_crear_paciente"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"
-            />
+            android:orientation="vertical"
+            android:padding="@dimen/margin_padding_16">
 
-
-        <EditText
-            android:id="@+id/etNombre"
-            style="@style/Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/etPrimerApellido"
-            style="@style/Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/etSegundoApellido"
-            style="@style/Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:hint="@string/segundo_apellido"
-            android:inputType="textPersonName" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupSexo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radioFemenino"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/sexo_femenino" />
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:text="@string/mensaje_titulo_crear_paciente"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                />
 
-            <RadioButton
-                android:id="@+id/radioMasculino"
-                android:layout_width="wrap_content"
+
+            <EditText
+                android:id="@+id/etNombre"
+                style="@style/Input"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sexo_masculino" />
-        </RadioGroup>
+                android:focusable="true"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/etTelefono"
-            style="@style/Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:hint="@string/telefono"
-            android:inputType="phone" />
+            <EditText
+                android:id="@+id/etPrimerApellido"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/etSegundoApellido"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:hint="@string/segundo_apellido"
+                android:inputType="textPersonName" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupSexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioFemenino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/sexo_femenino" />
+
+                <RadioButton
+                    android:id="@+id/radioMasculino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sexo_masculino" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/etTelefono"
+                style="@style/Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:hint="@string/telefono"
+                android:inputType="phone" />
 
 
-        <Button
-            android:id="@+id/btnCrearPaciente"
-            style="@style/ButtonPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_16"
-            android:text="@string/aceptar" />
+            <Button
+                android:id="@+id/btnCrearPaciente"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_16"
+                android:text="@string/aceptar" />
 
-        <Button
-            android:id="@+id/btnCancelarPaciente"
-            style="@style/ButtonSecondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_8"
-            android:text="@string/cancelar" />
+            <Button
+                android:id="@+id/btnCancelarPaciente"
+                style="@style/ButtonSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
+                android:text="@string/cancelar" />
 
 
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -14,10 +14,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -231,8 +234,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Funcion para cargar  el icono del Drawer en la barra tool
      */
     private void setNavigationDrawer() {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_dark);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.app_name);
     }
 
     @Override

@@ -3,6 +3,7 @@ package mx.com.sousystems.wbcscounter.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,7 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paciente);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar();
         cargarComponente();
         pacienteController = new PacienteController(this);
     }
@@ -55,6 +56,14 @@ public class PacienteActivity extends AppCompatActivity implements View.OnClickL
         etSegundoApellido.setText("");
         etTelefono.setText("");
 
+    }
+
+    private void setToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.menu_patient);
     }
 
     @Override
