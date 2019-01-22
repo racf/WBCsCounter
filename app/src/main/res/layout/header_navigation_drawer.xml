@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="245dp"
         android:scaleType="centerCrop"
-        android:background="#2E9AFE"/>
+        android:background="#e6e6ff"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -18,7 +18,7 @@
         android:layout_gravity="top|bottom"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="28dp"
-        app:srcCompat="@mipmap/ic_logo_adaptive_foreground"/>
+        app:srcCompat="@mipmap/ic_logo_final_adaptive_foreground"/>
 
     <TextView
         android:id="@+id/tvUserName"
