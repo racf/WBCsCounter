@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/headerNavigationDrawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="245dp"
         android:scaleType="centerCrop"
-        android:background="#e6e6ff"/>
+        android:adjustViewBounds="true"
+        android:background="@drawable/drawer_background"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -18,7 +20,7 @@
         android:layout_gravity="top|bottom"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="28dp"
-        app:srcCompat="@mipmap/ic_logo_final_adaptive_foreground"/>
+        app:srcCompat="@drawable/wbcscounter"/>
 
     <TextView
         android:id="@+id/tvUserName"

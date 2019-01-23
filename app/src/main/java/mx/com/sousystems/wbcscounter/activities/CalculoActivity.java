@@ -290,7 +290,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     private void alertaExportar(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.mensaje_alerta_titulo)
-                .setIcon(R.mipmap.ic_logo_foreground)
+                .setIcon(R.mipmap.ic_launcher_foreground)
                 .setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int item) {
