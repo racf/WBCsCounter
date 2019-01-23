@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "mx.com.sousystems.wbcscounter"
+        applicationId "mx.com.sousystems.hemacount"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -32,5 +32,5 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
     // https://mvnrepository.com/artifact/com.itextpdf/itextg
     implementation group: 'com.itextpdf', name: 'itextg', version: '5.5.10'
-
+    implementation 'com.google.android.gms:play-services-ads:17.1.2'
 }

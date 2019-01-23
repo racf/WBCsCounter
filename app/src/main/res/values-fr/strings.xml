@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HemacountApp</string>
+
 
     <!-- Menu nav options-->
-    <string name="menu_counter">Compteur différentiel de globules - WBC</string>
+    <string name="menu_counter">Compteur différentiel de globules blancs - WBC</string>
     <string name="menu_patient">Patient</string>
     <string name="menu_record">Historique</string>
     <string name="menu_setting">Paramètres</string>
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Nouveau patient</string>
-    <string name="mensaje_exito_guardado">Enregistré avec succès!</string>
-    <string name="mensaje_campo_obligatorio">Champs obligatoires!</string>
-    <string name="mensaje_error_guardar">Erreur à l\'enregistrement!</string>
+    <string name="mensaje_exito_guardado">Enregistré avec succès</string>
+    <string name="mensaje_campo_obligatorio">Compléter les champs obligatoires</string>
+    <string name="mensaje_error_guardar">Erreur à l\'enregistrement</string>
     <string name="mensaje_seleccione_paciente">--Choisir patient--</string>
-    <string name="mensaje_campo_obligatorio_calculo">Required field for calculation ...!</string>
-    <string name="mensaje_alerta_titulo">Export</string>
-    <string name="mensaje_sin_historial">No history ...!</string>
-    <string name="mensaje_fechas">Check the range of search dates ...!</string>
-    <string name="mensaje_eliminar_registro">Are you sure to delete the record?</string>
-    <string name="mensaje_registro_eliminado_exitoso">Registry successfully deleted</string>
-    <string name="mensaje_registro_eliminado_error">Error deleting the record</string>
-    <string name="mensaje_error_exportar">Failed to export ...!</string>
-    <string name="mensaje_exito_exportar">Correct export of the report ...!</string>
+    <string name="mensaje_campo_obligatorio_calculo">Pour calculer compléter le champ requis</string>
+    <string name="mensaje_alerta_titulo">Exporter</string>
+    <string name="mensaje_sin_historial">Historique non disponible</string>
+    <string name="mensaje_fechas">Valider les dates de recherche</string>
+    <string name="mensaje_eliminar_registro">Êtes-vous sûr de vouloir supprimer l\'enregistrement?</string>
+    <string name="mensaje_registro_eliminado_exitoso">Supprimé avec succès</string>
+    <string name="mensaje_registro_eliminado_error">Erreur lors de la suppression</string>
+    <string name="mensaje_error_exportar">Échec de l\'exportation</string>
+    <string name="mensaje_exito_exportar">Exporté avec succès</string>
 
-    <string name="campo_obligatorio">*</string>
 
     <string name="nombre">Prénom</string>
     <string name="primer_apellido">Nom du père</string>
@@ -44,8 +43,8 @@
     <string name="exportar">Exporter</string>
     <string name="eliminar_ultimo">Annuler</string>
     <string name="reiniciar">Réinitialiser</string>
-    <string name="buscar">Search</string>
-    <string name="eliminar">Delete</string>
+    <string name="buscar">Rechercher</string>
+    <string name="eliminar">Effacer</string>
 
     <!-- Etiquetas -->
     <string name="cantidad_total">Quantité totale: </string>
@@ -57,7 +56,7 @@
     <string name="tabla_porcentaje">% 100</string>
     <string name="tabla_medida">/µL</string>
     <string name="tabla_fecha">Date</string>
-    <string name="tabla_nombre">Name</string>
+    <string name="tabla_nombre">Nom</string>
 
 
     <string name="baso">BASO</string>
@@ -81,7 +80,6 @@
     <string name="other2_des">Other 2</string>
 
 
-    <string name="tabla_header_con_nrbc">Avec nRBC</string>
     <string name="tabla_header_sin_nrbc">Sans nRBC</string>
     <string name="tabla_total_wbc">Totale de WBC</string>
     <string name="include_nrbc">Inclure nRBC</string>
@@ -92,25 +90,27 @@
     <string name="cantidad_alerta">Quantité d\'alerte</string>
 
     <!--Reporte-->
-    <string name="etiqueta_nombre">Name:</string>
+    <string name="etiqueta_nombre">Nom:</string>
     <string name="etiqueta_fecha">Date:</string>
-    <string name="etiqueta_telefono">Phone:</string>
-    <string name="etiqueta_cantidad_total_wbc">Total amount of WBC:</string>
-    <string name="etiqueta_total_wbc">Total WBC:</string>
-    <string name="etiqueta_total_con_nrbc">With nRBC</string>
-    <string name="etiqueta_total_sin_nrbc">Without nRBC</string>
-    <string name="etiqueta_fecha_generacion">Current date:</string>
-    <string name="titulo_reporte">Hemogram report</string>
+    <string name="etiqueta_telefono">Téléphone:</string>
+    <string name="etiqueta_cantidad_total_wbc">Quantité totale des WBC:</string>
+    <string name="etiqueta_total_wbc">Totale de WBC:</string>
+    <string name="etiqueta_total_con_nrbc">Avec nRBC</string>
+    <string name="etiqueta_total_sin_nrbc">Sans nRBC</string>
+    <string name="etiqueta_fecha_generacion">Date actuelle:</string>
+    <string name="titulo_reporte">Rapport d\'hémogramme</string>
 
-    <string name="mensaje_indefinido">Undefined</string>
+    <string name="mensaje_indefinido">Indéfini</string>
     <string name="configuracion_botones">Configuration des boutons</string>
     <string name="vibrar">Vibrer</string>
     <string name="sonido">Son</string>
     <string name="filtros">Filtres</string>
 
-    <string name="message_permission_denied">Some Permission is Denied</string>
-    <string name="from">From:</string>
+    <string name="message_permission_denied">Certaines autorisations ont été refusées</string>
+    <string name="desde">De:</string>
+    <string name="hasta">À:</string>
     <string name="calcular_resultado">Calculer le résultat</string>
     <string name="continuar_contando">Continuer à compter</string>
     <string name="cantidad_total_mayor_cero">Le montant total doit être supérieur à 0</string>
+    <string name="tabla_header_con_nrbc">Avec nRBC</string>
 </resources>

@@ -62,7 +62,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@string/from"
+                    android:text="@string/desde"
                     android:layout_gravity="center_vertical"/>
 
                 <RelativeLayout
@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@string/to"
+                    android:text="@string/hasta"
                     android:layout_gravity="center_vertical"/>
 
                 <RelativeLayout
