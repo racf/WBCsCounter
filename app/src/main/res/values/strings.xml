@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WBCs Counter</string>
+    <string name="app_name">HemacountApp</string>
 
     <string name="empty" translatable="false"> </string>
 
@@ -101,7 +101,7 @@
     <string name="etiqueta_total_con_nrbc">With nRBC</string>
     <string name="etiqueta_total_sin_nrbc">Without nRBC</string>
     <string name="etiqueta_fecha_generacion">Current date:</string>
-    <string name="titulo_reporte">Sample report WBC</string>
+    <string name="titulo_reporte">Hemogram report</string>
 
     <string name="mensaje_indefinido">Undefined</string>
     <string name="configuracion_botones">Button configuration</string>

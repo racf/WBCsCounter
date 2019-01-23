@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WBCs Counter</string>
+    <string name="app_name">HemacountApp</string>
 
     <!-- Menu nav options-->
     <string name="menu_counter">Contador diferencial de WBC</string>
@@ -70,13 +70,13 @@
     <string name="other1">Otro 1</string>
     <string name="other2">Otro 2</string>
 
-    <string name="baso_des">Basophils</string>
-    <string name="eos_des">Eosinophils</string>
-    <string name="mono_des">Monocytes</string>
-    <string name="st_des">Immature granulocyte</string>
-    <string name="seg_des">Neutrophils</string>
-    <string name="lym_des">Lymphocytes</string>
-    <string name="nrbc_des">Nucleated red blood cells</string>
+    <string name="baso_des">Basófilos</string>
+    <string name="eos_des">Eosinófilos</string>
+    <string name="mono_des">Monocitos</string>
+    <string name="st_des">Bandas</string>
+    <string name="seg_des">Neutrófilos</string>
+    <string name="lym_des">Linfocitos</string>
+    <string name="nrbc_des">Eritrocitos nucleados</string>
     <string name="other1_des">Otro 1</string>
     <string name="other2_des">Otro 2</string>
 
@@ -99,7 +99,7 @@
     <string name="etiqueta_total_con_nrbc">Con nRBC</string>
     <string name="etiqueta_total_sin_nrbc">Sin nRBC</string>
     <string name="etiqueta_fecha_generacion">Fecha actual:</string>
-    <string name="titulo_reporte">Reporte de la muestra de WBC</string>
+    <string name="titulo_reporte">Reporte de citometría hemática</string>
 
     <string name="mensaje_indefinido">Indefinido</string>
     <string name="configuracion_botones">Configuración de botones</string>
