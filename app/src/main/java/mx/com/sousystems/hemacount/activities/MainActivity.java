@@ -33,8 +33,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.apache.commons.codec.binary.StringUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent intentAjuste = new Intent(getApplicationContext(), AjusteActivity.class);
                         startActivity(intentAjuste);
                         return true;
+                    case R.id.menu_about:
+                        drawerLayout.closeDrawers();
+                        Intent intentAbout = new Intent(getApplicationContext(), AboutActivity.class);
+                        startActivity(intentAbout);
                     default:
                         break;
                 }

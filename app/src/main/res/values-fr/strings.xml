@@ -7,6 +7,7 @@
     <string name="menu_patient">Patient</string>
     <string name="menu_record">Historique</string>
     <string name="menu_setting">Paramètres</string>
+    <string name="menu_about">Sur</string>
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Nouveau patient</string>
@@ -113,4 +114,6 @@
     <string name="continuar_contando">Continuer à compter</string>
     <string name="cantidad_total_mayor_cero">Le montant total doit être supérieur à 0</string>
     <string name="tabla_header_con_nrbc">Avec nRBC</string>
+
+    <string name="mensaje_about">Desarrollada por Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez en colaboración con el  MVZ Esp. Edgar David González Gallegos.</string>
 </resources>

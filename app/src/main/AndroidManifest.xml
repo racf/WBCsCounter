@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.com.sousystems.hemacount">
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,19 +14,37 @@
         android:supportsRtl="true">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id"/>
+            android:value="@string/admob_app_id" />
 
-        <activity android:name="mx.com.sousystems.hemacount.activities.MainActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:theme="@style/AppThemeDrawer">
+        <activity
+            android:name=".activities.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppThemeDrawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="mx.com.sousystems.hemacount.activities.PacienteActivity" android:label="@string/menu_patient" android:theme="@style/AppTheme"/>
-        <activity android:name="mx.com.sousystems.hemacount.activities.CalculoActivity" android:label="@string/resultado" android:configChanges="orientation|keyboardHidden" android:theme="@style/AppTheme"/>
-        <activity android:name="mx.com.sousystems.hemacount.activities.AjusteActivity" android:label="@string/menu_setting" android:theme="@style/AppTheme"/>
-        <activity android:name="mx.com.sousystems.hemacount.activities.HistorialActivity" android:label="@string/menu_record" android:configChanges="orientation|keyboardHidden" android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".activities.PacienteActivity"
+            android:label="@string/menu_patient"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.CalculoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/resultado"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AjusteActivity"
+            android:label="@string/menu_setting"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.HistorialActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/menu_record"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.AboutActivity" android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

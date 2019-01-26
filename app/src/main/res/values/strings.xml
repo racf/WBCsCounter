@@ -8,10 +8,11 @@
     <string name="menu_patient">Patient</string>
     <string name="menu_record">Record</string>
     <string name="menu_setting">Setting</string>
+    <string name="menu_about">About</string>
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Create patient</string>
-    <string name="mensaje_exito_guardado">Successfully saved</string>
+    <string name="mensaje_exito_guardado">Saved successfully in the history</string>
     <string name="mensaje_campo_obligatorio">Complete the required fields</string>
     <string name="mensaje_error_guardar">Error saving</string>
     <string name="mensaje_seleccione_paciente">--Select patient--</string>
@@ -130,4 +131,6 @@
     <string name="admob_unit_id_ejemplo" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
     <string name="mensaje_sin_historial">Historical not available</string>
+
+    <string name="mensaje_about">Desarrollada por Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez en colaboración con el  MVZ Esp. Edgar David González Gallegos.</string>
 </resources>

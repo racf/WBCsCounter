@@ -7,10 +7,11 @@
     <string name="menu_patient">Paciente</string>
     <string name="menu_record">Historial</string>
     <string name="menu_setting">Configuración</string>
+    <string name="menu_about">Acerca de</string>
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Crear paciente</string>
-    <string name="mensaje_exito_guardado">Guardado exitosamente</string>
+    <string name="mensaje_exito_guardado">Guardado con éxito en el historial</string>
     <string name="mensaje_campo_obligatorio">Completar campos obligatorios</string>
     <string name="mensaje_error_guardar">Error al guardar</string>
     <string name="mensaje_seleccione_paciente">--Seleccione paciente--</string>
@@ -112,4 +113,6 @@
     <string name="calcular_resultado">Calcular resultado</string>
     <string name="continuar_contando">Continuar contando</string>
     <string name="cantidad_total_mayor_cero">La cantidad total debe ser mayor que 0</string>
+
+    <string name="mensaje_about">Developed by Fernando Ramírez Cipriano and Carlos Alberto Álvarez Vázquez in collaboration with the MVZ Esp. Edgar David González Gallegos.</string>
 </resources>

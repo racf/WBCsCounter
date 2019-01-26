@@ -19,13 +19,11 @@ import java.util.List;
 
 import mx.com.sousystems.hemacount.R;
 import mx.com.sousystems.hemacount.dto.ReporteDTO;
+import mx.com.sousystems.hemacount.util.Constante;
 import mx.com.sousystems.hemacount.util.Exportacion;
 import mx.com.sousystems.hemacount.util.Util;
 
 public class ExportarServiceImpl implements ExportarService {
-    private static final String WBCS = "wbcs";
-    private static final String XLS = ".xls";
-    private static final String PDF = ".pdf";
 
     /**
      * @param context el contexto donde se ejecutará el método
@@ -35,13 +33,13 @@ public class ExportarServiceImpl implements ExportarService {
      */
     @Override
     public Workbook reporteExcel(Context context, ReporteDTO reporteDTO, int opcion) {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS+"/";
-        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(XLS);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ Constante.HEMACOUNT+"/";
+        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(Constante.XLS);
 
         String titulo = context.getString(R.string.titulo_reporte);
 
         HSSFWorkbook wb = new HSSFWorkbook();
-        HSSFSheet sheet = wb.createSheet(WBCS);
+        HSSFSheet sheet = wb.createSheet(Constante.HEMACOUNT);
         Exportacion.crearTitulo(wb, sheet, titulo);
         Exportacion.crearDescripcion(wb, sheet, reporteDTO);
         List<String> encabezado = Exportacion.crearEncabezado(sheet, reporteDTO);
@@ -78,8 +76,8 @@ public class ExportarServiceImpl implements ExportarService {
      */
     @Override
     public Document reportePDF(Context context, ReporteDTO reporteDTO, int opcion) {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS+"/";
-        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(PDF);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+Constante.HEMACOUNT+"/";
+        String fileName = reporteDTO.getNombre().concat("-").concat(Util.fechaActual()).concat(Constante.PDF);
         String file = path+fileName;
         Document document = new Document();
         String titulo = context.getString(R.string.titulo_reporte);

@@ -32,7 +32,6 @@ public class Util {
     private static final String DATE_FORMAT_PATTERN2 = "yyyy-MM-dd-HH-mm-ss";
     private static final String DATE_FORMAT_PATTERN3 = "yyyy-MM-dd HH:mm:ss";
     private static final Integer PORCENTAJE = 100;
-    private static final String WBCS = "wbcs";
 
     private Util() {
         throw new IllegalStateException("Util class");
@@ -240,7 +239,7 @@ public class Util {
      * @return verdadero si el directorio existe.
      */
     public static boolean directoryExists(){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+Constante.HEMACOUNT;
         File dir = new File(path);
         if(dir.exists()){
             return true;
@@ -251,7 +250,7 @@ public class Util {
 
     public static boolean generarDirectorio(){
         boolean band;
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+WBCS;
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+Constante.HEMACOUNT;
         File folder = new File(path);
         if(!folder.exists()){
             if(!folder.mkdir()){
