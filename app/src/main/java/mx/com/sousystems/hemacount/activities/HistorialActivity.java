@@ -24,6 +24,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -72,11 +75,18 @@ public class HistorialActivity extends AppCompatActivity implements AdapterView.
     //Reporte
     ReporteDTO reporteDTO;
     ExportarService exportarService;
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
         setToolbar();
+
+        mAdView = (AdView) findViewById(R.id.avBannerHistorial);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         cargarComponente();
         pacienteController = new PacienteController(this);
         muestraController = new MuestraController(this);

@@ -119,12 +119,12 @@
                     android:orientation="vertical" />
 
                 <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/avBannerOne"
+                    android:id="@+id/avBannerPrincipal"
                     android:layout_marginTop="@dimen/margin_padding_8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     ads:adSize="BANNER"
-                    ads:adUnitId="@string/admob_unit_id_ejemplo" />
+                    ads:adUnitId="@string/admob_unit_id_principal" />
 
 
             </LinearLayout>

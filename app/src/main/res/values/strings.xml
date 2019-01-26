@@ -114,6 +114,9 @@
     <string name="preference_cantidad_alertar" translatable="false">CantidadAlertarPreference</string>
     <string name="preference_activar_sonido" translatable="false">ActivarSonidoPreference</string>
     <string name="preference_activar_vibracion" translatable="false">ActivarVibracionPreference</string>
+    <string name="preference_conteo_temporal" translatable="false">ConteoTemporalPreference</string>
+    <string name="preference_conteo_anterior_temporal" translatable="false">ConteoAnteriorTemporalPreference</string>
+
     <string name="desde">From:</string>
     <string name="hasta">To:</string>
     <string name="calcular_resultado">Calculate result</string>

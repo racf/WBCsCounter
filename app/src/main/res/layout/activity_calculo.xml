@@ -5,35 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CalculoActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar"/>
+            layout="@layout/toolbar" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:padding="@dimen/margin_padding_16">
 
-
-            <TextView
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/avBannerCalculo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="left"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/admob_unit_id_calculo" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8"
                 android:text="@string/asociar_a_paciente"
-                android:textColor="@color/blue_dark"
-                android:textSize="@dimen/subtitulo_3"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_8">
 
                 <Spinner
                     android:id="@+id/spinnerPaciente"
@@ -65,12 +73,14 @@
                     style="@style/Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/btnCalcular"
                     android:layout_toLeftOf="@+id/btnCalcular"
                     android:hint="@string/input_cantidad_total"
-                    android:inputType="number" />
+                    android:imeOptions="actionDone"
+                    android:inputType="number">
+                    <requestFocus />
+                </EditText>
 
                 <Button
                     android:id="@+id/btnCalcular"
@@ -87,7 +97,7 @@
             <ListView
                 android:id="@+id/listViewHeaderTabla"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content" />
 
             <View
                 android:layout_width="match_parent"
@@ -98,7 +108,7 @@
                 android:id="@+id/listViewTabla"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="2dp"></ListView>
+                android:layout_marginTop="2dp" />
 
             <TableLayout
                 android:id="@+id/tablaResultado"

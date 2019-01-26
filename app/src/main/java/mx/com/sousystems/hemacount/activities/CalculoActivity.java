@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +71,18 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
     //Reporte
     ReporteDTO reporteDTO;
     ExportarService exportarService;
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculo);
         setToolbar();
+
+        mAdView = (AdView) findViewById(R.id.avBannerCalculo);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         pacienteController = new PacienteController(this);
         listaPacienteAux = new ArrayList<>();
         muestra = new Muestra();
@@ -122,7 +132,7 @@ public class CalculoActivity extends AppCompatActivity implements  AdapterView.O
         spinnerPaciente = findViewById(R.id.spinnerPaciente);
         spinnerPaciente.setOnItemSelectedListener(this);
         etCantidad = findViewById(R.id.etCantidad);
-        etCantidad.setSelection(etCantidad.length());
+        //etCantidad.setSelection(etCantidad.length());
         tvTotalConNrbc = findViewById(R.id.tvTotalConNrbc);
         tvTotalConNrbc.setText(String.valueOf(0));
         tvTotalSinNRbc = findViewById(R.id.tvTotalSinNRbc);

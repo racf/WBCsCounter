@@ -30,6 +30,10 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.apache.commons.codec.binary.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int iCantidadAlertar;
     private List<Celula> celulasList;
     private AdView mAdView;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //CARGAR PUBLICIDAD
         MobileAds.initialize(this, getString(R.string.admob_app_id));
-        mAdView = (AdView) findViewById(R.id.avBannerOne);
+        mAdView = (AdView) findViewById(R.id.avBannerPrincipal);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
 
         setNavigationDrawer();
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -82,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvCantidad = findViewById(R.id.tvCantidad);
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        gson = new Gson();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -121,20 +127,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
     }
 
-    private void cargarPreferencias(){
+    private void cargarPreferencias() {
         String sCantidadAlertar = Util.readSharedPreference(this, R.string.preference_cantidad_alertar);
-        if (!sCantidadAlertar.isEmpty()){
+        if (!sCantidadAlertar.isEmpty()) {
             try {
                 iCantidadAlertar = Integer.parseInt(sCantidadAlertar);
-            }catch (Exception e){
+            } catch (Exception e) {
                 iCantidadAlertar = -1;
             }
         }
         sActivarSonido = Util.readSharedPreference(this, R.string.preference_activar_sonido);
         sActivarVibracion = Util.readSharedPreference(this, R.string.preference_activar_vibracion);
 
+        String sConteoTemporalJson = Util.readSharedPreference(this, R.string.preference_conteo_temporal);
+        String sConteoAnteriorTemporalJson = Util.readSharedPreference(this, R.string.preference_conteo_anterior_temporal);
+        if (!sConteoTemporalJson.isEmpty()) {
+            muestraDetalleArrayList = gson.fromJson(sConteoTemporalJson, new TypeToken<List<MuestraDetalle>>() {
+            }.getType());
+            int total = 0;
+            llCelulas = findViewById(R.id.llCelulas);
+            for (int index = 0; index < llCelulas.getChildCount(); index++) { //PARA CADA VISTA HIJO
+                LinearLayout llCelulasRow = (LinearLayout) llCelulas.getChildAt(index); // VISTA HIJO, FILA
+                for (int indexCelula = 0; indexCelula < llCelulasRow.getChildCount(); indexCelula++) { //VISTA HIJO DE FILA, COLUMNA - CELULA
+                    RelativeLayout rlCelula = (RelativeLayout) llCelulasRow.getChildAt(indexCelula);
+                    String celulaId = (String) rlCelula.getTag();
+                    for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
+                        if (muestraDetalle.getCelulaId().equalsIgnoreCase(celulaId)) {
+                            TextView tvCantidadPorCelula = (TextView) rlCelula.findViewById(R.id.tvCantidadPorCelula);
+                            tvCantidadPorCelula.setText(String.valueOf(muestraDetalle.getCantidad()));
+                            total += muestraDetalle.getCantidad();
+                        }
+                    }
+                }
+            }
+            tvCantidad.setText(String.valueOf(total));
+        }
+        if (!sConteoAnteriorTemporalJson.isEmpty()){
+            previousMuestraDetalleArrayList = gson.fromJson(sConteoAnteriorTemporalJson, new TypeToken<List<MuestraDetalle>>() {
+            }.getType());
+        }
+
+
     }
-    private void permisos(){
+
+    private void permisos() {
         //Comprobando la version de Android...
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final List<String> permissionsList = new ArrayList<>();
@@ -149,12 +185,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Añade los permisos a una lista en caso de que no esten autorizados por el usuario.
+     *
      * @param permissionsList lista de los permisos
-     * @param permission los permisos que se van a permitir.
+     * @param permission      los permisos que se van a permitir.
      * @return verdadero si los permisos ya fueron autorizados por el usuario.
      */
     private boolean addPermission(List<String> permissionsList, String permission) {
-        if(checkPermission(permission) == false){
+        if (checkPermission(permission) == false) {
             permissionsList.add(permission);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!shouldShowRequestPermissionRationale(permission))
@@ -166,10 +203,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Metodo que comprueba si tenemos activo algun determinado permiso.
+     *
      * @param permission los permisos que se verifican si estan activos o no.
      * @return verdadero si los permisos se encuentran activos.
      */
-    private boolean checkPermission(String permission){
+    private boolean checkPermission(String permission) {
         int result = this.checkCallingOrSelfPermission(permission);
         return result == PackageManager.PERMISSION_GRANTED;
     }
@@ -227,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             int resId = Util.getDrawableResourceIDFromResourcesByName(this, celula.getId());
             Log.d("WBCsCounter", "ResId: " + resId);
-            if (resId!=0) {
+            if (resId != 0) {
                 ivIconoCelula.setImageResource(resId);
             }
             if (vistasAgregadas == 3) {
@@ -260,20 +298,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void calcularResultado(){
+    private void calcularResultado() {
         int cantidadTotal = 0;
-        for (MuestraDetalle muestraDetalle: muestraDetalleArrayList){
+        for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
             cantidadTotal += muestraDetalle.getCantidad();
         }
-        if (cantidadTotal>0){
+        if (cantidadTotal > 0) {
             Intent intent = new Intent(this, CalculoActivity.class);
             intent.putExtra("muestraDetalle", muestraDetalleArrayList);
             intent.putExtra("cantidadTotal", cantidadTotal);
             startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(this, R.string.cantidad_total_mayor_cero, Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -296,7 +335,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     tvCantidad.setText(String.valueOf(total));
 
-
                     llCelulas = findViewById(R.id.llCelulas);
                     for (int index = 0; index < llCelulas.getChildCount(); index++) { //PARA CADA VISTA HIJO
                         LinearLayout llCelulasRow = (LinearLayout) llCelulas.getChildAt(index); // VISTA HIJO, FILA
@@ -312,10 +350,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     }
+                    previousMuestraDetalleArrayList = new ArrayList<>();
+                    String sMuestraDetalleJson = gson.toJson(muestraDetalleArrayList);
+                    Util.writeSharedPreference(this, R.string.preference_conteo_temporal, sMuestraDetalleJson);
+                    Util.writeSharedPreference(this, R.string.preference_conteo_anterior_temporal, "");
                 }
                 break;
             case R.id.btnReiniciar:
                 crearCelulas();
+                Util.writeSharedPreference(this, R.string.preference_conteo_temporal, "");
+                Util.writeSharedPreference(this, R.string.preference_conteo_anterior_temporal, "");
                 break;
             case R.id.rlCelula:
                 Log.d("WBCsCounter", (String) v.getTag());
@@ -323,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int indexCelula = -1;
 
                 for (int i = 0; i < celulasList.size(); i++) {
-                    if (celulasList.get(i) !=null && celulasList.get(i).getId().equals(celulaId)) {
+                    if (celulasList.get(i) != null && celulasList.get(i).getId().equals(celulaId)) {
                         indexCelula = i;
                     }
                 }
@@ -340,7 +384,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int total = 0;
                 for (MuestraDetalle muestraDetalle : muestraDetalleArrayList) {
                     if (muestraDetalle.getCelulaId().equalsIgnoreCase(celulaId)) {
-
                         muestraDetalle.setCantidad(muestraDetalle.getCantidad() + 1);
                         TextView tvCantidadPorCelula = (TextView) v.findViewById(R.id.tvCantidadPorCelula);
                         tvCantidadPorCelula.setText(String.valueOf(muestraDetalle.getCantidad()));
@@ -349,18 +392,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     total += muestraDetalle.getCantidad();
                 }
                 tvCantidad.setText(String.valueOf(total));
-                if (sActivarVibracion.isEmpty() || (!sActivarVibracion.isEmpty() && Boolean.parseBoolean(sActivarVibracion))) {
+
+                String sMuestraDetalleJson = gson.toJson(muestraDetalleArrayList);
+                String sPreviousMuestraDetalleJson = gson.toJson(previousMuestraDetalleArrayList);
+                Util.writeSharedPreference(this, R.string.preference_conteo_temporal, sMuestraDetalleJson);
+                Util.writeSharedPreference(this, R.string.preference_conteo_anterior_temporal, sPreviousMuestraDetalleJson);
+
+
+                if (sActivarVibracion.isEmpty() || Boolean.parseBoolean(sActivarVibracion)) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
                     } else {
                         vibrator.vibrate(100);
                     }
                 }
-                if (sActivarSonido.isEmpty() || (!sActivarSonido.isEmpty() && Boolean.parseBoolean(sActivarSonido))) {
+                if (sActivarSonido.isEmpty() || Boolean.parseBoolean(sActivarSonido)) {
                     int frequency = 100 * indexCelula;
                     Util.playSound(2500 + frequency, 44100);
                 }
-                if(iCantidadAlertar!=-1 && total==iCantidadAlertar){
+                if (iCantidadAlertar != -1 && total == iCantidadAlertar) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage(R.string.cantidad_alerta)
                             .setPositiveButton(R.string.calcular, new DialogInterface.OnClickListener() {
@@ -386,15 +436,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Devolución de llamada para el resultado de la solicitud de permisos. Este método se invoca para cada llamada en requestPermissions(android.app.Activity, String[], int).
-     * @param requestCode El código de solicitud pasó en requestPermissions (android.app.Activity, String [], int)
-     * @param permissions String: Los permisos solicitados. Nunca nulo
+     *
+     * @param requestCode  El código de solicitud pasó en requestPermissions (android.app.Activity, String [], int)
+     * @param permissions  String: Los permisos solicitados. Nunca nulo
      * @param grantResults int: Los resultados de la concesión para los permisos correspondientes son PERMISSION_GANTED o PERMISSION_DENIED. Nunca nulo
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
-            {
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 Map<String, Integer> perms = new HashMap<String, Integer>();
                 // Initial
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
