@@ -7,11 +7,11 @@
     <string name="menu_patient">Patient</string>
     <string name="menu_record">Historique</string>
     <string name="menu_setting">Paramètres</string>
-    <string name="menu_about">Sur</string>
+    <string name="menu_about">À propos de</string>
 
     <!--Mensajes-->
     <string name="mensaje_titulo_crear_paciente">Nouveau patient</string>
-    <string name="mensaje_exito_guardado">Enregistré avec succès</string>
+    <string name="mensaje_exito_guardado">Enregistré avec succès dans l\'historique</string>
     <string name="mensaje_campo_obligatorio">Compléter les champs obligatoires</string>
     <string name="mensaje_error_guardar">Erreur à l\'enregistrement</string>
     <string name="mensaje_seleccione_paciente">--Choisir patient--</string>
@@ -70,15 +70,15 @@
     <string name="other1">Autre 1</string>
     <string name="other2">Autre 2</string>
 
-    <string name="baso_des">Basophils</string>
-    <string name="eos_des">Eosinophils</string>
+    <string name="baso_des">Basophiles</string>
+    <string name="eos_des">Éosinophiles</string>
     <string name="mono_des">Monocytes</string>
-    <string name="st_des">Immature granulocyte</string>
-    <string name="seg_des">Neutrophils</string>
+    <string name="st_des">Granulocytes immatures</string>
+    <string name="seg_des">Neutrophiles</string>
     <string name="lym_des">Lymphocytes</string>
-    <string name="nrbc_des">Nucleated red blood cells</string>
-    <string name="other1_des">Other 1</string>
-    <string name="other2_des">Other 2</string>
+    <string name="nrbc_des">Érythrocytes nucléés</string>
+    <string name="other1_des">Autre 1</string>
+    <string name="other2_des">Autre 2</string>
 
 
     <string name="tabla_header_sin_nrbc">Sans nRBC</string>
@@ -115,5 +115,5 @@
     <string name="cantidad_total_mayor_cero">Le montant total doit être supérieur à 0</string>
     <string name="tabla_header_con_nrbc">Avec nRBC</string>
 
-    <string name="mensaje_about">Desarrollada por Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez en colaboración con el  MVZ Esp. Edgar David González Gallegos.</string>
+    <string name="mensaje_about">Créé par Fernando Ramírez Cipriano et Carlos Alberto Álvarez Vázquez en collaboration avec le spécialiste vétérinaire Edgar David González Gallegos.</string>
 </resources>

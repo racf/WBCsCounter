@@ -114,5 +114,5 @@
     <string name="continuar_contando">Continuar contando</string>
     <string name="cantidad_total_mayor_cero">La cantidad total debe ser mayor que 0</string>
 
-    <string name="mensaje_about">Developed by Fernando Ramírez Cipriano and Carlos Alberto Álvarez Vázquez in collaboration with the MVZ Esp. Edgar David González Gallegos.</string>
+    <string name="mensaje_about">Creada por Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez en colaboración con el MVZ Esp. Edgar David González Gallegos.</string>
 </resources>

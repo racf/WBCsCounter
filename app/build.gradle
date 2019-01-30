@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -28,10 +30,9 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    // https://mvnrepository.com/artifact/org.apache.poi/poi
     implementation 'org.apache.poi:poi:3.17'
-    // https://mvnrepository.com/artifact/com.itextpdf/itextg
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.google.android.gms:play-services-ads:17.1.2'
     implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.android.support:multidex:1.0.3'
 }
