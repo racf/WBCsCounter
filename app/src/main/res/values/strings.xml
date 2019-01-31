@@ -132,5 +132,9 @@
 
     <string name="mensaje_sin_historial">Historical not available</string>
 
+    <string name="creada_por">Created by</string>
+    <string name="creadores">Fernando Ramírez Cipriano and Carlos Alberto Álvarez Vázquez</string>
+    <string name="colaboracion_con">Collaboration with</string>
+    <string name="colaboradores">Veterinary Specialist Edgar David González Gallegos</string>
     <string name="mensaje_about">Created by Fernando Ramírez Cipriano and Carlos Alberto Álvarez Vázquez in collaboration with the Veterinary Specialist Edgar David González Gallegos.</string>
 </resources>

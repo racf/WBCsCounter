@@ -114,6 +114,9 @@
     <string name="continuar_contando">Continuer à compter</string>
     <string name="cantidad_total_mayor_cero">Le montant total doit être supérieur à 0</string>
     <string name="tabla_header_con_nrbc">Avec nRBC</string>
-
+    <string name="creada_por">Créé par</string>
+    <string name="creadores">Fernando Ramírez Cipriano et Carlos Alberto Álvarez Vázquez</string>
+    <string name="colaboracion_con">Collaboration avec</string>
+    <string name="colaboradores">Spécialiste vétérinaire Edgar David González Gallegos</string>
     <string name="mensaje_about">Créé par Fernando Ramírez Cipriano et Carlos Alberto Álvarez Vázquez en collaboration avec le spécialiste vétérinaire Edgar David González Gallegos.</string>
 </resources>

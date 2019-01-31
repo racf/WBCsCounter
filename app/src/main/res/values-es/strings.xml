@@ -114,5 +114,9 @@
     <string name="continuar_contando">Continuar contando</string>
     <string name="cantidad_total_mayor_cero">La cantidad total debe ser mayor que 0</string>
 
+    <string name="creada_por">Creada por</string>
+    <string name="creadores">Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez</string>
+    <string name="colaboracion_con">Colaboración con</string>
+    <string name="colaboradores">MVZ Esp. Edgar David González Gallegos</string>
     <string name="mensaje_about">Creada por Fernando Ramírez Cipriano y Carlos Alberto Álvarez Vázquez en colaboración con el MVZ Esp. Edgar David González Gallegos.</string>
 </resources>
