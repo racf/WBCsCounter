@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/blue_dark"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/margin_padding_12"
+    android:paddingTop="@dimen/margin_padding_12"
+    android:paddingBottom="@dimen/margin_padding_12"
+    android:weightSum="12">
 
     <TextView
         android:id="@+id/tvHeaderFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/tabla_fecha"
-        android:gravity="center"
         style="@style/HeaderStyle"
-        android:layout_weight="1"
-        />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="@dimen/margin_padding_6"
+        android:paddingLeft="@dimen/margin_padding_6"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/tabla_fecha" />
 
     <TextView
         android:id="@+id/tvHeaderNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/tabla_nombre"
-        android:gravity="center"
         style="@style/HeaderStyle"
-        android:layout_weight="2"
-        />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="@dimen/margin_padding_6"
+        android:paddingLeft="@dimen/margin_padding_6"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="@string/tabla_nombre" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/empty" />
 </LinearLayout>
