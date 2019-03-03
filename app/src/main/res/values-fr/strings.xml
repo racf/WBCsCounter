@@ -119,4 +119,7 @@
     <string name="colaboracion_con">Collaboration avec</string>
     <string name="colaboradores">Spécialiste vétérinaire Edgar David González Gallegos</string>
     <string name="mensaje_about">Créé par Fernando Ramírez Cipriano et Carlos Alberto Álvarez Vázquez en collaboration avec le spécialiste vétérinaire Edgar David González Gallegos.</string>
+
+    <string name="open_with">Ouvrir avec</string>
+    <string name="creacion_archivo">Création de fichier</string>
 </resources>

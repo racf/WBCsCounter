@@ -137,4 +137,8 @@
     <string name="colaboracion_con">Collaboration with</string>
     <string name="colaboradores">Veterinary Specialist Edgar David González Gallegos</string>
     <string name="mensaje_about">Created by Fernando Ramírez Cipriano and Carlos Alberto Álvarez Vázquez in collaboration with the Veterinary Specialist Edgar David González Gallegos.</string>
+    <string name="channel_name" translatable="false">HemaCount Channel</string>
+    <string name="channel_description" translatable="false">HemaCount Channel</string>
+    <string name="open_with">Open with</string>
+    <string name="creacion_archivo">File creation</string>
 </resources>
