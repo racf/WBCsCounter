@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.FileProvider;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -116,12 +117,12 @@ public class ExportarServiceImpl implements ExportarService {
     }
 
     private void generateNotification(Context context, String mimeType, File fromFile) {
-        Uri path;
-        if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+        Uri path = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), fromFile);
+        /*if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
             path = Uri.parse(fromFile.getPath());
         } else{
             path = Uri.fromFile(fromFile);
-        }
+        }*/
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //FLAG_ACTIVITY_CLEAR_TOP
         intent.setDataAndType(path, mimeType);
@@ -130,6 +131,8 @@ public class ExportarServiceImpl implements ExportarService {
         } else{
             intent.setDataAndType(path, mimeType);
         }
+
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Intent chooser = Intent.createChooser(intent, context.getResources().getString(R.string.open_with));
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, chooser, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, Constante.NOTIFICATION_CHANNEL_ID)
