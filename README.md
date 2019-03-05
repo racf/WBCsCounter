@@ -11,3 +11,7 @@ Esta aplicación facilita (o es de apoyo en) la realización del conteo diferenc
 Proximamente en 
 
 > **iOS:** [HemaCount].
+
+## Logo
+
+![HemaCount](logo-hemacount.png)
