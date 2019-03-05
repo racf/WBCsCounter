@@ -13,8 +13,4 @@ Proximamente en
 > **iOS:** [HemaCount].
 
 ## Logo
--> ![HemaCount](logo-hemacount.png) <-
-
-.center {
-  text-align: center;
-}
+->![HemaCount](logo-hemacount.png)<-
