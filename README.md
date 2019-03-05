@@ -13,5 +13,4 @@ Proximamente en
 > **iOS:** [HemaCount].
 
 ## Logo
-
-![HemaCount](logo-hemacount.png)
+->![HemaCount](logo-hemacount.png =320x320)<-
